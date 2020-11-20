@@ -4,7 +4,7 @@
   "description": "A Tic Tac Toe board game in Typescript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jasmine-ts src/spec/BoardSpec.ts"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
     "@types/jasmine": "^3.6.1",
+    "jasmine": "^3.6.3",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts": "^0.3.0",
     "ts-node": "^9.0.0",
