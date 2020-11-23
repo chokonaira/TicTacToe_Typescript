@@ -3,4 +3,3 @@ A Tic Tac Toe board game in Typescript
 
 ## Badge
 [![CircleCI](https://circleci.com/gh/chokonaira/TicTacToe_Typescript.svg?style=svg)](https://app.circleci.com/pipelines/github/chokonaira/TicTacToe_Typescript)
-![Node.js CI](https://github.com/chokonaira/TicTacToe_Typescript/workflows/Node.js%20CI/badge.svg)
