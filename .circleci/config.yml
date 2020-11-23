@@ -2,7 +2,10 @@ version: 2.1
 
 orbs:
   node: circleci/node@2.0.3
-
+workflows:
+  node-tests:
+    jobs:
+      - node/test
 commands:
   setup-node-and-npm-install-with-cache:
     steps:
