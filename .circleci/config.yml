@@ -1,7 +1,25 @@
 version: 2.1
+
 orbs:
-  node: circleci/node@12.16.1
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+  node: circleci/node@2.0.3
+
+commands:
+  setup-node-and-npm-install-with-cache:
+    steps:
+      - node/install:
+          install-npm: true
+          node-version: latest
+      - node/install-packages:
+          pkg-manager: npm
+          cache-key: package-lock.json
+
+jobs:
+  lint-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - setup-node-and-npm-install-with-cache
+      - run:
+          name: Run tests
+          command: npm run test
