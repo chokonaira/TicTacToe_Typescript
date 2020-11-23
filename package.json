@@ -4,7 +4,7 @@
   "description": "A Tic Tac Toe board game in Typescript",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine-ts"
+    "test": "npx jasmine-ts spec/BuildSpec.ts"
   },
   "repository": {
     "type": "git",
