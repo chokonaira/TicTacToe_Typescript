@@ -1,7 +1,10 @@
 class Board {
-  // welcomeMessage(){
-  //   return "Welcome to TicTacToe";
-  // };
+  constructor(){
+
+  }
+  hasWinner(){
+    return "Game over";
+  };
 }
 
 export default Board;
