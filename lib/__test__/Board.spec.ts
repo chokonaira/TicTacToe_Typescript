@@ -30,6 +30,28 @@ import Board from "../Board";
     board.hasWinner('X')
     expect(board.checkRowWin('X')).toEqual(true)
   });
+
+  test('Win on second row', ()=>{
+    let grid = [
+      "", "", "",
+      "X", "X", "X", 
+      "", "", ""
+    ]
+    let board = new Board(grid);
+    board.hasWinner('X')
+    expect(board.checkRowWin('X')).toEqual(true)
+  });
+
+  test('Win on third row', ()=>{
+    let grid = [
+      "", "", "",
+      "", "", "",
+      "X", "X", "X" 
+    ]
+    let board = new Board(grid);
+    board.hasWinner('X')
+    expect(board.checkRowWin('X')).toEqual(true)
+  });
   
   test('check empty board state', ()=>{
     let grid = [
