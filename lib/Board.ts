@@ -12,7 +12,12 @@ class Board {
   }
 
   hasWinner(symbol: string): boolean {
-    if (this.checkRowWin(symbol) || this.checkColumnWin(symbol)) return true;
+    if (
+      this.checkRowWin(symbol) ||
+      this.checkColumnWin(symbol) ||
+      this.checkDiagonalWin(symbol)
+    )
+      return true;
     return false;
   }
   checkRowWin(symbol: string): boolean {
@@ -28,6 +33,13 @@ class Board {
       (this.grid[0] && this.grid[3] && this.grid[6] === symbol) ||
       (this.grid[1] && this.grid[4] && this.grid[7] === symbol) ||
       (this.grid[2] && this.grid[5] && this.grid[8] === symbol)
+    )
+      return true;
+  }
+  checkDiagonalWin(symbol: string): boolean {
+    if (
+      (this.grid[0] && this.grid[4] && this.grid[8] === symbol) ||
+      (this.grid[2] && this.grid[4] && this.grid[6] === symbol)
     )
       return true;
   }

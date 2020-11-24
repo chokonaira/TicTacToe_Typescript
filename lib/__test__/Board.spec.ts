@@ -29,6 +29,16 @@ import Board from "../Board";
     let board = new Board(grid);
     expect(board.hasWinner('X')).toEqual(true);
   });
+
+  test("Board has a winner for a diagonal scenerio", () => {
+    let grid = [
+      "X", "", "", 
+      "", "X", "",
+      "", "", "X"
+    ]
+    let board = new Board(grid);
+    expect(board.hasWinner('X')).toEqual(true);
+  });
   
   test('Win on first row', ()=>{
     let grid = [
@@ -129,6 +139,30 @@ import Board from "../Board";
     board.makeMove(2,'X')
     board.hasWinner('X')
     expect(board.checkColumnWin('X')).toEqual(true)
+  });
+
+  test('Win on first diagonal', ()=>{
+    let grid = [
+      "X", "", "", 
+      "", "X", "",
+      "", "", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(8,'X')
+    board.hasWinner('X')
+    expect(board.checkDiagonalWin('X')).toEqual(true)
+  });
+
+  test('Win on second diagonal', ()=>{
+    let grid = [
+      "", "", "", 
+      "", "X", "",
+      "X", "", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(2,'X')
+    board.hasWinner('X')
+    expect(board.checkDiagonalWin('X')).toEqual(true)
   });
 
  
