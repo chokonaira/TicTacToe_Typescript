@@ -31,4 +31,27 @@ import Board from "../Board";
     expect(board.checkRowWin('X')).toEqual(true)
   });
   
+  test('check empty board state', ()=>{
+    let grid = [
+      "-", "-", "-", 
+      "-", "-", "-",
+      "-", "-", "-"
+    ]
+    let board = new Board(grid);
+    let actual = board.boardState()
+    expect(actual).toEqual(grid)
+  })
+
+  test('check empty board state', ()=>{
+    let grid = [
+      "-", "-", "-", 
+      "-", "-", "-",
+      "-", "-", "-"
+    ]
+    let board = new Board(grid);
+    let actual = board.boardState()
+    expect(actual).toEqual(grid)
+  })
+
+  
 
