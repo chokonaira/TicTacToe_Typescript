@@ -7,3 +7,5 @@
 //     expect(board.welcomeMessage()).toEqual(message);
 //   });
 // });
+
+test.todo("display welcome message")

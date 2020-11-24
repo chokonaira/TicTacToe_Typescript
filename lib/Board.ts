@@ -3,7 +3,7 @@ class Board {
 
   }
   hasWinner(){
-    return "Game over";
+    return false;
   };
 }
 
