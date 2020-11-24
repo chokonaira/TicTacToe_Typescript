@@ -33,25 +33,36 @@ import Board from "../Board";
   
   test('check empty board state', ()=>{
     let grid = [
-      "-", "-", "-", 
-      "-", "-", "-",
-      "-", "-", "-"
+      "", "", "", 
+      "", "", "",
+      "", "", ""
     ]
     let board = new Board(grid);
     let actual = board.boardState()
     expect(actual).toEqual(grid)
   })
 
-  test('check empty board state', ()=>{
+  test('make a move on board position 0', ()=>{
     let grid = [
-      "-", "-", "-", 
-      "-", "-", "-",
-      "-", "-", "-"
+      "X", "", "", 
+      "", "", "",
+      "", "", ""
     ]
     let board = new Board(grid);
-    let actual = board.boardState()
-    expect(actual).toEqual(grid)
+    board.makeMove(0,'X')
+    expect(board.boardState()).toEqual(grid)
   })
 
-  
+  test('make a move on board position 4', ()=>{
+    let grid = [
+      "", "", "", 
+      "", "X", "",
+      "", "", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(4,'X')
+    expect(board.boardState()).toEqual(grid)
+  })
+
+
 

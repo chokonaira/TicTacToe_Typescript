@@ -7,13 +7,15 @@ class Board {
     return this.grid;
   }
 
-  hasWinner(symbol : String): boolean {
+  makeMove(position : number, symbol : string) : String{
+    return this.grid[position] = symbol;
+  }
+
+  hasWinner(symbol : string): Boolean {
     if (this.checkRowWin(symbol)) return true
       return false
   }
-
-
-  checkRowWin(symbol : String): boolean {
+  checkRowWin(symbol : string): Boolean {
     if (this.grid[0] === symbol && this.grid[1] === symbol && this.grid[2] === symbol) return true
   }
 
