@@ -10,11 +10,21 @@ import Board from "../Board";
     expect(board.hasWinner("X")).toEqual(false);
   });
 
-  test("Board has a winner", () => {
+  test("Board has a winner for a row scenerio", () => {
     let grid = [
       "X", "X", "X", 
       "", "", "",
       "", "", ""
+    ]
+    let board = new Board(grid);
+    expect(board.hasWinner('X')).toEqual(true);
+  });
+
+  test("Board has a winner for a column scenerio", () => {
+    let grid = [
+      "X", "", "", 
+      "X", "", "",
+      "X", "", ""
     ]
     let board = new Board(grid);
     expect(board.hasWinner('X')).toEqual(true);
@@ -85,6 +95,41 @@ import Board from "../Board";
     board.makeMove(4,'X')
     expect(board.boardState()).toEqual(grid)
   })
+  test('Win on first column', ()=>{
+    let grid = [
+      "X", "", "", 
+      "X", "", "",
+      "", "", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(6,'X')
+    board.hasWinner('X')
+    expect(board.checkColumnWin('X')).toEqual(true)
+  });
 
+  test('Win on second column', ()=>{
+    let grid = [
+      "", "X", "", 
+      "", "", "",
+      "", "X", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(4,'X')
+    board.hasWinner('X')
+    expect(board.checkColumnWin('X')).toEqual(true)
+  });
 
+  test('Win on third column', ()=>{
+    let grid = [
+      "", "", "", 
+      "", "", "X",
+      "", "", "X"
+    ]
+    let board = new Board(grid);
+    board.makeMove(2,'X')
+    board.hasWinner('X')
+    expect(board.checkColumnWin('X')).toEqual(true)
+  });
+
+ 
 
