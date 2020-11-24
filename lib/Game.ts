@@ -1,12 +1,14 @@
 import Board from './Board';
 
-class Game{
+class Game {
   board : Board
-  constructor(board : Board){
+
+  constructor(board:Board) {
       this.board = board
   }
-  isOver(){
-    return false
+
+  isOver() : boolean {
+    return this.board.hasWinner()
   }
 
 }
