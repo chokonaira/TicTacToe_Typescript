@@ -4,13 +4,18 @@ class Board {
     this.grid = grid;
   }
 
-  checkRowWin(): boolean {
-    if (this.grid[0] === this.grid[1] && this.grid[1] === this.grid[2]) return true
+  hasWinner(symbol: String): boolean {
+    if (this.checkRowWin(symbol)) return true;
+    return false;
   }
 
-  hasWinner(): boolean {
-    if (this.checkRowWin()) return true
-      return false
+  checkRowWin(symbol: String): boolean {
+    if (
+      this.grid[0] === symbol &&
+      this.grid[1] === symbol &&
+      this.grid[2] === symbol
+    )
+      return true;
   }
 }
 

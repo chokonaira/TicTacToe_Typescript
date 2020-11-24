@@ -2,7 +2,12 @@ import Game from "../Game";
 import Board from "../Board";
 
   test("plays a round", () => {
-    const board = new Board();
+    let grid = [
+      "X", "", "X", 
+      "", "", "",
+      "", "", ""
+    ]
+    const board = new Board(grid);
     let spy = jest.spyOn(board, "hasWinner").mockImplementation(() => false);
     const game = new Game(board);
 
