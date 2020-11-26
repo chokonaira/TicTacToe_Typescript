@@ -23,23 +23,19 @@ class Board {
     return false;
   }
 
-  checkRowWin(): boolean {
-    if (
-      this.rowLine(this.grid[0], this.grid[1], this.grid[2]) ||
-      this.rowLine(this.grid[3], this.grid[4], this.grid[5])
-    ) {
-      return true;
+  rows(): string[][] {
+    let rows = [];
+    for (let index = 0; index < this.grid.length; index += 3) {
+      rows.push(this.grid.slice(index, index + 3));
     }
+    return rows;
   }
 
-  rowLine(symbol1: string, symbol2: string, symbol3: string): boolean {
-    if (
-      this.isNotEmptyPosition(symbol1.indexOf(symbol1)) &&
-      symbol1 === symbol2 &&
-      symbol2 === symbol3
-    ) {
-      return true;
-    }
+  checkRowWin(): boolean {
+    const result = this.rows().filter((row) =>
+      row.every((position) => position !== "" && position === row[0])
+    );
+    return (result.length && result[0].length !== 0) ? true : false 
   }
 
   checkColumnWin(): boolean {
