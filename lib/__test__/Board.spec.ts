@@ -40,40 +40,42 @@ import Board from '../Board';
     expect(board.hasWinner()).toEqual(true);
   });
 
-  xtest('Win on row scenerios', ()=>{
-    let grid = [ "X", "X", "X" ]
-    let board = new Board(grid);
-    board.hasWinner()
-    expect(board.checkRowWin()).toEqual(true)
-  });
-  
-  test('Win on first row', ()=>{
+  test('Win on first row scenerios', ()=>{
     let grid = [ "X", "X", "X",
                   "", "", "",
                   "", "", "" ]
     let board = new Board(grid);
-    board.hasWinner()
-    expect(board.rowLine('X', 'X', 'X')).toEqual(true)
+    expect(board.checkRowWin()).toEqual(true)
   });
 
-  test('Win on second row', ()=>{
+  test('Does not return true if there is no winner', ()=>{
+    let grid = [
+      "", "", "",
+      "X", "X", "", 
+      "", "", ""
+    ]
+    let board = new Board(grid);
+    expect(board.checkRowWin()).toEqual(false)
+  });
+  
+  test('Win on second row scenerios', ()=>{
     let grid = [
       "", "", "",
       "X", "X", "X", 
       "", "", ""
     ]
     let board = new Board(grid);
-    expect(board.rowLine('X', 'X', 'X')).toEqual(true)
+    expect(board.checkRowWin()).toEqual(true)
   });
 
-  xtest('Win on third row', ()=>{
+
+  test('Win on third row scenerios', ()=>{
     let grid = [
       "", "", "",
       "", "", "",
       "X", "X", "X" 
     ]
     let board = new Board(grid);
-    board.hasWinner()
     expect(board.checkRowWin()).toEqual(true)
   });
   
