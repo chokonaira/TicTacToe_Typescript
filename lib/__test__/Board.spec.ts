@@ -68,7 +68,6 @@ test('Win on first diagonal', () => {
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
-I seem to be missing something, I need the
 xtest('Win on second diagonal', () => {
   const grid = ['', '', '', '', 'X', '', 'X', '', ''];
   const board = new Board(grid);
