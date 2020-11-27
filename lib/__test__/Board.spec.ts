@@ -45,7 +45,7 @@ import Board from "../Board";
                   "", "", "",
                   "", "", "" ]
     let board = new Board(grid);
-    expect(board.checkRowWin()).toEqual(true)
+    expect(board.checkForWinner()).toEqual(true)
   });
 
   test('Does not return true if there is no winner', ()=>{
@@ -55,7 +55,7 @@ import Board from "../Board";
       "", "", ""
     ]
     let board = new Board(grid);
-    expect(board.checkRowWin()).toEqual(false)
+    expect(board.checkForWinner()).toEqual(false)
   });
   
   test('Win on second row scenerios', ()=>{
@@ -65,9 +65,8 @@ import Board from "../Board";
       "", "", ""
     ]
     let board = new Board(grid);
-    expect(board.checkRowWin()).toEqual(true)
+    expect(board.checkForWinner()).toEqual(true)
   });
-
 
   test('Win on third row scenerios', ()=>{
     let grid = [
@@ -76,7 +75,42 @@ import Board from "../Board";
       "X", "X", "X" 
     ]
     let board = new Board(grid);
-    expect(board.checkRowWin()).toEqual(true)
+    expect(board.checkForWinner()).toEqual(true)
+  });
+  
+  test('Win on first column', ()=>{
+    let grid = [
+      "X", "", "", 
+      "X", "", "",
+      "X", "", ""
+    ]
+    let board = new Board(grid);
+
+    expect(board.checkForWinner()).toEqual(true)
+  });
+
+  xtest('Win on second column', ()=>{
+    let grid = [
+      "", "X", "", 
+      "", "", "",
+      "", "X", ""
+    ]
+    let board = new Board(grid);
+    board.makeMove(4,'X')
+    board.hasWinner()
+    expect(board.checkColumnWin()).toEqual(true)
+  });
+
+  xtest('Win on third column', ()=>{
+    let grid = [
+      "", "", "", 
+      "", "", "X",
+      "", "", "X"
+    ]
+    let board = new Board(grid);
+    board.makeMove(2,'X')
+    board.hasWinner()
+    expect(board.checkColumnWin()).toEqual(true)
   });
   
   xtest('check empty board state', ()=>{
@@ -111,41 +145,7 @@ import Board from "../Board";
     board.makeMove(4,'X')
     expect(board.boardState()).toEqual(grid)
   })
-  xtest('Win on first column', ()=>{
-    let grid = [
-      "X", "", "", 
-      "X", "", "",
-      "", "", ""
-    ]
-    let board = new Board(grid);
-    board.makeMove(6,'X')
-    board.hasWinner()
-    expect(board.checkColumnWin()).toEqual(true)
-  });
 
-  xtest('Win on second column', ()=>{
-    let grid = [
-      "", "X", "", 
-      "", "", "",
-      "", "X", ""
-    ]
-    let board = new Board(grid);
-    board.makeMove(4,'X')
-    board.hasWinner()
-    expect(board.checkColumnWin()).toEqual(true)
-  });
-
-  xtest('Win on third column', ()=>{
-    let grid = [
-      "", "", "", 
-      "", "", "X",
-      "", "", "X"
-    ]
-    let board = new Board(grid);
-    board.makeMove(2,'X')
-    board.hasWinner()
-    expect(board.checkColumnWin()).toEqual(true)
-  });
 
   xtest('Win on first diagonal', ()=>{
     let grid = [
