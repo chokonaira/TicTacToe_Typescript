@@ -62,9 +62,7 @@ xtest('Win on third column', () => {
 });
 
 test('Win on first diagonal', () => {
-  const grid = ['X', '', '', 
-                '', 'X', '', 
-                '', '', 'X'];
+  const grid = ['X', '', '', '', 'X', '', '', '', 'X'];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
