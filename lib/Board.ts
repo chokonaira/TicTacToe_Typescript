@@ -12,40 +12,39 @@ class Board {
   }
 
   isNotEmptyPosition(position: number): boolean {
-    if (this.grid[position] !== "") {
+    if (this.grid[position] !== '') {
       return true;
     }
     return false;
   }
 
   hasWinner(): boolean {
-    if (this.checkForWinner()||this.checkColumnWin()) return true;
+    if (this.checkForWinner()) return true;
     return false;
   }
 
   rows(): string[][] {
-    let rows = [];
+    const rows = [];
     for (let index = 0; index < this.grid.length; index += 3) {
       rows.push(this.grid.slice(index, index + 3));
     }
     return rows;
   }
 
-  columns():string[][] {
-    let columns = []
+  columns(): string[][] {
+    const columns = [];
 
     for (let index = 0; index < this.rows().length; index++) {
-      let column = []
+      const column = [];
 
-      this.rows().forEach(row => {
-        column.push(row[index])
+      this.rows().forEach((row) => {
+        column.push(row[index]);
       });
 
-      columns.push(column)
+      columns.push(column);
     }
-    // console.log(columns, 'columns');
-    
-    return columns
+
+    return columns;
   }
 
   checkForWinner(): boolean {
@@ -53,19 +52,11 @@ class Board {
     const columns = this.columns();
     const lines = rows.concat(columns);
 
-    const result = lines.filter((line) => 
-      line.every((position) => position !== "" && position === line[0])
+    const result = lines.filter((line) =>
+      line.every((position) => position !== '' && position === line[0])
     );
 
-    return result.length !== 0
-  }
-
-  checkColumnWin(): boolean {
-    this.columns()
-  //   const result = this.rows().filter((column) =>{ 
-  //   column.every((position) => position !== "" && position === column[0])
-  // });
-    return 
+    return result.length !== 0;
   }
 
   checkDiagonalWin(): boolean {
