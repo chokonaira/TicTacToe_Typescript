@@ -24,52 +24,56 @@ xtest('Board has a winner for a diagonal scenerio', () => {
   expect(board.hasWinner()).toEqual(true);
 });
 
-test('Win on first row scenerios', () => {
+xtest('Win on first row scenerios', () => {
   const grid = ['X', 'X', 'X', '', '', '', '', '', ''];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
 
-test('Does not return true if there is no winner', () => {
+xtest('Does not return true if there is no winner', () => {
   const grid = ['', '', '', 'X', 'X', '', '', '', ''];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(false);
 });
-
-test('Win on second row scenerios', () => {
+xtest('Win on second row scenerios', () => {
   const grid = ['', '', '', 'X', 'X', 'X', '', '', ''];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
-
-test('Win on third row scenerios', () => {
+xtest('Win on third row scenerios', () => {
   const grid = ['', '', '', '', '', '', 'X', 'X', 'X'];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
-
-test('Win on first column', () => {
+xtest('Win on first column', () => {
   const grid = ['X', '', '', 'X', '', '', 'X', '', ''];
   const board = new Board(grid);
-
+  expect(board.checkForWinner()).toEqual(true);
+});
+xtest('Win on second column', () => {
+  const grid = ['', 'X', '', '', 'X', '', '', 'X', ''];
+  const board = new Board(grid);
+  expect(board.checkForWinner()).toEqual(true);
+});
+xtest('Win on third column', () => {
+  const grid = ['', '', 'X', '', '', 'X', '', '', 'X'];
+  const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
 });
 
-// xtest('Win on second column', () => {
-//   const grid = ['', 'X', '', '', '', '', '', 'X', ''];
-//   const board = new Board(grid);
-//   board.makeMove(4, 'X');
-//   board.hasWinner();
-//   expect(board.checkColumnWin()).toEqual(true);
-// });
-
-// xtest('Win on third column', () => {
-//   const grid = ['', '', '', '', '', 'X', '', '', 'X'];
-//   const board = new Board(grid);
-//   board.makeMove(2, 'X');
-//   board.hasWinner();
-//   expect(board.checkColumnWin()).toEqual(true);
-// });
+test('Win on first diagonal', () => {
+  const grid = ['X', '', '', 
+                '', 'X', '', 
+                '', '', 'X'];
+  const board = new Board(grid);
+  expect(board.checkForWinner()).toEqual(true);
+});
+I seem to be missing something, I need the
+xtest('Win on second diagonal', () => {
+  const grid = ['', '', '', '', 'X', '', 'X', '', ''];
+  const board = new Board(grid);
+  expect(board.checkDiagonalWin()).toEqual(true);
+});
 
 xtest('check empty board state', () => {
   const grid = ['', '', '', '', '', '', '', '', ''];
@@ -90,22 +94,6 @@ xtest('make a move on board position 4', () => {
   const board = new Board(grid);
   board.makeMove(4, 'X');
   expect(board.boardState()).toEqual(grid);
-});
-
-xtest('Win on first diagonal', () => {
-  const grid = ['X', '', '', '', 'X', '', '', '', ''];
-  const board = new Board(grid);
-  board.makeMove(8, 'X');
-  board.hasWinner();
-  expect(board.checkDiagonalWin()).toEqual(true);
-});
-
-xtest('Win on second diagonal', () => {
-  const grid = ['', '', '', '', 'X', '', 'X', '', ''];
-  const board = new Board(grid);
-  board.makeMove(2, 'X');
-  board.hasWinner();
-  expect(board.checkDiagonalWin()).toEqual(true);
 });
 
 xtest('check that position 4 is not empty', () => {

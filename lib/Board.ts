@@ -47,9 +47,24 @@ class Board {
     return columns;
   }
 
+  diagonals(): string[][] {
+    const firstDiagonal = [];
+    const secondDiagonal = [];
+    const diagonals = [];
+    for (let row = 0; row < this.rows().length; row++) {
+      firstDiagonal.push(this.rows()[row][row]);
+      secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
+    }
+    diagonals.push(firstDiagonal, secondDiagonal);
+    console.log(diagonals, 'diagonals');
+    return;
+  }
+
   checkForWinner(): boolean {
+    this.diagonals();
     const rows = this.rows();
     const columns = this.columns();
+    // const diagonals = this.diagonals();
     const lines = rows.concat(columns);
 
     const result = lines.filter((line) =>
