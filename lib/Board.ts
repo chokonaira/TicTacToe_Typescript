@@ -8,7 +8,7 @@ class Board {
   }
 
   makeMove(position: number, symbol: string): string {
-    return (this.grid[position] = symbol);
+    return (this.grid[position - 1] = symbol);
   }
 
   isNotEmptyPosition(position: number): boolean {
@@ -17,9 +17,15 @@ class Board {
     }
     return false;
   }
+
   checkAvailableMove(): number {
-    return 9;
+    let counter = 0;
+    for (let index = 0; index < this.grid.length; index++) {
+      this.grid[index] === '' && counter++;
+    }
+    return counter;
   }
+
   hasWinner(): boolean {
     if (this.checkForWinner()) return true;
     return false;

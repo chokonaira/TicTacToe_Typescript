@@ -122,3 +122,10 @@ test('check for 9 available moves on baord', () => {
   const board = new Board(grid);
   expect(board.checkAvailableMove()).toEqual(9);
 });
+
+test('check for 8 available moves on baord', () => {
+  const grid = ['', '', '', 'X', '', '', '', '', ''];
+  const board = new Board(grid);
+  board.makeMove(4, 'X');
+  expect(board.checkAvailableMove()).toEqual(8);
+});
