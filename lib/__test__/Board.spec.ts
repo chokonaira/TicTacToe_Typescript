@@ -129,3 +129,14 @@ test('check for 8 available moves on baord', () => {
   board.makeMove(4, 'X');
   expect(board.checkAvailableMove()).toEqual(8);
 });
+
+test('check for 5 available moves on baord', () => {
+  const grid = ['', '', 'X', 'X', '', '', 'X', '', 'X'];
+  const board = new Board(grid);
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(7, 'X');
+  board.makeMove(9, 'X');
+  expect(board.checkAvailableMove()).toEqual(5);
+});
+
