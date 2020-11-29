@@ -61,7 +61,7 @@ xtest('Win on third column', () => {
   expect(board.checkForWinner()).toEqual(true);
 });
 
-test('Win on first diagonal', () => {
+xtest('Win on first diagonal', () => {
   const grid = ['X', '', '', '', 'X', '', '', '', 'X'];
   const board = new Board(grid);
   expect(board.checkForWinner()).toEqual(true);
@@ -115,4 +115,10 @@ xtest('check that position 0 is not empty', () => {
   const grid = ['X', '', '', '', 'X', '', 'X', '', ''];
   const board = new Board(grid);
   expect(board.isNotEmptyPosition(0)).toEqual(true);
+});
+
+test('check for 9 available moves on baord', () => {
+  const grid = ['', '', '', '', '', '', '', '', ''];
+  const board = new Board(grid);
+  expect(board.checkAvailableMove()).toEqual(9);
 });

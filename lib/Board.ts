@@ -17,7 +17,9 @@ class Board {
     }
     return false;
   }
-
+  checkAvailableMove(): number {
+    return 9;
+  }
   hasWinner(): boolean {
     if (this.checkForWinner()) return true;
     return false;
