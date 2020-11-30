@@ -169,10 +169,6 @@ test('check for 1 available moves on baord', () => {
 test('check for actual draw on board', () => {
   const board = new Board();
 
-  // O O X
-  // X X O
-  // O X X
-
   board.makeMove(0, 'O');
   board.makeMove(1, 'O');
   board.makeMove(2, 'X');
@@ -189,10 +185,6 @@ test('check for actual draw on board', () => {
 test('checks for no Draw on board if there a Win', () => {
   const board = new Board();
 
-  // X O X
-  // X X O
-  // O X X
-
   board.makeMove(0, 'X');
   board.makeMove(1, 'O');
   board.makeMove(2, 'X');
@@ -208,10 +200,6 @@ test('checks for no Draw on board if there a Win', () => {
 
 test('checks for no Draw if there is still available Position on board', () => {
   const board = new Board();
-
-  // O  O  X
-  // X  '' O
-  // O  X  X
 
   board.makeMove(0, 'O');
   board.makeMove(1, 'O');
