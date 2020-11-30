@@ -1,106 +1,139 @@
 import Board from '../Board';
 
 test('Board has no winner', () => {
-  const grid = ['X', '', 'X', '', '', '', '', '', ''];
-  const board = new Board(grid);
-  expect(board.hasWinner('X')).toEqual(false);
+  const board = new Board();
+  board.makeMove(0, 'X');
+  expect(board.hasWinner()).toEqual(false);
 });
 
 test('Board has a winner for a row scenerio', () => {
-  const grid = ['X', 'X', 'X', '', '', '', '', '', ''];
-  const board = new Board(grid);
-  expect(board.hasWinner('X')).toEqual(true);
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(1, 'X');
+  board.makeMove(2, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
 test('Board has a winner for a column scenerio', () => {
-  const grid = ['X', '', '', 'X', '', '', 'X', '', ''];
-  const board = new Board(grid);
-  expect(board.hasWinner('X')).toEqual(true);
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(6, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
 test('Board has a winner for a diagonal scenerio', () => {
-  const grid = ['X', '', '', '', 'X', '', '', '', 'X'];
-  const board = new Board(grid);
-  expect(board.hasWinner('X')).toEqual(true);
-});
+  const board = new Board();
 
-test('Win on first row', () => {
-  const grid = ['X', 'X', 'X', '', '', '', '', '', ''];
-  const board = new Board(grid);
-  board.hasWinner('X');
-  expect(board.checkRowWin('X')).toEqual(true);
-});
-
-test('Win on second row', () => {
-  const grid = ['', '', '', 'X', 'X', 'X', '', '', ''];
-  const board = new Board(grid);
-  board.hasWinner('X');
-  expect(board.checkRowWin('X')).toEqual(true);
-});
-
-test('Win on third row', () => {
-  const grid = ['', '', '', '', '', '', 'X', 'X', 'X'];
-  const board = new Board(grid);
-  board.hasWinner('X');
-  expect(board.checkRowWin('X')).toEqual(true);
-});
-
-test('check empty board state', () => {
-  const grid = ['', '', '', '', '', '', '', '', ''];
-  const board = new Board(grid);
-  const actual = board.boardState();
-  expect(actual).toEqual(grid);
-});
-
-test('make a move on board position 0', () => {
-  const grid = ['X', '', '', '', '', '', '', '', ''];
-  const board = new Board(grid);
   board.makeMove(0, 'X');
-  expect(board.boardState()).toEqual(grid);
+  board.makeMove(4, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
-test('make a move on board position 4', () => {
-  const grid = ['', '', '', '', 'X', '', '', '', ''];
-  const board = new Board(grid);
-  board.makeMove(4, 'X');
-  expect(board.boardState()).toEqual(grid);
+test('Win on first row scenerios', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(1, 'X');
+  board.makeMove(2, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
-test('Win on first column', () => {
-  const grid = ['X', '', '', 'X', '', '', '', '', ''];
-  const board = new Board(grid);
+
+test('Does not return true if there is no winner', () => {
+  const board = new Board();
+
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+
+  expect(board.hasWinner()).toEqual(false);
+});
+
+test('Win on second row scenerios', () => {
+  const board = new Board();
+
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
+});
+test('Win on third row scenerios', () => {
+  const board = new Board();
+
   board.makeMove(6, 'X');
-  board.hasWinner('X');
-  expect(board.checkColumnWin('X')).toEqual(true);
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
+});
+
+test('Win on first column', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(6, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
 test('Win on second column', () => {
-  const grid = ['', 'X', '', '', '', '', '', 'X', ''];
-  const board = new Board(grid);
-  board.makeMove(4, 'X');
-  board.hasWinner('X');
-  expect(board.checkColumnWin('X')).toEqual(true);
-});
+  const board = new Board();
 
+  board.makeMove(1, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(7, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
+});
 test('Win on third column', () => {
-  const grid = ['', '', '', '', '', 'X', '', '', 'X'];
-  const board = new Board(grid);
+  const board = new Board();
+
   board.makeMove(2, 'X');
-  board.hasWinner('X');
-  expect(board.checkColumnWin('X')).toEqual(true);
+  board.makeMove(5, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
 test('Win on first diagonal', () => {
-  const grid = ['X', '', '', '', 'X', '', '', '', ''];
-  const board = new Board(grid);
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(4, 'X');
   board.makeMove(8, 'X');
-  board.hasWinner('X');
-  expect(board.checkDiagonalWin('X')).toEqual(true);
+
+  expect(board.hasWinner()).toEqual(true);
 });
 
-test('Win on second diagonal', () => {
-  const grid = ['', '', '', '', 'X', '', 'X', '', ''];
-  const board = new Board(grid);
-  board.makeMove(2, 'X');
-  board.hasWinner('X');
-  expect(board.checkDiagonalWin('X')).toEqual(true);
+test('check that position 4 is not empty', () => {
+  const board = new Board();
+
+  board.makeMove(4, 'X');
+  board.makeMove(6, 'X');
+
+  expect(board.isPositionTaken(4)).toEqual(true);
+});
+
+test('check if a position is free', () => {
+  const board = new Board();
+
+  expect(board.isPositionTaken(1)).toEqual(false);
+});
+
+test('checks if a position is taken', () => {
+  const board = new Board();
+
+  board.makeMove(3, 'X');
+  board.makeMove(6, 'X');
+
+  expect(board.isPositionTaken(3)).toEqual(true);
+  expect(board.isPositionTaken(6)).toEqual(true);
 });

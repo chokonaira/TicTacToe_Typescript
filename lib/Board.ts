@@ -1,8 +1,9 @@
 class Board {
   grid: string[];
-  constructor(grid: string[]) {
+  constructor(grid: string[] = new Array(9).fill('')) {
     this.grid = grid;
   }
+
   boardState(): string[] {
     return this.grid;
   }
@@ -11,37 +12,59 @@ class Board {
     return (this.grid[position] = symbol);
   }
 
-  hasWinner(symbol: string): boolean {
-    if (
-      this.checkRowWin(symbol) ||
-      this.checkColumnWin(symbol) ||
-      this.checkDiagonalWin(symbol)
-    )
+  isPositionTaken(position: number): boolean {
+    if (this.grid[position] !== '') {
       return true;
+    }
     return false;
   }
-  checkRowWin(symbol: string): boolean {
-    if (
-      (this.grid[0] && this.grid[1] && this.grid[2] === symbol) ||
-      (this.grid[3] && this.grid[4] && this.grid[5] === symbol) ||
-      (this.grid[6] && this.grid[7] && this.grid[8] === symbol)
-    )
-      return true;
+
+  hasWinner(): boolean {
+    this.diagonals();
+    const rows = this.rows();
+    const columns = this.columns();
+    const diagonals = this.diagonals();
+    const lines = rows.concat(columns, diagonals);
+
+    const result = lines.filter((line) =>
+      line.every((position) => position !== '' && position === line[0])
+    );
+
+    return result.length !== 0;
   }
-  checkColumnWin(symbol: string): boolean {
-    if (
-      (this.grid[0] && this.grid[3] && this.grid[6] === symbol) ||
-      (this.grid[1] && this.grid[4] && this.grid[7] === symbol) ||
-      (this.grid[2] && this.grid[5] && this.grid[8] === symbol)
-    )
-      return true;
+
+  rows(): string[][] {
+    const rows = [];
+    for (let index = 0; index < this.grid.length; index += 3) {
+      rows.push(this.grid.slice(index, index + 3));
+    }
+    return rows;
   }
-  checkDiagonalWin(symbol: string): boolean {
-    if (
-      (this.grid[0] && this.grid[4] && this.grid[8] === symbol) ||
-      (this.grid[2] && this.grid[4] && this.grid[6] === symbol)
-    )
-      return true;
+
+  columns(): string[][] {
+    const columns = [];
+
+    for (let index = 0; index < this.rows().length; index++) {
+      const column = [];
+
+      this.rows().forEach((row) => {
+        column.push(row[index]);
+      });
+
+      columns.push(column);
+    }
+
+    return columns;
+  }
+
+  diagonals(): string[][] {
+    const firstDiagonal = [];
+    const secondDiagonal = [];
+    for (let row = 0; row < this.rows().length; row++) {
+      firstDiagonal.push(this.rows()[row][row]);
+      secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
+    }
+    return [firstDiagonal, secondDiagonal];
   }
 }
 
