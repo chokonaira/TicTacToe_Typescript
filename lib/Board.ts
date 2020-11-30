@@ -1,8 +1,9 @@
 class Board {
   grid: string[];
-  constructor(grid: string[]) {
+  constructor(grid: string[] = new Array(9).fill('')) {
     this.grid = grid;
   }
+
   boardState(): string[] {
     return this.grid;
   }
@@ -11,7 +12,7 @@ class Board {
     return (this.grid[position] = symbol);
   }
 
-  isNotEmptyPosition(position: number): boolean {
+  isPositionTaken(position: number): boolean {
     if (this.grid[position] !== '') {
       return true;
     }
@@ -19,8 +20,17 @@ class Board {
   }
 
   hasWinner(): boolean {
-    if (this.checkForWinner()) return true;
-    return false;
+    this.diagonals();
+    const rows = this.rows();
+    const columns = this.columns();
+    const diagonals = this.diagonals();
+    const lines = rows.concat(columns, diagonals);
+
+    const result = lines.filter((line) =>
+      line.every((position) => position !== '' && position === line[0])
+    );
+
+    return result.length !== 0;
   }
 
   rows(): string[][] {
@@ -50,36 +60,11 @@ class Board {
   diagonals(): string[][] {
     const firstDiagonal = [];
     const secondDiagonal = [];
-    const diagonals = [];
     for (let row = 0; row < this.rows().length; row++) {
       firstDiagonal.push(this.rows()[row][row]);
       secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
     }
-    diagonals.push(firstDiagonal, secondDiagonal);
-    console.log(diagonals, 'diagonals');
-    return;
-  }
-
-  checkForWinner(): boolean {
-    this.diagonals();
-    const rows = this.rows();
-    const columns = this.columns();
-    // const diagonals = this.diagonals();
-    const lines = rows.concat(columns);
-
-    const result = lines.filter((line) =>
-      line.every((position) => position !== '' && position === line[0])
-    );
-
-    return result.length !== 0;
-  }
-
-  checkDiagonalWin(): boolean {
-    if (
-      (this.grid[0] && this.grid[4] && this.grid[8]) ||
-      (this.grid[2] && this.grid[4] && this.grid[6])
-    )
-      return true;
+    return [firstDiagonal, secondDiagonal];
   }
 }
 
