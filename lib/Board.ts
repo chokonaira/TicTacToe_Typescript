@@ -28,6 +28,9 @@ class Board {
   }
 
   isGameDraw(): boolean {
+    if (this.hasWinner()) {
+      return false;
+    }
     return true;
   }
 

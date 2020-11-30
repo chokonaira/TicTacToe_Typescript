@@ -166,7 +166,7 @@ test('check for 1 available moves on baord', () => {
   expect(board.availablePositionCount()).toEqual(1);
 });
 
-test('check for actual draw on baord', () => {
+test('check for actual draw on board', () => {
   const board = new Board();
 
   // O O X
@@ -184,4 +184,24 @@ test('check for actual draw on baord', () => {
   board.makeMove(8, 'X');
 
   expect(board.isGameDraw()).toEqual(true);
+});
+
+test('checks for no Draw on board if there a Win', () => {
+  const board = new Board();
+
+  // X O X
+  // X X O
+  // O X X
+
+  board.makeMove(0, 'X');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(false);
 });
