@@ -153,7 +153,7 @@ test('check for 5 available moves on baord', () => {
   expect(board.checkAvailableMove()).toEqual(5);
 });
 
-xtest('check for 1 available moves on baord', () => {
+test('check for 1 available moves on baord', () => {
   const board = new Board();
   board.makeMove(0, 'X');
   board.makeMove(1, 'X');
