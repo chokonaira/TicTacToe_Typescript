@@ -28,10 +28,7 @@ class Board {
   }
 
   isGameDraw(): boolean {
-    if (this.hasWinner() || this.availablePositionCount() > 0) {
-      return false;
-    }
-    return true;
+    return !this.hasWinner() && this.availablePositionCount() === 0;
   }
 
   hasWinner(): boolean {
