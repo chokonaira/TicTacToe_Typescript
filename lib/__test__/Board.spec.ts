@@ -205,3 +205,22 @@ test('checks for no Draw on board if there a Win', () => {
 
   expect(board.isGameDraw()).toEqual(false);
 });
+
+test('checks for no Draw if there is still available Position on board', () => {
+  const board = new Board();
+
+  // O  O  X
+  // X  '' O
+  // O  X  X
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(false);
+});
