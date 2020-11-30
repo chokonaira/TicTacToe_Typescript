@@ -137,3 +137,31 @@ test('checks if a position is taken', () => {
   expect(board.isPositionTaken(3)).toEqual(true);
   expect(board.isPositionTaken(6)).toEqual(true);
 });
+
+test('check for 8 available moves on baord', () => {
+  const board = new Board();
+  board.makeMove(4, 'X');
+  expect(board.availablePositionCount()).toEqual(8);
+});
+
+test('check for 5 available moves on baord', () => {
+  const board = new Board();
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+  expect(board.availablePositionCount()).toEqual(5);
+});
+
+test('check for 1 available moves on baord', () => {
+  const board = new Board();
+  board.makeMove(0, 'X');
+  board.makeMove(1, 'X');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(6, 'X');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+  expect(board.availablePositionCount()).toEqual(1);
+});

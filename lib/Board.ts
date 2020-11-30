@@ -19,8 +19,15 @@ class Board {
     return false;
   }
 
+  availablePositionCount(): number {
+    let counter = 0;
+    for (let index = 0; index < this.grid.length; index++) {
+      this.grid[index] === '' && counter++;
+    }
+    return counter;
+  }
+
   hasWinner(): boolean {
-    this.diagonals();
     const rows = this.rows();
     const columns = this.columns();
     const diagonals = this.diagonals();
