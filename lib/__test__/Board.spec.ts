@@ -165,3 +165,23 @@ test('check for 1 available moves on baord', () => {
   board.makeMove(8, 'X');
   expect(board.availablePositionCount()).toEqual(1);
 });
+
+test('check for actual draw on baord', () => {
+  const board = new Board();
+
+  // O O X
+  // X X O
+  // O X X
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(true);
+});
