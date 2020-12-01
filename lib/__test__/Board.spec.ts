@@ -212,3 +212,59 @@ test('checks for no Draw if there is still available Position on board', () => {
 
   expect(board.isGameDraw()).toEqual(false);
 });
+
+test('checks for game over if there is a win on the board', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameOver()).toEqual(true);
+});
+
+test('checks for game over if there is a draw on the board', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameOver()).toEqual(true);
+});
+
+test('checks for game over if there is a draw on the board', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameOver()).toEqual(true);
+});
+
+test('Does not return game over if there is not over', () => {
+  const board = new Board();
+
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameOver()).toEqual(false);
+});

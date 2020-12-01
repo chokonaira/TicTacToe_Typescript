@@ -77,6 +77,10 @@ class Board {
     }
     return [firstDiagonal, secondDiagonal];
   }
+
+  isGameOver(): boolean {
+    return this.hasWinner() || this.isGameDraw();
+  }
 }
 
 export default Board;
