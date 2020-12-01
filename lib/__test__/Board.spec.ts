@@ -165,3 +165,50 @@ test('check for 1 available moves on baord', () => {
   board.makeMove(8, 'X');
   expect(board.availablePositionCount()).toEqual(1);
 });
+
+test('check for actual draw on board', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(true);
+});
+
+test('checks for no Draw on board if there a Win', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'X');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(4, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(false);
+});
+
+test('checks for no Draw if there is still available Position on board', () => {
+  const board = new Board();
+
+  board.makeMove(0, 'O');
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+  board.makeMove(5, 'O');
+  board.makeMove(6, 'O');
+  board.makeMove(7, 'X');
+  board.makeMove(8, 'X');
+
+  expect(board.isGameDraw()).toEqual(false);
+});

@@ -27,6 +27,10 @@ class Board {
     return counter;
   }
 
+  isGameDraw(): boolean {
+    return !this.hasWinner() && this.availablePositionCount() === 0;
+  }
+
   hasWinner(): boolean {
     const rows = this.rows();
     const columns = this.columns();
