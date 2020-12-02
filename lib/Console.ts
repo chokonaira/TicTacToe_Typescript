@@ -1,6 +1,7 @@
 // import prompts from 'prompts';
 import Board from './Board';
 import Messages from './Messages';
+import Game from './Game';
 
 class Console {
   board: Board;
@@ -39,15 +40,62 @@ class Console {
     return result;
   }
 
+  toggleTurns(): string {
+    const board = new Board();
+
+    if (board.availablePositionCount() % 2 === 0) {
+      return 'X';
+    }
+    return 'O';
+  }
+
   startGame(): string[] {
     const board = new Board();
     const messages = new Messages();
+    const game = new Game(board);
 
     console.log(messages.welcomeMassage());
     console.log(messages.gameMode());
-    this.printBoard(board);
-    // console.log(board.grid);
 
+    this.printBoard(board);
+
+    while (!game.isOver()) {
+      const player = this.toggleTurns();
+
+      // first move
+      board.makeMove(0, player);
+      this.printBoard(board);
+
+      // second move
+      board.makeMove(1, player);
+      this.printBoard(board);
+
+      // third move
+      board.makeMove(2, player);
+      this.printBoard(board);
+
+      // forth move
+      board.makeMove(3, player);
+      this.printBoard(board);
+
+      // fifth move
+      board.makeMove(4, player);
+      this.printBoard(board);
+
+      // sixth move
+      board.makeMove(4, player);
+      this.printBoard(board);
+
+      // seventh move
+      board.makeMove(4, player);
+      this.printBoard(board);
+
+      if (game.isOver()) {
+        break;
+      }
+
+      console.log(`Player ${this.toggleTurns()} Won`);
+    }
     return;
   }
 }
