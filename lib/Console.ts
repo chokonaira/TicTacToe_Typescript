@@ -1,13 +1,10 @@
-// import prompts from 'prompts';
-import { ReadLine } from 'readline';
+import * as readline from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
 
-const rl = ReadLine.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const sleep = (waitTimeInMs: number) =>
+  new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
 class Console {
   board: Board;
@@ -46,7 +43,7 @@ class Console {
     return result;
   }
 
-  startGame(): string[] {
+  async startGame(): Promise<string[]> {
     const board = new Board();
     const messages = new Messages();
     const game = new Game(board);
@@ -57,24 +54,36 @@ class Console {
     while (!game.isOver()) {
       this.printBoard(board);
 
-      const move = this.askUserForMove();
+      const move = await this.askUserForMove();
       board.makeMove(move, board.currentMark());
 
       if (game.isOver()) {
         console.log(`Player ${board.currentMark()} Won`);
         break;
       }
+
+      if (board.isGameDraw()) {
+        console.log(`Its a Draw`);
+        break;
+      }
     }
     return;
   }
 
-  askUserForMove(): number {
-    const input = [];
-    rl.question('What position do you want to play?', (position: string) => {
-      input.push(Number(position));
-      rl.close();
+  async askUserForMove(): Promise<number> {
+    const readCLI = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
     });
-    return input[0];
+
+    let result = undefined;
+    readCLI.question('What position do you want to play?', (input: string) => {
+      result = Number(input);
+    });
+
+    while (!result) await sleep(100);
+
+    return result;
   }
 }
 export default Console;

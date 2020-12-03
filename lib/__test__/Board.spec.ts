@@ -1,5 +1,4 @@
 import Board from '../Board';
-import Console from '../Console';
 
 test('Board has no winner', () => {
   const board = new Board();
