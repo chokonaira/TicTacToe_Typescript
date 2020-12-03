@@ -1,7 +1,13 @@
 // import prompts from 'prompts';
+import { ReadLine } from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
+
+const rl = ReadLine.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 class Console {
   board: Board;
@@ -48,44 +54,27 @@ class Console {
     console.log(messages.welcomeMassage());
     console.log(messages.gameMode());
 
-    this.printBoard(board);
-
     while (!game.isOver()) {
-      // first move
-      board.makeMove(0, board.currentMark());
       this.printBoard(board);
 
-      // second move
-      board.makeMove(1, board.currentMark());
-      this.printBoard(board);
-
-      // third move
-      board.makeMove(2, board.currentMark());
-      this.printBoard(board);
-
-      // forth move
-      board.makeMove(3, board.currentMark());
-      this.printBoard(board);
-
-      // fifth move
-      board.makeMove(4, board.currentMark());
-      this.printBoard(board);
-
-      // sixth move
-      board.makeMove(5, board.currentMark());
-      this.printBoard(board);
-
-      // seventh move
-      board.makeMove(6, board.currentMark());
-      this.printBoard(board);
+      const move = this.askUserForMove();
+      board.makeMove(move, board.currentMark());
 
       if (game.isOver()) {
+        console.log(`Player ${board.currentMark()} Won`);
         break;
       }
-
-      console.log(`Player ${board.currentMark()} Won`);
     }
     return;
+  }
+
+  askUserForMove(): number {
+    const input = [];
+    rl.question('What position do you want to play?', (position: string) => {
+      input.push(Number(position));
+      rl.close();
+    });
+    return input[0];
   }
 }
 export default Console;
