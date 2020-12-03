@@ -1,4 +1,5 @@
 import Board from '../Board';
+import Console from '../Console';
 
 test('Board has no winner', () => {
   const board = new Board();
@@ -239,22 +240,6 @@ test('checks for game over if there is a draw on the board', () => {
   expect(board.isGameOver()).toEqual(true);
 });
 
-test('checks for game over if there is a draw on the board', () => {
-  const board = new Board();
-
-  board.makeMove(0, 'O');
-  board.makeMove(1, 'O');
-  board.makeMove(2, 'X');
-  board.makeMove(3, 'X');
-  board.makeMove(4, 'X');
-  board.makeMove(5, 'O');
-  board.makeMove(6, 'O');
-  board.makeMove(7, 'X');
-  board.makeMove(8, 'X');
-
-  expect(board.isGameOver()).toEqual(true);
-});
-
 test('Does not return game over if there is not over', () => {
   const board = new Board();
 
@@ -267,4 +252,21 @@ test('Does not return game over if there is not over', () => {
   board.makeMove(8, 'X');
 
   expect(board.isGameOver()).toEqual(false);
+});
+
+test('check that current mark is X for an empty board', () => {
+  const board = new Board();
+
+  expect(board.availablePositionCount()).toBe(9);
+  expect(board.currentMark()).toEqual('X');
+});
+
+test('check that current mark is O if the first player made a move', () => {
+  const board = new Board();
+
+  board.makeMove(0, board.currentMark());
+
+  expect(board.availablePositionCount()).toBe(8);
+  expect(board.grid).toContain('X');
+  expect(board.currentMark()).toEqual('O');
 });

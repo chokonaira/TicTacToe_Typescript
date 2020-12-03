@@ -40,15 +40,6 @@ class Console {
     return result;
   }
 
-  toggleTurns(): string {
-    const board = new Board();
-
-    if (board.availablePositionCount() % 2 === 0) {
-      return 'X';
-    }
-    return 'O';
-  }
-
   startGame(): string[] {
     const board = new Board();
     const messages = new Messages();
@@ -60,41 +51,39 @@ class Console {
     this.printBoard(board);
 
     while (!game.isOver()) {
-      const player = this.toggleTurns();
-
       // first move
-      board.makeMove(0, player);
+      board.makeMove(0, board.currentMark());
       this.printBoard(board);
 
       // second move
-      board.makeMove(1, player);
+      board.makeMove(1, board.currentMark());
       this.printBoard(board);
 
       // third move
-      board.makeMove(2, player);
+      board.makeMove(2, board.currentMark());
       this.printBoard(board);
 
       // forth move
-      board.makeMove(3, player);
+      board.makeMove(3, board.currentMark());
       this.printBoard(board);
 
       // fifth move
-      board.makeMove(4, player);
+      board.makeMove(4, board.currentMark());
       this.printBoard(board);
 
       // sixth move
-      board.makeMove(4, player);
+      board.makeMove(5, board.currentMark());
       this.printBoard(board);
 
       // seventh move
-      board.makeMove(4, player);
+      board.makeMove(6, board.currentMark());
       this.printBoard(board);
 
       if (game.isOver()) {
         break;
       }
 
-      console.log(`Player ${this.toggleTurns()} Won`);
+      console.log(`Player ${board.currentMark()} Won`);
     }
     return;
   }
