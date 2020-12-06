@@ -9,7 +9,7 @@ class Board {
   }
 
   makeMove(position: number, symbol: string): string {
-    return (this.grid[position] = symbol);
+    return (this.grid[position - 1] = symbol);
   }
 
   currentMark(): string {
@@ -20,7 +20,17 @@ class Board {
   }
 
   isPositionTaken(position: number): boolean {
-    return this.grid[position] !== '';
+    return this.grid[position - 1] !== '';
+  }
+
+  availablePositions(): number[] {
+    const result = [];
+    this.grid.forEach((_position, index) => {
+      if (!this.isPositionTaken(index + 1)) {
+        result.push(index + 1);
+      }
+    });
+    return result;
   }
 
   availablePositionCount(): number {
