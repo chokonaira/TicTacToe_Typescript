@@ -23,6 +23,10 @@ class Board {
     return this.grid[position - 1] !== '';
   }
 
+  isMoveValid(input: number): boolean {
+    return this.availablePositions().includes(input);
+  }
+
   availablePositions(): number[] {
     const result = [];
     this.grid.forEach((_position, index) => {

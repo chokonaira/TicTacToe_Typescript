@@ -55,16 +55,14 @@ class Console {
       this.printBoard(board);
 
       const move = await this.askUserForMove();
-      if (!board.availablePositions().includes(move)) {
-        console.log(
-          `Position already taken, available positions are ${board.availablePositions()}`
-        );
-      } else {
+      if (board.isMoveValid(move)) {
         board.makeMove(move, board.currentMark());
         continue;
+      } else {
+        console.log(`Invalid move, play again`);
       }
 
-      if (game.isOver()) {
+      if (board.isGameDraw()) {
         console.log(`Player ${board.currentMark()} Won`);
         break;
       }
@@ -99,4 +97,5 @@ class Console {
     return result;
   }
 }
+
 export default Console;

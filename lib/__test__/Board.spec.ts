@@ -284,10 +284,3 @@ test('returns available positions after moves were made', () => {
 
   expect(board.availablePositions()).toEqual(actual);
 });
-// fix test that are the same
-// makeMove(board: Board, position: number): void {
-//   board.makeMove(position, board.currentMark());
-// }
-// X | O | 3;
-// 4 | X | O;
-// 6 | X | O;
