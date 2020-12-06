@@ -55,7 +55,14 @@ class Console {
       this.printBoard(board);
 
       const move = await this.askUserForMove();
-      board.makeMove(move, board.currentMark());
+      if (!board.availablePositions().includes(move)) {
+        console.log(
+          `Position already taken, available positions are ${board.availablePositions()}`
+        );
+      } else {
+        board.makeMove(move, board.currentMark());
+        continue;
+      }
 
       if (game.isOver()) {
         console.log(`Player ${board.currentMark()} Won`);
@@ -89,8 +96,6 @@ class Console {
 
     while (result === undefined) await sleep(100);
 
-    // result // <- check that it's a valid move
-    // which are valid moves
     return result;
   }
 }
