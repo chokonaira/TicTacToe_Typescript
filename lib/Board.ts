@@ -9,14 +9,32 @@ class Board {
   }
 
   makeMove(position: number, symbol: string): string {
-    return (this.grid[position] = symbol);
+    return (this.grid[position - 1] = symbol);
+  }
+
+  currentMark(): string {
+    if (this.availablePositionCount() % 2 === 0) {
+      return 'O';
+    }
+    return 'X';
   }
 
   isPositionTaken(position: number): boolean {
-    if (this.grid[position] !== '') {
-      return true;
-    }
-    return false;
+    return this.grid[position - 1] !== '';
+  }
+
+  isMoveValid(input: number): boolean {
+    return this.availablePositions().includes(input);
+  }
+
+  availablePositions(): number[] {
+    const result = [];
+    this.grid.forEach((_position, index) => {
+      if (!this.isPositionTaken(index + 1)) {
+        result.push(index + 1);
+      }
+    });
+    return result;
   }
 
   availablePositionCount(): number {
@@ -29,6 +47,10 @@ class Board {
 
   isGameDraw(): boolean {
     return !this.hasWinner() && this.availablePositionCount() === 0;
+  }
+
+  isGameOver(): boolean {
+    return this.hasWinner() || this.isGameDraw();
   }
 
   hasWinner(): boolean {
@@ -76,10 +98,6 @@ class Board {
       secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
     }
     return [firstDiagonal, secondDiagonal];
-  }
-
-  isGameOver(): boolean {
-    return this.hasWinner() || this.isGameDraw();
   }
 }
 
