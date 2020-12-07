@@ -9,19 +9,6 @@ const sleep = (waitTimeInMs: number) =>
 class Console {
   board: Board;
 
-  printBoard(board: Board): number {
-    let counter = 1;
-    const result = [];
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        result.push((board.rows()[i][j] = `${counter}`));
-        counter++;
-      }
-    }
-    console.log(result);
-    return counter;
-  }
-
   async startGame(): Promise<string[]> {
     const board = new Board();
     const messages = new Messages();
@@ -52,6 +39,19 @@ class Console {
       }
     }
     return;
+  }
+
+  printBoard(board: Board): number {
+    let counter = 1;
+    const result = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        result.push((board.rows()[i][j] = `${counter}`));
+        counter++;
+      }
+    }
+    console.log(result);
+    return counter;
   }
 
   async askUserForMove(): Promise<number> {
