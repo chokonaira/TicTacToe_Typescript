@@ -75,12 +75,6 @@ class Console {
     return;
   }
 
-  // show user available moves
-  // ask for a move
-  // if a move is not one of the available ones
-  // [1, 2, 3].contain?(move)
-  // ask again
-
   async askUserForMove(): Promise<number> {
     const readCLI = readline.createInterface({
       input: process.stdin,

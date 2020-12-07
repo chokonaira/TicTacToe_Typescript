@@ -284,3 +284,12 @@ test('returns available positions after moves were made', () => {
 
   expect(board.availablePositions()).toEqual(actual);
 });
+
+test('checks if a move is valid', () => {
+  const board = new Board();
+
+  board.makeMove(1, 'X');
+
+  expect(board.isMoveValid(1)).toEqual(false);
+  expect(board.isMoveValid(2)).toEqual(true);
+});
