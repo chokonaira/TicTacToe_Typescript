@@ -8,6 +8,22 @@ import 'regenerator-runtime/runtime';
 const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
+const breakLoop = (board: Board) => {
+  let stop = undefined;
+  while (board.hasWinner()) {
+    if (board.hasWinner()) {
+      stop = true;
+      console.log(`Player ${board.currentMark()} Won`);
+      break;
+    } else if (board.isGameDraw()) {
+      stop = true;
+      console.log(`Its a Draw`);
+      break;
+    }
+  }
+  return stop;
+};
+
 class Console {
   board: Board;
 
@@ -25,7 +41,6 @@ class Console {
       const move = await this.askUserForMove();
       if (board.isMoveValid(move)) {
         board.makeMove(move, board.currentMark());
-        continue;
       } else {
         console.log(`Invalid move, play again`);
       }
@@ -66,10 +81,11 @@ class Console {
     let result = undefined;
     readCLI.question('What position do you want to play?', (input: string) => {
       result = Number(input);
-      readCLI.close();
     });
 
     while (result === undefined) await sleep(100);
+
+    readCLI.close();
 
     return result;
   }
