@@ -2,6 +2,8 @@ import * as readline from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
@@ -18,7 +20,7 @@ class Console {
     console.log(messages.gameMode());
 
     while (!game.isOver()) {
-      this.printBoard(board);
+      console.log(this.consoleBoardGrid(board));
 
       const move = await this.askUserForMove();
       if (board.isMoveValid(move)) {
@@ -28,7 +30,7 @@ class Console {
         console.log(`Invalid move, play again`);
       }
 
-      if (board.isGameDraw()) {
+      if (board.hasWinner()) {
         console.log(`Player ${board.currentMark()} Won`);
         break;
       }
@@ -41,17 +43,20 @@ class Console {
     return;
   }
 
-  printBoard(board: Board): number {
+  consoleBoardGrid(board: Board): string[] {
     let counter = 1;
-    const result = [];
+    const result: string[] = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        result.push((board.rows()[i][j] = `${counter}`));
+        if (board.rows()[i][j] === '') {
+          result.push((board.rows()[i][j] = `${counter}`));
+        } else {
+          result.push(board.rows()[i][j]);
+        }
         counter++;
       }
     }
-    console.log(result);
-    return counter;
+    return result;
   }
 
   async askUserForMove(): Promise<number> {
