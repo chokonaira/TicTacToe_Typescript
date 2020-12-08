@@ -20,7 +20,7 @@ class Console {
     console.log(messages.gameMode());
 
     while (!game.isOver()) {
-      console.log(this.consoleBoardGrid(board));
+      console.log(this.squareBoardGrid(board));
 
       const move = await this.askUserForMove();
       if (board.isMoveValid(move)) {
@@ -41,7 +41,7 @@ class Console {
     return;
   }
 
-  consoleBoardGrid(board: Board): string[] {
+  squareBoardGrid(board: Board): string[] {
     let counter = 1;
     const result: string[] = [];
     for (let i = 0; i < 3; i++) {
