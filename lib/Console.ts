@@ -46,11 +46,15 @@ class Console {
       }
 
       if (board.hasWinner()) {
+        console.log(this.squareBoardGrid(board));
         console.log(`Player ${board.currentMark()} Won`);
-        break;
+        const playAgain = await this.askToPlayAgain();
+        this.playAgain(playAgain);
       } else if (board.isGameDraw()) {
+        console.log(this.squareBoardGrid(board));
         console.log(`Its a Draw`);
-        break;
+        const playAgain = await this.askToPlayAgain();
+        this.playAgain(playAgain);
       }
     }
     return;
@@ -88,6 +92,30 @@ class Console {
     readCLI.close();
 
     return result;
+  }
+
+  async askToPlayAgain(): Promise<string> {
+    const readCLI = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    let answer = undefined;
+    readCLI.question('Play again, Y or N?', (input: string) => {
+      answer = input;
+    });
+    while (answer === undefined) await sleep(100);
+
+    readCLI.close();
+
+    return answer;
+  }
+
+  playAgain(input: string): boolean {
+    const userInput = input.toUpperCase();
+    if (userInput === 'Y') this.startGame();
+    console.log('Thank you for playing');
+    return;
   }
 }
 
