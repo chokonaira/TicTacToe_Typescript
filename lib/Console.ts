@@ -63,6 +63,7 @@ class Console {
     let result = undefined;
     readCLI.question('What position do you want to play?', (input: string) => {
       result = Number(input);
+      readCLI.close();
     });
 
     while (result === undefined) await sleep(100);
