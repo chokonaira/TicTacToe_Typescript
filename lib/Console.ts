@@ -33,9 +33,7 @@ class Console {
       if (board.hasWinner()) {
         console.log(`Player ${board.currentMark()} Won`);
         break;
-      }
-
-      if (board.isGameDraw()) {
+      } else if (board.isGameDraw()) {
         console.log(`Its a Draw`);
         break;
       }
