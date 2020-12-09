@@ -8,7 +8,7 @@ class Game {
   }
 
   isOver(): boolean {
-    return this.board.hasWinner();
+    return this.board.hasWinner() || this.board.isGameDraw();
   }
 }
 

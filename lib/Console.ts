@@ -2,46 +2,30 @@ import * as readline from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
+const breakLoop = (board: Board) => {
+  let stop = undefined;
+  while (board.hasWinner()) {
+    if (board.hasWinner()) {
+      stop = true;
+      console.log(`Player ${board.currentMark()} Won`);
+      break;
+    } else if (board.isGameDraw()) {
+      stop = true;
+      console.log(`Its a Draw`);
+      break;
+    }
+  }
+  return stop;
+};
+
 class Console {
   board: Board;
-
-  // printBoard(): string {
-  //   var board = {
-  //     1: '1',
-  //     2: '2',
-  //     3: '3',
-  //     4: '4',
-  //     5: '5',
-  //     6: '6',
-  //     7: '7',
-  //     8: '8',
-  //     9: '9'
-  // };
-  //   console.log('\n' +
-  //       ' ' + board[1] + ' | ' + board[2] + ' | ' + board[3] + '\n' +
-  //       ' ---------\n' +
-  //       ' ' + board[4] + ' | ' + board[5] + ' | ' + board[6] + '\n' +
-  //       ' ---------\n' +
-  //       ' ' + board[7] + ' | ' + board[8] + ' | ' + board[9] + '\n');
-  //   return;
-  // }
-
-  printBoard(board: Board): string {
-    let result = '';
-    let counter = 0;
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        console.log(`-|${board.grid}|-`);
-        result += `${board.grid[counter]}`;
-        counter++;
-      }
-    }
-    return result;
-  }
 
   async startGame(): Promise<string[]> {
     const board = new Board();
@@ -52,27 +36,40 @@ class Console {
     console.log(messages.gameMode());
 
     while (!game.isOver()) {
-      this.printBoard(board);
+      console.log(this.squareBoardGrid(board));
 
       const move = await this.askUserForMove();
       if (board.isMoveValid(move)) {
         board.makeMove(move, board.currentMark());
-        continue;
       } else {
         console.log(`Invalid move, play again`);
       }
 
-      if (board.isGameDraw()) {
+      if (board.hasWinner()) {
         console.log(`Player ${board.currentMark()} Won`);
         break;
-      }
-
-      if (board.isGameDraw()) {
+      } else if (board.isGameDraw()) {
         console.log(`Its a Draw`);
         break;
       }
     }
     return;
+  }
+
+  squareBoardGrid(board: Board): string[] {
+    let counter = 1;
+    const result: string[] = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board.rows()[i][j] === '') {
+          result.push((board.rows()[i][j] = `${counter}`));
+        } else {
+          result.push(board.rows()[i][j]);
+        }
+        counter++;
+      }
+    }
+    return result;
   }
 
   async askUserForMove(): Promise<number> {
@@ -87,6 +84,8 @@ class Console {
     });
 
     while (result === undefined) await sleep(100);
+
+    readCLI.close();
 
     return result;
   }
