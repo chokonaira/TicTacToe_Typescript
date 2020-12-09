@@ -8,22 +8,6 @@ import 'regenerator-runtime/runtime';
 const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
-const breakLoop = (board: Board) => {
-  let stop = undefined;
-  while (board.hasWinner()) {
-    if (board.hasWinner()) {
-      stop = true;
-      console.log(`Player ${board.currentMark()} Won`);
-      break;
-    } else if (board.isGameDraw()) {
-      stop = true;
-      console.log(`Its a Draw`);
-      break;
-    }
-  }
-  return stop;
-};
-
 class Console {
   board: Board;
 
@@ -42,15 +26,19 @@ class Console {
       if (board.isMoveValid(move)) {
         board.makeMove(move, board.currentMark());
       } else {
-        console.log(`Invalid move, play again`);
+        console.log(messages.inValidMove());
       }
 
       if (board.hasWinner()) {
-        console.log(`Player ${board.currentMark()} Won`);
-        break;
+        console.log(this.squareBoardGrid(board));
+        console.log(messages.winningPlayer(board));
+        const playAgain = await this.askToPlayAgain();
+        this.playAgain(playAgain);
       } else if (board.isGameDraw()) {
-        console.log(`Its a Draw`);
-        break;
+        console.log(this.squareBoardGrid(board));
+        console.log(messages.drawGame());
+        const playAgain = await this.askToPlayAgain();
+        this.playAgain(playAgain);
       }
     }
     return;
@@ -73,13 +61,14 @@ class Console {
   }
 
   async askUserForMove(): Promise<number> {
+    const messages = new Messages();
     const readCLI = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
 
     let result = undefined;
-    readCLI.question('What position do you want to play?', (input: string) => {
+    readCLI.question(messages.choosePosition(), (input: string) => {
       result = Number(input);
     });
 
@@ -88,6 +77,32 @@ class Console {
     readCLI.close();
 
     return result;
+  }
+
+  async askToPlayAgain(): Promise<string> {
+    const messages = new Messages();
+    const readCLI = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    let answer = undefined;
+    readCLI.question(messages.playAgain(), (input: string) => {
+      answer = input;
+    });
+    while (answer === undefined) await sleep(100);
+
+    readCLI.close();
+
+    return answer;
+  }
+
+  playAgain(input: string): boolean {
+    const messages = new Messages();
+    const userInput = input.toUpperCase();
+    if (userInput === 'Y') this.startGame();
+    console.log(messages.thankYou());
+    return;
   }
 }
 
