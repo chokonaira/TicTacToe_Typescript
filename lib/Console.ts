@@ -68,39 +68,30 @@ class Console {
 
   async askUserForMove(): Promise<number> {
     const userInput = await this.io.getUserInput();
-    const result = Number(userInput);
+    const answer = Number(userInput);
 
-    if (isNaN(result)) {
+    if (isNaN(answer)) {
       return this.askUserForMove();
     } else {
-      return result;
+      return answer;
     }
   }
 
   async askToPlayAgain(): Promise<string> {
-    const messages = new Messages();
-    const readCLI = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    let answer = undefined;
-    readCLI.question(messages.playAgain(), (input: string) => {
-      answer = input;
-    });
-    while (answer === undefined) await sleep(100);
-
-    readCLI.close();
+    const userInput = await this.io.getUserInput();
+    const answer = userInput;
 
     return answer;
   }
 
   playAgain(input: string): boolean {
     const messages = new Messages();
-    const userInput = input.toUpperCase();
-    if (userInput === 'Y') this.startGame();
-    console.log(messages.thankYou());
-    return;
+    const userInput = this.io.letsPlayAgain(input);
+    if (userInput) {
+      this.startGame();
+      console.log(messages.thankYou());
+      return true;
+    }
   }
 }
 
