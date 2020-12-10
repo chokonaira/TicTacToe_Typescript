@@ -1,6 +1,7 @@
 import Board from '../Board';
 import Console from '../Console';
 import { IO } from '../IO';
+import CommandLineIO from '../CommandLineIO';
 
 jest.mock('readline');
 
@@ -44,7 +45,7 @@ test('user provides invalid move as an input', async () => {
   expect(actual).toEqual(2);
 });
 
-test('user provides a valid input that restarts the game', async () => {
+test('user provides a valid input  of Y', async () => {
   const console = new Console(new MyIOMock(['Y']));
 
   const actual = await console.askToPlayAgain();
@@ -52,7 +53,7 @@ test('user provides a valid input that restarts the game', async () => {
   expect(actual).toEqual('Y');
 });
 
-test('user provides a invalid input that doesnt restarts the game', async () => {
+test('user provides a invalid input of N', async () => {
   const console = new Console(new MyIOMock(['N']));
 
   const actual = await console.askToPlayAgain();
@@ -60,13 +61,24 @@ test('user provides a invalid input that doesnt restarts the game', async () => 
   expect(actual).toEqual('N');
 });
 
-xtest('user provides a invalid input that doesnt restarts the game', async () => {
-  const console = new Console(new MyIOMock(['N']));
+test('checks that a valid input restarts the game', async () => {
+  const console = new Console(new MyIOMock(['Y']));
+  const mock = new CommandLineIO();
 
   const playAgain = await console.askToPlayAgain();
-  const actual = console.playAgain(playAgain);
+  const actual = mock.wishToPlayAgain(playAgain);
 
   expect(actual).toEqual(true);
+});
+
+test('checks that a invalid input doesnt restarts the game', async () => {
+  const console = new Console(new MyIOMock(['N']));
+  const mock = new CommandLineIO();
+
+  const playAgain = await console.askToPlayAgain();
+  const actual = mock.wishToPlayAgain(playAgain);
+
+  expect(actual).toEqual(false);
 });
 
 class MyIOMock implements IO {
@@ -78,11 +90,5 @@ class MyIOMock implements IO {
 
   getUserInput(): Promise<string> {
     return Promise.resolve(this.inputs.shift());
-  }
-
-  letsPlayAgain(): boolean {
-    if (this.inputs.shift() === 'Y') {
-      return true;
-    }
   }
 }

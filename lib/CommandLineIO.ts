@@ -36,12 +36,9 @@ class CommandLineIO implements IO {
     return answer;
   }
 
-  letsPlayAgain(input: string): boolean {
+  wishToPlayAgain(input: string): boolean {
     const userInput = input.toUpperCase();
-    if (userInput === 'Y') {
-      return true;
-    }
-    return;
+    return userInput === 'Y';
   }
 }
 
