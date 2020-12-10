@@ -2,6 +2,7 @@ import * as readline from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
+import { IO } from './IO';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -9,7 +10,12 @@ const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
 class Console {
+  io: IO;
   board: Board;
+
+  constructor(io: IO) {
+    this.io = io;
+  }
 
   async startGame(): Promise<string[]> {
     const board = new Board();
@@ -61,22 +67,14 @@ class Console {
   }
 
   async askUserForMove(): Promise<number> {
-    const messages = new Messages();
-    const readCLI = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
+    const userInput = await this.io.getUserInput();
+    const result = Number(userInput);
 
-    let result = undefined;
-    readCLI.question(messages.choosePosition(), (input: string) => {
-      result = Number(input);
-    });
-
-    while (result === undefined) await sleep(100);
-
-    readCLI.close();
-
-    return result;
+    if (isNaN(result)) {
+      return this.askUserForMove();
+    } else {
+      return result;
+    }
   }
 
   async askToPlayAgain(): Promise<string> {
