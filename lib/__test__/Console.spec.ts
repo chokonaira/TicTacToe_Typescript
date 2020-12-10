@@ -91,4 +91,7 @@ class MyIOMock implements IO {
   getUserInput(): Promise<string> {
     return Promise.resolve(this.inputs.shift());
   }
+  wishToPlayAgain(input: string): boolean {
+    return input === 'Y';
+  }
 }

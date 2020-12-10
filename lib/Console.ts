@@ -86,7 +86,7 @@ class Console {
 
   playAgain(input: string): boolean {
     const messages = new Messages();
-    const userInput = this.io.letsPlayAgain(input);
+    const userInput = this.io.wishToPlayAgain(input);
     if (userInput) {
       this.startGame();
       console.log(messages.thankYou());
