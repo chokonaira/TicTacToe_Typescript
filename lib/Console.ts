@@ -67,7 +67,8 @@ class Console {
   }
 
   async askUserForMove(): Promise<number> {
-    const userInput = await this.io.getUserInput();
+    const message = new Messages().askPosition();
+    const userInput = await this.io.getUserInput(message);
     const answer = Number(userInput);
 
     if (isNaN(answer)) {
@@ -78,7 +79,8 @@ class Console {
   }
 
   async askToPlayAgain(): Promise<string> {
-    const userInput = await this.io.getUserInput();
+    const message = new Messages().playAgain();
+    const userInput = await this.io.getUserInput(message);
     const answer = userInput;
 
     return answer;
@@ -86,12 +88,9 @@ class Console {
 
   playAgain(input: string): boolean {
     const messages = new Messages();
-    const userInput = this.io.wishToPlayAgain(input);
-    if (userInput) {
-      this.startGame();
-      console.log(messages.thankYou());
-      return true;
-    }
+    if (input === 'Y') this.startGame();
+    console.log(messages.thankYou());
+    return;
   }
 }
 
