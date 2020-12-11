@@ -1,13 +1,9 @@
-import * as readline from 'readline';
 import Board from './Board';
 import Messages from './Messages';
 import Game from './Game';
 import { IO } from './IO';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-
-const sleep = (waitTimeInMs: number) =>
-  new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
 class Console {
   io: IO;
@@ -37,14 +33,16 @@ class Console {
 
       if (board.hasWinner()) {
         console.log(this.squareBoardGrid(board));
-        console.log(messages.winningPlayer(board));
-        const playAgain = await this.askToPlayAgain();
-        this.playAgain(playAgain);
+        console.log(messages.winningPlayer(board.currentMark()));
+        const playAgain = await this.askToRestartGame();
+        if (playAgain) await this.startGame();
+        console.log(messages.thankYou());
       } else if (board.isGameDraw()) {
         console.log(this.squareBoardGrid(board));
         console.log(messages.drawGame());
-        const playAgain = await this.askToPlayAgain();
-        this.playAgain(playAgain);
+        const playAgain = await this.askToRestartGame();
+        if (playAgain) await this.startGame();
+        console.log(messages.thankYou());
       }
     }
     return;
@@ -67,30 +65,16 @@ class Console {
   }
 
   async askUserForMove(): Promise<number> {
-    const message = new Messages().askPosition();
-    const userInput = await this.io.getUserInput(message);
+    const userInput = await this.io.getUserInput(new Messages().askPosition());
     const answer = Number(userInput);
-
-    if (isNaN(answer)) {
-      return this.askUserForMove();
-    } else {
-      return answer;
-    }
-  }
-
-  async askToPlayAgain(): Promise<string> {
-    const message = new Messages().playAgain();
-    const userInput = await this.io.getUserInput(message);
-    const answer = userInput;
-
+    if (isNaN(answer)) return this.askUserForMove();
     return answer;
   }
 
-  playAgain(input: string): boolean {
-    const messages = new Messages();
-    if (input === 'Y') this.startGame();
-    console.log(messages.thankYou());
-    return;
+  async askToRestartGame(): Promise<boolean> {
+    const userInput = await this.io.getUserInput(new Messages().playAgain());
+    const answer = userInput.toUpperCase();
+    return answer === 'Y';
   }
 }
 
