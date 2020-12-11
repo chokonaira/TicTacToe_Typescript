@@ -17,8 +17,8 @@ class Messages {
     return 'Invalid move, play again';
   }
 
-  winningPlayer(board: Board): string {
-    return `Player ${board.currentMark()} Won`;
+  winningPlayer(currentPlayer: string): string {
+    return `Player ${currentPlayer} Won`;
   }
 
   drawGame(): string {

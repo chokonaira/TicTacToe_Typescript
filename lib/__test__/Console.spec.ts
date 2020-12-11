@@ -46,19 +46,19 @@ test('user provides invalid move as an input', async () => {
 });
 
 test('user provides a valid input  of Y', async () => {
-  const console = new Console(new MyIOMock(['Y']));
+  const console = new Console(new MyIOMock(['y']));
 
-  const actual = await console.askToPlayAgain();
+  const actual = await console.askToRestartGame();
 
-  expect(actual).toEqual('Y');
+  expect(actual).toEqual(true);
 });
 
 test('user provides a invalid input of N', async () => {
-  const console = new Console(new MyIOMock(['N']));
+  const console = new Console(new MyIOMock(['n']));
 
-  const actual = await console.askToPlayAgain();
+  const actual = await console.askToRestartGame();
 
-  expect(actual).toEqual('N');
+  expect(actual).toEqual(false);
 });
 
 // test('checks that a valid input restarts the game', async () => {
