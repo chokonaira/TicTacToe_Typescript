@@ -1,44 +1,24 @@
 import { IO } from './IO';
 import * as readline from 'readline';
-import Messages from './Messages';
-import Board from './Board';
 
 const sleep = (waitTimeInMs: number) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
 class CommandLineIO implements IO {
-  messages: Messages;
-
-  constructor() {
-    this.messages = new Messages();
-  }
-
-  async getUserInput(): Promise<string> {
-    const board = new Board();
-
+  async getUserInput(message: string): Promise<string> {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
 
-    const messages =
-      board.availablePositionCount() > 0
-        ? this.messages.askPosition()
-        : this.messages.playAgain();
-
     let answer = undefined;
-    rl.question(messages, (input: string) => {
+    rl.question(message, (input: string) => {
       answer = input;
     });
 
     while (answer === undefined) await sleep(100);
 
     return answer;
-  }
-
-  wishToPlayAgain(input: string): boolean {
-    const userInput = input.toUpperCase();
-    return userInput === 'Y';
   }
 }
 
