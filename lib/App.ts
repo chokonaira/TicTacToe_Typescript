@@ -1,5 +1,7 @@
-import Console from './Console';
+import Game from './Game';
 import CommandLineIO from './CommandLineIO';
+import Board from './Board';
+import ConsoleInteraction from './ConsoleInteraction';
 
-const console = new Console(new CommandLineIO());
-console.startGame();
+const game = new Game(new Board());
+game.startConsoleGame(new ConsoleInteraction(new CommandLineIO()));

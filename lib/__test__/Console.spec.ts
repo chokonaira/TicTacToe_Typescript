@@ -1,7 +1,7 @@
 import Board from '../Board';
 import Console from '../Console';
 import { IO } from '../IO';
-import CommandLineIO from '../CommandLineIO';
+// import CommandLineIO from '../CommandLineIO';
 
 jest.mock('readline');
 

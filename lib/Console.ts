@@ -5,7 +5,7 @@ import { IO } from './IO';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-class Console {
+class ConsoleInteraction {
   io: IO;
   board: Board;
 
@@ -13,40 +13,40 @@ class Console {
     this.io = io;
   }
 
-  async startGame(): Promise<string[]> {
-    const board = new Board();
-    const messages = new Messages();
-    const game = new Game(board);
+  // async startGame(): Promise<string[]> {
+  //   const board = new Board();
+  //   const messages = new Messages();
+  //   const game = new Game(board);
 
-    console.log(messages.welcomeMassage());
-    console.log(messages.gameMode());
+  //   console.log(messages.welcomeMassage());
+  //   console.log(messages.gameMode());
 
-    while (!game.isOver()) {
-      console.log(this.squareBoardGrid(board));
+  //   while (!game.isOver()) {
+  //     console.log(this.squareBoardGrid(board));
 
-      const move = await this.askUserForMove();
-      if (board.isMoveValid(move)) {
-        board.makeMove(move, board.currentMark());
-      } else {
-        console.log(messages.inValidMove());
-      }
+  //     const move = await this.askUserForMove();
+  //     if (board.isMoveValid(move)) {
+  //       board.makeMove(move, board.currentMark());
+  //     } else {
+  //       console.log(messages.inValidMove());
+  //     }
 
-      if (board.hasWinner()) {
-        console.log(this.squareBoardGrid(board));
-        console.log(messages.winningPlayer(board.currentMark()));
-        const playAgain = await this.askToRestartGame();
-        if (playAgain) await this.startGame();
-        console.log(messages.thankYou());
-      } else if (board.isGameDraw()) {
-        console.log(this.squareBoardGrid(board));
-        console.log(messages.drawGame());
-        const playAgain = await this.askToRestartGame();
-        if (playAgain) await this.startGame();
-        console.log(messages.thankYou());
-      }
-    }
-    return;
-  }
+  //     if (board.hasWinner()) {
+  //       console.log(this.squareBoardGrid(board));
+  //       console.log(messages.winningPlayer(board.currentMark()));
+  //       const playAgain = await this.askToRestartGame();
+  //       if (playAgain) await this.startGame();
+  //       console.log(messages.thankYou());
+  //     } else if (board.isGameDraw()) {
+  //       console.log(this.squareBoardGrid(board));
+  //       console.log(messages.drawGame());
+  //       const playAgain = await this.askToRestartGame();
+  //       if (playAgain) await this.startGame();
+  //       console.log(messages.thankYou());
+  //     }
+  //   }
+  //   return;
+  // }
 
   squareBoardGrid(board: Board): string[] {
     let counter = 1;
@@ -67,7 +67,7 @@ class Console {
   async askUserForMove(): Promise<number> {
     const userInput = await this.io.getUserInput(new Messages().askPosition());
     const answer = Number(userInput);
-    if (isNaN(answer)) return this.askUserForMove();
+    if (isNaN(answer)) await this.askUserForMove();
     return answer;
   }
 
@@ -78,4 +78,4 @@ class Console {
   }
 }
 
-export default Console;
+export default ConsoleInteraction;

@@ -1,5 +1,3 @@
-import Board from './Board';
-
 class Messages {
   welcomeMassage(): string {
     return 'Welcome to Tic Tac Toe';
