@@ -1,48 +1,23 @@
 import Board from './Board';
 import Messages from './Messages';
-import ConsoleInteraction from './ConsoleInteraction';
+import GameLoop from './GameLoop';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class Game {
   board: Board;
-  constructor(board: Board) {
+  gameLoop: GameLoop;
+  messages: Messages;
+  constructor(board: Board, gameLoop: GameLoop, messages: Messages) {
     this.board = board;
+    this.gameLoop = gameLoop;
+    this.messages = messages;
   }
-  async startConsoleGame(
-    consoleInteraction: ConsoleInteraction
-  ): Promise<string[]> {
-    const board = new Board();
-    const messages = new Messages();
-    console.log(messages.welcomeMassage());
-    console.log(messages.gameMode());
+  async startConsoleGame(): Promise<string[]> {
+    console.log(this.messages.welcomeMassage());
+    console.log(this.messages.gameMode());
 
-    while (!this.isOver()) {
-      console.log(consoleInteraction.squareBoardGrid(board));
-
-      const move = await consoleInteraction.askUserForMove();
-      const currentPlayer = board.currentMark();
-      if (board.isMoveValid(move)) {
-        board.makeMove(move, currentPlayer);
-      } else {
-        console.log(messages.inValidMove());
-      }
-
-      if (board.hasWinner()) {
-        console.log(consoleInteraction.squareBoardGrid(board));
-        console.log(messages.winningPlayer(currentPlayer));
-        const playAgain = await consoleInteraction.askToRestartGame();
-        if (playAgain) await this.startConsoleGame(consoleInteraction);
-        console.log(messages.thankYou());
-        break;
-      } else if (board.isGameDraw()) {
-        console.log(consoleInteraction.squareBoardGrid(board));
-        console.log(messages.drawGame());
-        const playAgain = await consoleInteraction.askToRestartGame();
-        if (playAgain) await this.startConsoleGame(consoleInteraction);
-        console.log(messages.thankYou());
-      }
-    }
+    await this.gameLoop.gameLoop(this.board, this.messages);
     return;
   }
 

@@ -1,13 +1,12 @@
 import Board from '../Board';
-import Console from '../Console';
+import ConsoleInteraction from '../ConsoleInteraction';
 import { IO } from '../IO';
-// import CommandLineIO from '../CommandLineIO';
 
 jest.mock('readline');
 
 test('checks that board is a square grid with position a valid symbol in postion 2', () => {
   const board = new Board();
-  const console = new Console(new MyIOMock([]));
+  const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(2, 'X');
   expect(console.squareBoardGrid(board)[1]).toEqual(board.grid[1]);
@@ -15,7 +14,7 @@ test('checks that board is a square grid with position a valid symbol in postion
 
 test('checks that board is a square grid with position a valid symbol in postion 1', () => {
   const board = new Board();
-  const console = new Console(new MyIOMock([]));
+  const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(1, 'O');
   expect(console.squareBoardGrid(board)[0]).toEqual(board.grid[0]);
@@ -23,14 +22,14 @@ test('checks that board is a square grid with position a valid symbol in postion
 
 test('checks that board is a square grid with position a valid symbol in postion 6', () => {
   const board = new Board();
-  const console = new Console(new MyIOMock([]));
+  const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(6, 'X');
   expect(console.squareBoardGrid(board)[5]).toEqual(board.grid[5]);
 });
 
 test('user provides valid move as an input', async () => {
-  const console = new Console(new MyIOMock(['1']));
+  const console = new ConsoleInteraction(new MyIOMock(['1']));
 
   const actual = await console.askUserForMove();
 
@@ -38,7 +37,7 @@ test('user provides valid move as an input', async () => {
 });
 
 test('user provides invalid move as an input', async () => {
-  const console = new Console(new MyIOMock(['%^&', '2']));
+  const console = new ConsoleInteraction(new MyIOMock(['%^&', '2']));
 
   const actual = await console.askUserForMove();
 
@@ -46,7 +45,7 @@ test('user provides invalid move as an input', async () => {
 });
 
 test('user provides a valid input  of Y', async () => {
-  const console = new Console(new MyIOMock(['y']));
+  const console = new ConsoleInteraction(new MyIOMock(['y']));
 
   const actual = await console.askToRestartGame();
 
@@ -54,7 +53,7 @@ test('user provides a valid input  of Y', async () => {
 });
 
 test('user provides a invalid input of N', async () => {
-  const console = new Console(new MyIOMock(['n']));
+  const console = new ConsoleInteraction(new MyIOMock(['n']));
 
   const actual = await console.askToRestartGame();
 

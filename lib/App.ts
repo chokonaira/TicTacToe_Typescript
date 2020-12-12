@@ -1,7 +1,11 @@
 import Game from './Game';
-import CommandLineIO from './CommandLineIO';
+import Messages from './Messages';
+import GameLoop from './GameLoop';
 import Board from './Board';
-import ConsoleInteraction from './ConsoleInteraction';
 
-const game = new Game(new Board());
-game.startConsoleGame(new ConsoleInteraction(new CommandLineIO()));
+const game = new Game(
+  new Board(),
+  new GameLoop(new Board(), new Messages()),
+  new Messages()
+);
+game.startConsoleGame();
