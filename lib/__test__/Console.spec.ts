@@ -70,6 +70,17 @@ test('user provides a invalid input of N', async () => {
 //   expect(actual).toEqual(true);
 // });
 
+// test('checks that a valid input restarts the game', async () => {
+//   const winningGrid = ['X', 'X', 'X', '', '', '', '', '', ''];
+//   const emptyGrid = ['', '', '', '', '', '', '', '', ''];
+//   const console = new Console(new Board(winningGrid), new MyIOMock(['y', '1', '4', '2', '5', '3', 'n']));
+
+//   await console.askToPlayAgain();
+
+//   expect(console.gameBoard).not.toEqual(winningGrid);
+//   expect(console.gameBoard).toEqual(emptyGrid);
+// });
+
 // test('checks that a invalid input doesnt restarts the game', async () => {
 //   const console = new Console(new MyIOMock(['N']));
 //   const mock = new CommandLineIO();
