@@ -31,8 +31,11 @@ class ConsoleInteraction {
   async askUserForMove(): Promise<number> {
     const userInput = await this.io.getUserInput(new Messages().askPosition());
     const answer = Number(userInput);
-    if (isNaN(answer)) await this.askUserForMove();
-    return answer;
+    if (isNaN(answer)) {
+      return this.askUserForMove();
+    } else {
+      return answer;
+    }
   }
 
   async askToRestartGame(): Promise<boolean> {

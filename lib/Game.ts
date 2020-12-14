@@ -41,6 +41,7 @@ class Game {
         const playAgain = await consoleInteraction.askToRestartGame();
         if (playAgain) await this.startConsoleGame(consoleInteraction);
         console.log(messages.thankYou());
+        break;
       }
     }
     return;
