@@ -6,8 +6,6 @@ import 'regenerator-runtime/runtime';
 
 class ConsoleInteraction {
   io: IO;
-  board: Board;
-
   constructor(io: IO) {
     this.io = io;
   }

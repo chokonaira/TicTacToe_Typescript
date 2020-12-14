@@ -6,21 +6,23 @@ import 'regenerator-runtime/runtime';
 
 class Game {
   board: Board;
-  constructor(board: Board) {
+  consoleInteraction: ConsoleInteraction;
+
+  constructor(board: Board, consoleInteraction: ConsoleInteraction) {
     this.board = board;
+    this.consoleInteraction = consoleInteraction;
   }
-  async startConsoleGame(
-    consoleInteraction: ConsoleInteraction
-  ): Promise<string[]> {
+
+  async playGame(): Promise<string[]> {
     const board = new Board();
     const messages = new Messages();
     console.log(messages.welcomeMassage());
     console.log(messages.gameMode());
 
     while (!this.isOver()) {
-      console.log(consoleInteraction.squareBoardGrid(board));
+      console.log(this.consoleInteraction.squareBoardGrid(board));
 
-      const move = await consoleInteraction.askUserForMove();
+      const move = await this.consoleInteraction.askUserForMove();
       const currentPlayer = board.currentMark();
       if (board.isMoveValid(move)) {
         board.makeMove(move, currentPlayer);
@@ -29,18 +31,25 @@ class Game {
       }
 
       if (board.hasWinner()) {
-        console.log(consoleInteraction.squareBoardGrid(board));
+        console.log(this.consoleInteraction.squareBoardGrid(board));
         console.log(messages.winningPlayer(currentPlayer));
-        const playAgain = await consoleInteraction.askToRestartGame();
-        if (playAgain) await this.startConsoleGame(consoleInteraction);
-        console.log(messages.thankYou());
+        const playAgain = await this.consoleInteraction.askToRestartGame();
+        if (playAgain) {
+          this.playGame();
+        } else {
+          console.log(messages.thankYou());
+        }
+
         break;
       } else if (board.isGameDraw()) {
-        console.log(consoleInteraction.squareBoardGrid(board));
+        console.log(this.consoleInteraction.squareBoardGrid(board));
         console.log(messages.drawGame());
-        const playAgain = await consoleInteraction.askToRestartGame();
-        if (playAgain) await this.startConsoleGame(consoleInteraction);
-        console.log(messages.thankYou());
+        const playAgain = await this.consoleInteraction.askToRestartGame();
+        if (playAgain) {
+          this.playGame();
+        } else {
+          console.log(messages.thankYou());
+        }
         break;
       }
     }

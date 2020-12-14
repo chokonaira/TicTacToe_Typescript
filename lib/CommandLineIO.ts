@@ -14,10 +14,11 @@ class CommandLineIO implements IO {
     let answer = undefined;
     rl.question(message, (input: string) => {
       answer = input;
+      rl.close();
     });
 
     while (answer === undefined) await sleep(100);
-
+    rl.close();
     return answer;
   }
 }

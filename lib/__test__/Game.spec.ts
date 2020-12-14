@@ -12,3 +12,19 @@ test('plays a round', () => {
   expect(spy1).toHaveBeenCalledTimes(1);
   expect(spy2).toHaveBeenCalledTimes(1);
 });
+
+test('plays a round', () => {
+  const grid = ['', '', '', '', '', '', '', '', ''];
+  const board = new Board(grid);
+  const game = new Game(board);
+
+  nextState = game.nextState({
+    position: 1,
+    playAgain: false
+  });
+
+  expect(nextState).toEqual({
+    grid:  ['X', '', '', '', '', '', '', '', ''],
+    current_mark: 'X'
+  });
+});
