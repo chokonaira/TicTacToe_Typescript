@@ -18,7 +18,6 @@ class CommandLineIO implements IO {
     });
 
     while (answer === undefined) await sleep(100);
-    rl.close();
     return answer;
   }
 }
