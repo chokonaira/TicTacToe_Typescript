@@ -1,7 +1,7 @@
 import Game from '../Game';
 import Board from '../Board';
-import ConsoleInteraction from '../ConsoleInteraction';
-import CommandLineIO from '../CommandLineIO';
+import ConsoleInteraction from '../cli/ConsoleInteraction';
+import CommandLineIO from '../cli/CommandLineIO';
 
 test('plays a round', () => {
   const board = new Board();

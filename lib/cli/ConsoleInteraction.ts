@@ -1,6 +1,6 @@
-import Board from './Board';
-import Messages from './Messages';
-import { IO } from './IO';
+import Board from '../Board';
+import Messages from '../Messages';
+import { IO } from '../IO';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 

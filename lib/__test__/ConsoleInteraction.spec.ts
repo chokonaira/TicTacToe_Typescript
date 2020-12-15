@@ -1,6 +1,6 @@
 import Board from '../Board';
 import { IO } from '../IO';
-import ConsoleInteraction from '../ConsoleInteraction';
+import ConsoleInteraction from '../cli/ConsoleInteraction';
 
 jest.mock('readline');
 

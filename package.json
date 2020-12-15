@@ -7,8 +7,8 @@
     "test": "jest",
     "prettier": "prettier --config .prettierrc 'lib/**/*.{ts,js}' --write",
     "lint": "eslint . --ext .ts --fix",
-    "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/App.ts",
-    "start": "'ts-node' lib/App.ts"
+    "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/cli/AppRunner.ts",
+    "start": "'ts-node' lib/cli/AppRunner.ts"
   },
   "husky": {
     "hooks": {

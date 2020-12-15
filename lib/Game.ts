@@ -1,8 +1,8 @@
 import Board from './Board';
 import Messages from './Messages';
-import ConsoleInteraction from './ConsoleInteraction';
+import ConsoleInteraction from './cli/ConsoleInteraction';
 import { IO } from './IO';
-import CommandLineIO from './CommandLineIO';
+import CommandLineIO from './cli/CommandLineIO';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
