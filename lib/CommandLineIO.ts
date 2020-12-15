@@ -20,6 +20,15 @@ class CommandLineIO implements IO {
     while (answer === undefined) await sleep(100);
     return answer;
   }
+
+  stringLogger(string: string): string {
+    console.log(string);
+    return string;
+  }
+  arrayLogger(array: string[]): string[] {
+    console.log(array);
+    return array;
+  }
 }
 
 export default CommandLineIO;

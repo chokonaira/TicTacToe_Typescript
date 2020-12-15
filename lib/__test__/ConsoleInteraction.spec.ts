@@ -70,4 +70,10 @@ class MyIOMock implements IO {
   getUserInput(): Promise<string> {
     return Promise.resolve(this.inputs.shift());
   }
+  stringLogger(string: string): string {
+    return string;
+  }
+  arrayLogger(array: string[]): string[] {
+    return array;
+  }
 }

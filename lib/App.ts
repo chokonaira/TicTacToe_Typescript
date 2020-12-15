@@ -3,5 +3,9 @@ import CommandLineIO from './CommandLineIO';
 import Board from './Board';
 import ConsoleInteraction from './ConsoleInteraction';
 
-const game = new Game(new Board(), new ConsoleInteraction(new CommandLineIO()));
+const game = new Game(
+  new Board(),
+  new ConsoleInteraction(new CommandLineIO()),
+  new CommandLineIO()
+);
 game.playGame();
