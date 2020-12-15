@@ -9,7 +9,7 @@ test('checks that board is a square grid with position a valid symbol in postion
   const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(2, 'X');
-  expect(console.squareBoardGrid(board)[1]).toEqual(board.grid[1]);
+  expect(console.constructBoard(board)[1]).toEqual(board.grid[1]);
 });
 
 test('checks that board is a square grid with position a valid symbol in postion 1', () => {
@@ -17,7 +17,7 @@ test('checks that board is a square grid with position a valid symbol in postion
   const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(1, 'O');
-  expect(console.squareBoardGrid(board)[0]).toEqual(board.grid[0]);
+  expect(console.constructBoard(board)[0]).toEqual(board.grid[0]);
 });
 
 test('checks that board is a square grid with position a valid symbol in postion 6', () => {
@@ -25,7 +25,7 @@ test('checks that board is a square grid with position a valid symbol in postion
   const console = new ConsoleInteraction(new MyIOMock([]));
 
   board.makeMove(6, 'X');
-  expect(console.squareBoardGrid(board)[5]).toEqual(board.grid[5]);
+  expect(console.constructBoard(board)[5]).toEqual(board.grid[5]);
 });
 
 test('user provides valid move as an input', async () => {
@@ -70,10 +70,8 @@ class MyIOMock implements IO {
   getUserInput(): Promise<string> {
     return Promise.resolve(this.inputs.shift());
   }
-  stringLogger(string: string): string {
-    return string;
-  }
-  arrayLogger(array: string[]): string[] {
-    return array;
+
+  log(): void {
+    return;
   }
 }

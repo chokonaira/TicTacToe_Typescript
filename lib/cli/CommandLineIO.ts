@@ -21,13 +21,9 @@ class CommandLineIO implements IO {
     return answer;
   }
 
-  stringLogger(string: string): string {
+  log(string: string | string[]): void {
     console.log(string);
-    return string;
-  }
-  arrayLogger(array: string[]): string[] {
-    console.log(array);
-    return array;
+    return;
   }
 }
 

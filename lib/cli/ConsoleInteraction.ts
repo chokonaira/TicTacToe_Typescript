@@ -1,16 +1,17 @@
 import Board from '../Board';
 import Messages from '../Messages';
 import { IO } from '../IO';
+import { Display } from '../Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-class ConsoleInteraction {
+class ConsoleInteraction implements Display {
   io: IO;
   constructor(io: IO) {
     this.io = io;
   }
 
-  squareBoardGrid(board: Board): string[] {
+  constructBoard(board: Board): string[] {
     let counter = 1;
     const result: string[] = [];
     for (let i = 0; i < 3; i++) {
@@ -40,6 +41,10 @@ class ConsoleInteraction {
     const userInput = await this.io.getUserInput(new Messages().playAgain());
     const answer = userInput.toUpperCase();
     return answer === 'Y';
+  }
+
+  show(message: string | string[]): void {
+    this.io.log(message);
   }
 }
 

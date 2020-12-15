@@ -1,68 +1,53 @@
 import Board from './Board';
 import Messages from './Messages';
-import ConsoleInteraction from './cli/ConsoleInteraction';
-import { IO } from './IO';
-import CommandLineIO from './cli/CommandLineIO';
+import { Display } from './Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class Game {
   board: Board;
-  consoleInteraction: ConsoleInteraction;
-  io: IO;
-  commandLineIO: CommandLineIO;
-  constructor(
-    board: Board,
-    consoleInteraction: ConsoleInteraction,
-    commandLineIO: CommandLineIO
-  ) {
+  display: Display;
+
+  constructor(board: Board, display: Display) {
     this.board = board;
-    this.consoleInteraction = consoleInteraction;
-    this.commandLineIO = commandLineIO;
+    this.display = display;
   }
 
   async playGame(): Promise<string[]> {
-    const board = new Board();
     const messages = new Messages();
-    this.commandLineIO.stringLogger(messages.welcomeMassage());
-    this.commandLineIO.stringLogger(messages.gameMode());
+    this.display.show(messages.welcomeMassage());
+    this.display.show(messages.gameMode());
 
     while (!this.isOver()) {
-      this.commandLineIO.arrayLogger(
-        this.consoleInteraction.squareBoardGrid(board)
-      );
+      this.display.show(this.display.constructBoard(this.board));
 
-      const move = await this.consoleInteraction.askUserForMove();
-      const currentPlayer = board.currentMark();
-      if (board.isMoveValid(move)) {
-        board.makeMove(move, currentPlayer);
+      const move = await this.display.askUserForMove();
+      const currentPlayer = this.board.currentMark();
+      if (this.board.isMoveValid(move)) {
+        this.board.makeMove(move, currentPlayer);
       } else {
-        this.commandLineIO.stringLogger(messages.inValidMove());
+        this.display.show(messages.inValidMove());
       }
 
-      if (board.hasWinner()) {
-        this.commandLineIO.arrayLogger(
-          this.consoleInteraction.squareBoardGrid(board)
-        );
-        this.commandLineIO.stringLogger(messages.winningPlayer(currentPlayer));
-        const playAgain = await this.consoleInteraction.askToRestartGame();
+      if (this.board.hasWinner()) {
+        this.display.show(this.display.constructBoard(this.board));
+        this.display.show(messages.winningPlayer(currentPlayer));
+        const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
           this.playGame();
         } else {
-          this.commandLineIO.stringLogger(messages.thankYou());
+          this.display.show(messages.thankYou());
         }
 
         break;
-      } else if (board.isGameDraw()) {
-        this.commandLineIO.arrayLogger(
-          this.consoleInteraction.squareBoardGrid(board)
-        );
-        this.commandLineIO.stringLogger(messages.drawGame());
-        const playAgain = await this.consoleInteraction.askToRestartGame();
+      } else if (this.board.isGameDraw()) {
+        this.display.show(this.display.constructBoard(this.board));
+        this.display.show(messages.drawGame());
+        const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
           this.playGame();
         } else {
-          this.commandLineIO.stringLogger(messages.thankYou());
+          this.display.show(messages.thankYou());
         }
         break;
       }
