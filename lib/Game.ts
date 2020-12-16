@@ -38,7 +38,6 @@ class Game {
         } else {
           this.display.show(messages.thankYou());
         }
-
         break;
       } else if (this.board.isGameDraw()) {
         this.display.show(this.display.constructBoard(this.board));
