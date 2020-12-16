@@ -5,7 +5,7 @@ import { Display } from '../Display';
 test('plays a winning round ', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
   const board = new Board(grid);
-  const display = new DisplayMock(['3']);
+  const display = new DisplayMock(['3'], [false]);
   const game = new Game(board, display);
 
   await game.playGame();
@@ -17,7 +17,7 @@ test('plays a winning round ', async () => {
 test('plays a winning round including an invalid move', async () => {
   const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
   const board = new Board(grid);
-  const display = new DisplayMock(['^&*', '2']);
+  const display = new DisplayMock(['^&*', '2'], [false]);
   const game = new Game(board, display);
 
   await game.playGame();
@@ -29,7 +29,7 @@ test('plays a winning round including an invalid move', async () => {
 test('plays a draw round', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
   const board = new Board(grid);
-  const display = new DisplayMock(['9']);
+  const display = new DisplayMock(['9'], [false]);
   const game = new Game(board, display);
 
   await game.playGame();
@@ -39,11 +39,28 @@ test('plays a draw round', async () => {
   expect(board.isGameDraw()).toEqual(true);
 });
 
-class DisplayMock implements Display {
-  inputs: string[];
+test('plays a game and restarts the game', async () => {
+  const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
+  const board = new Board(grid);
+  const display = new DisplayMock(
+    ['7', '1', '4', '2', '5', '3'],
+    [true, false]
+  );
+  const game = new Game(board, display);
 
-  constructor(inputs: string[]) {
-    this.inputs = inputs;
+  await game.playGame();
+
+  expect(game.isOver()).toEqual(true);
+  expect(game.boardGrid()).toEqual(grid);
+});
+
+class DisplayMock implements Display {
+  moves: string[];
+  replay: boolean[];
+
+  constructor(moves: string[], replay: boolean[]) {
+    this.moves = moves;
+    this.replay = replay;
   }
 
   show(): void {
@@ -53,9 +70,9 @@ class DisplayMock implements Display {
     return board.grid;
   }
   askUserForMove(): Promise<number> {
-    return Promise.resolve(Number(this.inputs.shift()));
+    return Promise.resolve(Number(this.moves.shift()));
   }
   askToRestartGame(): Promise<boolean> {
-    return Promise.resolve(false);
+    return Promise.resolve(this.replay.shift());
   }
 }

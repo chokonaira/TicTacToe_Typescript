@@ -34,7 +34,7 @@ class Game {
         this.display.show(messages.winningPlayer(currentPlayer));
         const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
-          this.playGame();
+          new Game(new Board(), this.display).playGame();
         } else {
           this.display.show(messages.thankYou());
         }
@@ -56,6 +56,10 @@ class Game {
 
   isOver(): boolean {
     return this.board.hasWinner() || this.board.isGameDraw();
+  }
+
+  boardGrid(): string[] {
+    return this.board.grid;
   }
 }
 
