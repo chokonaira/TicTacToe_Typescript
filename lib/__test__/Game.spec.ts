@@ -39,7 +39,7 @@ test('plays a draw round', async () => {
   expect(board.isGameDraw()).toEqual(true);
 });
 
-test('plays a game and restarts the game', async () => {
+test('plays a game and restarts the game in a win scenerio', async () => {
   const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
   const board = new Board(grid);
   const display = new DisplayMock(
@@ -51,7 +51,22 @@ test('plays a game and restarts the game', async () => {
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(game.boardGrid()).toEqual(grid);
+  expect(game.boardGrid()).not.toEqual(grid);
+});
+
+test('plays a game and restarts the game in a draw scenerio', async () => {
+  const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
+  const board = new Board(grid);
+  const display = new DisplayMock(
+    ['9', '1', '3', '2', '4', '3', '5', '7', '8', '9'],
+    [true, false]
+  );
+  const game = new Game(board, display);
+
+  await game.playGame();
+
+  expect(game.isOver()).toEqual(true);
+  expect(game.boardGrid()).not.toEqual(grid);
 });
 
 class DisplayMock implements Display {

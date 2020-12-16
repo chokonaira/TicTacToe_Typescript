@@ -44,7 +44,7 @@ class Game {
         this.display.show(messages.drawGame());
         const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
-          this.playGame();
+          new Game(new Board(), this.display).playGame();
         } else {
           this.display.show(messages.thankYou());
         }
@@ -59,7 +59,8 @@ class Game {
   }
 
   boardGrid(): string[] {
-    return this.board.grid;
+    const board = new Board();
+    return board.grid;
   }
 }
 
