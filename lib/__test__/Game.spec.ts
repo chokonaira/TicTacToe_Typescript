@@ -1,6 +1,8 @@
 import Game from '../Game';
 import Board from '../Board';
 import { Display } from '../Display';
+import { IO } from '../IO';
+import ConsoleInteraction from '../cli/ConsoleInteraction';
 
 test('plays a winning round ', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
@@ -54,19 +56,24 @@ test('plays a game and restarts the game in a win scenerio', async () => {
   expect(game.boardGrid()).not.toEqual(grid);
 });
 
-test('plays a game and restarts the game in a draw scenerio', async () => {
-  const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
+test('stub .toHaveBeenCalledTimes()', () => {
+  const stub = jest.fn();
+  stub();
+  expect(stub).toHaveBeenCalledTimes(1);
+});
+
+test('askUserForMove .toHaveBeenCalledTimes()', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
   const board = new Board(grid);
-  const display = new DisplayMock(
-    ['9', '1', '3', '2', '4', '3', '5', '7', '8', '9'],
-    [true, false]
-  );
+  const display = new DisplayMock(['3'], [false]);
   const game = new Game(board, display);
 
   await game.playGame();
 
-  expect(game.isOver()).toEqual(true);
-  expect(game.boardGrid()).not.toEqual(grid);
+  const spy = jest.spyOn(display, 'askUserForMove');
+  display.askUserForMove();
+
+  expect(spy).toHaveBeenCalledTimes(1);
 });
 
 class DisplayMock implements Display {
