@@ -75,7 +75,7 @@ test('it shows the a messages with the winning player', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.winningPlayer('X'));
 });
 
-test('it shows the a messages asking the user to play again if there is a win', async () => {
+xtest('it shows the a messages asking the user to play again if there is a win', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
   const { game, display, messages } = setup(grid, ['3'], [false]);
 
@@ -115,7 +115,7 @@ test('it shows the new board state everytime a move is made', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(grid);
 });
 
-test('it shows an invalid move message and shows the old board state everytime a user makes a wrong move', async () => {
+test('it shows an invalid move message and the old board state everytime a user makes a wrong move', async () => {
   const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
   const { game, display, messages } = setup(grid, ['^&*', '2'], [false]);
 
