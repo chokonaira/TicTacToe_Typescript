@@ -1,14 +1,21 @@
 import Game from '../Game';
 import Board from '../Board';
+import Messages from '../Messages';
 import { Display } from '../Display';
-import { IO } from '../IO';
-import ConsoleInteraction from '../cli/ConsoleInteraction';
+
+const setup = (grid: string[], moves: string[], replays: boolean[]) => {
+  const board = new Board(grid);
+  const messages = new Messages();
+  const display = new DisplayMock(moves, replays);
+  const game = new Game(board, display, messages);
+
+  return { game, board, display, messages };
+};
 
 test('plays a winning round ', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(['3'], [false]);
-  const game = new Game(board, display);
+
+  const { game, board } = setup(grid, ['3'], [false]);
 
   await game.playGame();
 
@@ -18,9 +25,7 @@ test('plays a winning round ', async () => {
 
 test('plays a winning round including an invalid move', async () => {
   const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(['^&*', '2'], [false]);
-  const game = new Game(board, display);
+  const { game, board } = setup(grid, ['^&*', '2'], [false]);
 
   await game.playGame();
 
@@ -30,9 +35,7 @@ test('plays a winning round including an invalid move', async () => {
 
 test('plays a draw round', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
-  const board = new Board(grid);
-  const display = new DisplayMock(['9'], [false]);
-  const game = new Game(board, display);
+  const { game, board } = setup(grid, ['9'], [false]);
 
   await game.playGame();
 
@@ -43,12 +46,7 @@ test('plays a draw round', async () => {
 
 test('plays a game and restarts the game in a win scenerio', async () => {
   const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(
-    ['7', '1', '4', '2', '5', '3'],
-    [true, false]
-  );
-  const game = new Game(board, display);
+  const { game } = setup(grid, ['7', '1', '4', '2', '5', '3'], [true, false]);
 
   await game.playGame();
 
@@ -56,92 +54,33 @@ test('plays a game and restarts the game in a win scenerio', async () => {
   expect(game.boardGrid()).not.toEqual(grid);
 });
 
-test('stub .toHaveBeenCalledTimes()', () => {
-  const stub = jest.fn();
-  stub();
-  expect(stub).toHaveBeenCalledTimes(1);
-});
+test('it shows the initial messages to the players', async () => {
+  const grid = ['X', 'X', 'X', '', '', '', '', 'O', 'O'];
+  const { game, display, messages } = setup(grid, [], [false]);
 
-test('checks that askUserForMove and askToRestartGame once', async () => {
-  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(['3'], [false]);
-  const game = new Game(board, display);
-
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
 
-  const spy = jest.spyOn(display, 'askUserForMove').mockImplementation();
-  display.askUserForMove();
-
-  expect(spy).toHaveBeenCalledTimes(1);
-});
-
-test('checks that askUserForMove and askToRestartGame more than once', async () => {
-  const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(
-    ['7', '1', '4', '2', '5', '3'],
-    [true, false]
-  );
-  const game = new Game(board, display);
-
-  await game.playGame();
-
-  const spy = jest.spyOn(display, 'askUserForMove').mockImplementation();
-  display.askUserForMove();
-  display.askUserForMove();
-  display.askUserForMove();
-  display.askUserForMove();
-  display.askUserForMove();
-  display.askUserForMove();
-
-  expect(spy).toHaveBeenCalledTimes(6);
-});
-
-test('checks that askToRestartGame .toHaveBeenCalledTimes() once', async () => {
-  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(['3'], [false]);
-  const game = new Game(board, display);
-
-  await game.playGame();
-
-  const spy = jest.spyOn(display, 'askToRestartGame').mockImplementation();
-  display.askToRestartGame();
-
-  expect(spy).toHaveBeenCalledTimes(1);
-});
-
-test('checks that askToRestartGame .toHaveBeenCalledTimes() more than once', async () => {
-  const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
-  const board = new Board(grid);
-  const display = new DisplayMock(
-    ['7', '1', '4', '2', '5', '3'],
-    [true, false]
-  );
-  const game = new Game(board, display);
-
-  await game.playGame();
-
-  const spy = jest.spyOn(display, 'askToRestartGame').mockImplementation();
-  display.askToRestartGame();
-  display.askToRestartGame();
-
-  expect(spy).toHaveBeenCalledTimes(2);
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.welcomeMassage());
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
 });
 
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
+  showWasCalled: boolean;
 
   constructor(moves: string[], replay: boolean[]) {
     this.moves = moves;
     this.replay = replay;
+    this.showWasCalled = false;
   }
 
   show(): void {
+    this.showWasCalled = true;
     return;
   }
+
   constructBoard(board: Board): string[] {
     return board.grid;
   }
@@ -150,5 +89,9 @@ class DisplayMock implements Display {
   }
   askToRestartGame(): Promise<boolean> {
     return Promise.resolve(this.replay.shift());
+  }
+
+  showMethodWasCalled(): boolean {
+    return this.showWasCalled;
   }
 }

@@ -7,16 +7,17 @@ import 'regenerator-runtime/runtime';
 class Game {
   board: Board;
   display: Display;
+  messages: Messages;
 
-  constructor(board: Board, display: Display) {
+  constructor(board: Board, display: Display, messages: Messages) {
     this.board = board;
     this.display = display;
+    this.messages = messages;
   }
 
   async playGame(): Promise<string[]> {
-    const messages = new Messages();
-    this.display.show(messages.welcomeMassage());
-    this.display.show(messages.gameMode());
+    this.display.show(this.messages.welcomeMassage());
+    this.display.show(this.messages.gameMode());
 
     while (!this.isOver()) {
       this.display.show(this.display.constructBoard(this.board));
@@ -26,27 +27,27 @@ class Game {
       if (this.board.isMoveValid(move)) {
         this.board.makeMove(move, currentPlayer);
       } else {
-        this.display.show(messages.inValidMove());
+        this.display.show(this.messages.inValidMove());
       }
 
       if (this.board.hasWinner()) {
         this.display.show(this.display.constructBoard(this.board));
-        this.display.show(messages.winningPlayer(currentPlayer));
+        this.display.show(this.messages.winningPlayer(currentPlayer));
         const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
-          new Game(new Board(), this.display).playGame();
+          new Game(new Board(), this.display, this.messages).playGame();
         } else {
-          this.display.show(messages.thankYou());
+          this.display.show(this.messages.thankYou());
         }
         break;
       } else if (this.board.isGameDraw()) {
         this.display.show(this.display.constructBoard(this.board));
-        this.display.show(messages.drawGame());
+        this.display.show(this.messages.drawGame());
         const playAgain = await this.display.askToRestartGame();
         if (playAgain) {
-          new Game(new Board(), this.display).playGame();
+          new Game(new Board(), this.display, this.messages).playGame();
         } else {
-          this.display.show(messages.thankYou());
+          this.display.show(this.messages.thankYou());
         }
         break;
       }
