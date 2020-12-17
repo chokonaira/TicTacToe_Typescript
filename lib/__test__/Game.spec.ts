@@ -95,6 +95,16 @@ test('it shows the a messages if there is a draw on the board', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.drawGame());
 });
 
+test('it shows the new board state everytime a move is made', async () => {
+  const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
+  const { game, display } = setup(grid, ['9'], [false]);
+
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  await game.playGame();
+
+  expect(showFunctionSpy).toHaveBeenCalledWith(grid);
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
