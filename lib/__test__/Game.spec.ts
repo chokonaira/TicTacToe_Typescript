@@ -75,6 +75,16 @@ test('it shows the a messages with the winning player', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.winningPlayer('X'));
 });
 
+test('it shows the a messages if a players does not restart the game', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
+  const { game, display, messages } = setup(grid, ['3'], [false]);
+
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  await game.playGame();
+
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.thankYou());
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
