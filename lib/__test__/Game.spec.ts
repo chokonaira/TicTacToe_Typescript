@@ -105,6 +105,17 @@ test('it shows the new board state everytime a move is made', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(grid);
 });
 
+test('it shows an invalid move message and shows the old board state everytime a user makes a wrong move', async () => {
+  const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
+  const { game, display, messages } = setup(grid, ['^&*', '2'], [false]);
+
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  await game.playGame();
+
+  expect(showFunctionSpy).toHaveBeenCalledWith(grid);
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.inValidMove());
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
