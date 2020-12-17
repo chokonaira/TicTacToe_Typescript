@@ -98,6 +98,38 @@ test('checks that askUserForMove and askToRestartGame more than once', async () 
   expect(spy).toHaveBeenCalledTimes(6);
 });
 
+test('checks that askToRestartGame .toHaveBeenCalledTimes() once', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
+  const board = new Board(grid);
+  const display = new DisplayMock(['3'], [false]);
+  const game = new Game(board, display);
+
+  await game.playGame();
+
+  const spy = jest.spyOn(display, 'askToRestartGame').mockImplementation();
+  display.askToRestartGame();
+
+  expect(spy).toHaveBeenCalledTimes(1);
+});
+
+test('checks that askToRestartGame .toHaveBeenCalledTimes() more than once', async () => {
+  const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
+  const board = new Board(grid);
+  const display = new DisplayMock(
+    ['7', '1', '4', '2', '5', '3'],
+    [true, false]
+  );
+  const game = new Game(board, display);
+
+  await game.playGame();
+
+  const spy = jest.spyOn(display, 'askToRestartGame').mockImplementation();
+  display.askToRestartGame();
+  display.askToRestartGame();
+
+  expect(spy).toHaveBeenCalledTimes(2);
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
