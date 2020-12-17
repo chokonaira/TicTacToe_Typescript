@@ -62,7 +62,7 @@ test('stub .toHaveBeenCalledTimes()', () => {
   expect(stub).toHaveBeenCalledTimes(1);
 });
 
-test('askUserForMove .toHaveBeenCalledTimes()', async () => {
+test('checks that askUserForMove and askToRestartGame once', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
   const board = new Board(grid);
   const display = new DisplayMock(['3'], [false]);
@@ -70,10 +70,32 @@ test('askUserForMove .toHaveBeenCalledTimes()', async () => {
 
   await game.playGame();
 
-  const spy = jest.spyOn(display, 'askUserForMove');
+  const spy = jest.spyOn(display, 'askUserForMove').mockImplementation();
   display.askUserForMove();
 
   expect(spy).toHaveBeenCalledTimes(1);
+});
+
+test('checks that askUserForMove and askToRestartGame more than once', async () => {
+  const grid = ['X', '', '', 'X', '', '', '', 'O', 'O'];
+  const board = new Board(grid);
+  const display = new DisplayMock(
+    ['7', '1', '4', '2', '5', '3'],
+    [true, false]
+  );
+  const game = new Game(board, display);
+
+  await game.playGame();
+
+  const spy = jest.spyOn(display, 'askUserForMove').mockImplementation();
+  display.askUserForMove();
+  display.askUserForMove();
+  display.askUserForMove();
+  display.askUserForMove();
+  display.askUserForMove();
+  display.askUserForMove();
+
+  expect(spy).toHaveBeenCalledTimes(6);
 });
 
 class DisplayMock implements Display {
