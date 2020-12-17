@@ -65,19 +65,26 @@ test('it shows the initial messages to the players', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
 });
 
+test('it shows the a messages with the winning player', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
+  const { game, display, messages } = setup(grid, ['3'], [false]);
+
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  await game.playGame();
+
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.winningPlayer('X'));
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
-  showWasCalled: boolean;
 
   constructor(moves: string[], replay: boolean[]) {
     this.moves = moves;
     this.replay = replay;
-    this.showWasCalled = false;
   }
 
   show(): void {
-    this.showWasCalled = true;
     return;
   }
 
@@ -89,9 +96,5 @@ class DisplayMock implements Display {
   }
   askToRestartGame(): Promise<boolean> {
     return Promise.resolve(this.replay.shift());
-  }
-
-  showMethodWasCalled(): boolean {
-    return this.showWasCalled;
   }
 }
