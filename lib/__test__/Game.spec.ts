@@ -75,11 +75,13 @@ test('it shows the a messages with the winning player', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.winningPlayer('X'));
 });
 
-xtest('it shows the a messages asking the user to play again if there is a win', async () => {
+test('it shows the a messages asking the user to play again if there is a win', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
   const { game, display, messages } = setup(grid, ['3'], [false]);
 
-  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  const showFunctionSpy = jest
+    .spyOn(display, 'askToRestartGame')
+    .mockImplementation();
   await game.playGame();
 
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.playAgain());

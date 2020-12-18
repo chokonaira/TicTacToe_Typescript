@@ -22,7 +22,9 @@ class Game {
     while (!this.isOver()) {
       this.display.show(this.display.constructBoard(this.board));
 
-      const move = await this.display.askUserForMove();
+      const move = await this.display.askUserForMove(
+        this.messages.askPosition()
+      );
       const currentPlayer = this.board.currentMark();
       if (this.board.isMoveValid(move)) {
         this.board.makeMove(move, currentPlayer);
@@ -33,7 +35,9 @@ class Game {
       if (this.board.hasWinner()) {
         this.display.show(this.display.constructBoard(this.board));
         this.display.show(this.messages.winningPlayer(currentPlayer));
-        const playAgain = await this.display.askToRestartGame();
+        const playAgain = await this.display.askToRestartGame(
+          this.messages.playAgain()
+        );
         if (playAgain) {
           new Game(new Board(), this.display, this.messages).playGame();
         } else {
@@ -43,7 +47,9 @@ class Game {
       } else if (this.board.isGameDraw()) {
         this.display.show(this.display.constructBoard(this.board));
         this.display.show(this.messages.drawGame());
-        const playAgain = await this.display.askToRestartGame();
+        const playAgain = await this.display.askToRestartGame(
+          this.messages.playAgain()
+        );
         if (playAgain) {
           new Game(new Board(), this.display, this.messages).playGame();
         } else {

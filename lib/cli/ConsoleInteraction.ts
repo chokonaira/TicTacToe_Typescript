@@ -1,5 +1,4 @@
 import Board from '../Board';
-import Messages from '../Messages';
 import { IO } from '../IO';
 import { Display } from '../Display';
 import 'core-js/stable';
@@ -27,18 +26,18 @@ class ConsoleInteraction implements Display {
     return result;
   }
 
-  async askUserForMove(): Promise<number> {
-    const userInput = await this.io.getUserInput(new Messages().askPosition());
+  async askUserForMove(message: string): Promise<number> {
+    const userInput = await this.io.getUserInput(message);
     const answer = Number(userInput);
     if (isNaN(answer)) {
-      return this.askUserForMove();
+      return this.askUserForMove(message);
     } else {
       return answer;
     }
   }
 
-  async askToRestartGame(): Promise<boolean> {
-    const userInput = await this.io.getUserInput(new Messages().playAgain());
+  async askToRestartGame(message: string): Promise<boolean> {
+    const userInput = await this.io.getUserInput(message);
     const answer = userInput.toUpperCase();
     return answer === 'Y';
   }
