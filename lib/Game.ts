@@ -18,6 +18,7 @@ class Game {
   async playGame(): Promise<string[]> {
     this.display.show(this.messages.welcomeMassage());
     this.display.show(this.messages.gameMode());
+    let currentPlayer: string;
 
     while (!this.isOver()) {
       this.display.show(this.display.constructBoard(this.board));
@@ -25,40 +26,32 @@ class Game {
       const move = await this.display.askUserForMove(
         this.messages.askPosition()
       );
-      const currentPlayer = this.board.currentMark();
+      currentPlayer = this.board.currentMark();
       if (this.board.isMoveValid(move)) {
         this.board.makeMove(move, currentPlayer);
       } else {
         this.display.show(this.messages.inValidMove());
       }
-
-      if (this.board.hasWinner()) {
-        this.display.show(this.display.constructBoard(this.board));
-        this.display.show(this.messages.winningPlayer(currentPlayer));
-        const playAgain = await this.display.askToRestartGame(
-          this.messages.playAgain()
-        );
-        if (playAgain) {
-          new Game(new Board(), this.display, this.messages).playGame();
-        } else {
-          this.display.show(this.messages.thankYou());
-        }
-        break;
-      } else if (this.board.isGameDraw()) {
-        this.display.show(this.display.constructBoard(this.board));
-        this.display.show(this.messages.drawGame());
-        const playAgain = await this.display.askToRestartGame(
-          this.messages.playAgain()
-        );
-        if (playAgain) {
-          new Game(new Board(), this.display, this.messages).playGame();
-        } else {
-          this.display.show(this.messages.thankYou());
-        }
-        break;
-      }
+    }
+    if (this.board.hasWinner()) {
+      this.endGameOptions(this.messages.winningPlayer(currentPlayer));
+    } else {
+      this.endGameOptions(this.messages.drawGame());
     }
     return;
+  }
+
+  async endGameOptions(message: string): Promise<void> {
+    this.display.show(this.display.constructBoard(this.board));
+    this.display.show(message);
+    const playAgain = await this.display.askToRestartGame(
+      this.messages.playAgain()
+    );
+    if (playAgain) {
+      new Game(new Board(), this.display, this.messages).playGame();
+    } else {
+      this.display.show(this.messages.thankYou());
+    }
   }
 
   isOver(): boolean {
