@@ -1,54 +1,59 @@
 import Board from './Board';
 import Messages from './Messages';
-import ConsoleInteraction from './ConsoleInteraction';
+import { Display } from './Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class Game {
   board: Board;
-  consoleInteraction: ConsoleInteraction;
+  display: Display;
+  messages: Messages;
 
-  constructor(board: Board, consoleInteraction: ConsoleInteraction) {
+  constructor(board: Board, display: Display, messages: Messages) {
     this.board = board;
-    this.consoleInteraction = consoleInteraction;
+    this.display = display;
+    this.messages = messages;
   }
 
   async playGame(): Promise<string[]> {
-    const board = new Board();
-    const messages = new Messages();
-    console.log(messages.welcomeMassage());
-    console.log(messages.gameMode());
+    this.display.show(this.messages.welcomeMassage());
+    this.display.show(this.messages.gameMode());
 
     while (!this.isOver()) {
-      console.log(this.consoleInteraction.squareBoardGrid(board));
+      this.display.show(this.display.constructBoard(this.board));
 
-      const move = await this.consoleInteraction.askUserForMove();
-      const currentPlayer = board.currentMark();
-      if (board.isMoveValid(move)) {
-        board.makeMove(move, currentPlayer);
+      const move = await this.display.askUserForMove(
+        this.messages.askPosition()
+      );
+      const currentPlayer = this.board.currentMark();
+      if (this.board.isMoveValid(move)) {
+        this.board.makeMove(move, currentPlayer);
       } else {
-        console.log(messages.inValidMove());
+        this.display.show(this.messages.inValidMove());
       }
 
-      if (board.hasWinner()) {
-        console.log(this.consoleInteraction.squareBoardGrid(board));
-        console.log(messages.winningPlayer(currentPlayer));
-        const playAgain = await this.consoleInteraction.askToRestartGame();
+      if (this.board.hasWinner()) {
+        this.display.show(this.display.constructBoard(this.board));
+        this.display.show(this.messages.winningPlayer(currentPlayer));
+        const playAgain = await this.display.askToRestartGame(
+          this.messages.playAgain()
+        );
         if (playAgain) {
-          this.playGame();
+          new Game(new Board(), this.display, this.messages).playGame();
         } else {
-          console.log(messages.thankYou());
+          this.display.show(this.messages.thankYou());
         }
-
         break;
-      } else if (board.isGameDraw()) {
-        console.log(this.consoleInteraction.squareBoardGrid(board));
-        console.log(messages.drawGame());
-        const playAgain = await this.consoleInteraction.askToRestartGame();
+      } else if (this.board.isGameDraw()) {
+        this.display.show(this.display.constructBoard(this.board));
+        this.display.show(this.messages.drawGame());
+        const playAgain = await this.display.askToRestartGame(
+          this.messages.playAgain()
+        );
         if (playAgain) {
-          this.playGame();
+          new Game(new Board(), this.display, this.messages).playGame();
         } else {
-          console.log(messages.thankYou());
+          this.display.show(this.messages.thankYou());
         }
         break;
       }
@@ -58,6 +63,11 @@ class Game {
 
   isOver(): boolean {
     return this.board.hasWinner() || this.board.isGameDraw();
+  }
+
+  boardGrid(): string[] {
+    const board = new Board();
+    return board.grid;
   }
 }
 

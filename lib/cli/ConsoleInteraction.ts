@@ -1,16 +1,16 @@
-import Board from './Board';
-import Messages from './Messages';
-import { IO } from './IO';
+import Board from '../Board';
+import { IO } from '../IO';
+import { Display } from '../Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-class ConsoleInteraction {
+class ConsoleInteraction implements Display {
   io: IO;
   constructor(io: IO) {
     this.io = io;
   }
 
-  squareBoardGrid(board: Board): string[] {
+  constructBoard(board: Board): string[] {
     let counter = 1;
     const result: string[] = [];
     for (let i = 0; i < 3; i++) {
@@ -26,20 +26,24 @@ class ConsoleInteraction {
     return result;
   }
 
-  async askUserForMove(): Promise<number> {
-    const userInput = await this.io.getUserInput(new Messages().askPosition());
+  async askUserForMove(message: string): Promise<number> {
+    const userInput = await this.io.getUserInput(message);
     const answer = Number(userInput);
     if (isNaN(answer)) {
-      return this.askUserForMove();
+      return this.askUserForMove(message);
     } else {
       return answer;
     }
   }
 
-  async askToRestartGame(): Promise<boolean> {
-    const userInput = await this.io.getUserInput(new Messages().playAgain());
+  async askToRestartGame(message: string): Promise<boolean> {
+    const userInput = await this.io.getUserInput(message);
     const answer = userInput.toUpperCase();
     return answer === 'Y';
+  }
+
+  show(message: string | string[]): void {
+    this.io.log(message);
   }
 }
 

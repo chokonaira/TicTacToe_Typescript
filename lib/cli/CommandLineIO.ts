@@ -1,4 +1,4 @@
-import { IO } from './IO';
+import { IO } from '../IO';
 import * as readline from 'readline';
 
 const sleep = (waitTimeInMs: number) =>
@@ -19,6 +19,11 @@ class CommandLineIO implements IO {
 
     while (answer === undefined) await sleep(100);
     return answer;
+  }
+
+  log(string: string | string[]): void {
+    console.log(string);
+    return;
   }
 }
 
