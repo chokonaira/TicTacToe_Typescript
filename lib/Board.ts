@@ -109,6 +109,7 @@ class Board {
     const result = lines.filter((line) =>
       line.every((position) => position !== '' && position === line[0])
     );
+    if (result.length === 0) return '';
     return result[0][0];
   }
 }

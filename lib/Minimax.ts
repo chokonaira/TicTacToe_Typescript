@@ -11,8 +11,11 @@ class Minimax {
   evaluate(board: Board): number {
     if (board.winningPlayer() === this.currentPlayer) {
       return 10;
+    } else if (board.winningPlayer() === this.opponent) {
+      return -10;
+    } else {
+      return 0;
     }
-    return -10;
   }
 }
 
