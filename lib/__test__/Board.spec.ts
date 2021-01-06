@@ -293,3 +293,33 @@ test('checks if a move is valid', () => {
   expect(board.isMoveValid(1)).toEqual(false);
   expect(board.isMoveValid(2)).toEqual(true);
 });
+
+test('checks that the winning player is X', () => {
+  const board = new Board();
+
+  board.makeMove(1, 'X');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'X');
+
+  expect(board.winningPlayer()).toEqual('X');
+});
+
+test('checks that the winning player is O', () => {
+  const board = new Board();
+
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'O');
+  board.makeMove(3, 'O');
+
+  expect(board.winningPlayer()).toEqual('O');
+});
+
+test('checks that there is no winner on the board', () => {
+  const board = new Board();
+
+  board.makeMove(1, 'O');
+  board.makeMove(2, 'X');
+  board.makeMove(3, 'O');
+
+  expect(board.winningPlayer()).toEqual('');
+});
