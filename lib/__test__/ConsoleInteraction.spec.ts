@@ -2,8 +2,6 @@ import Board from '../Board';
 import { IO } from '../IO';
 import ConsoleInteraction from '../cli/ConsoleInteraction';
 
-jest.mock('readline');
-
 test('checks that board is a square grid with position a valid symbol in postion 2', () => {
   const board = new Board();
   const console = new ConsoleInteraction(new MyIOMock([]));
