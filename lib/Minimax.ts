@@ -12,6 +12,7 @@ class Minimax {
     if (board.winningPlayer() === this.currentPlayer) {
       return 10;
     }
+    return -10;
   }
 }
 
