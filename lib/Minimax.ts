@@ -1,3 +1,5 @@
+import Board from './Board';
+
 class Minimax {
   currentPlayer: string;
   opponent: string;
@@ -6,8 +8,10 @@ class Minimax {
     this.opponent = opponent;
   }
 
-  evaluate(): number {
-    return 10;
+  evaluate(board: Board): number {
+    if (board.winningPlayer() === this.currentPlayer) {
+      return 10;
+    }
   }
 }
 

@@ -13,10 +13,10 @@ class Board {
   }
 
   currentMark(): string {
-    if (this.availablePositionCount() % 2 === 0) {
-      return 'O';
+    if (this.availablePositionCount() % 2 !== 0) {
+      return 'X';
     }
-    return 'X';
+    return 'O';
   }
 
   isPositionTaken(position: number): boolean {
@@ -98,6 +98,18 @@ class Board {
       secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
     }
     return [firstDiagonal, secondDiagonal];
+  }
+
+  winningPlayer(): string {
+    const rows = this.rows();
+    const columns = this.columns();
+    const diagonals = this.diagonals();
+    const lines = rows.concat(columns, diagonals);
+
+    const result = lines.filter((line) =>
+      line.every((position) => position !== '' && position === line[0])
+    );
+    return result[0][0];
   }
 }
 

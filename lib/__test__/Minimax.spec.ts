@@ -2,11 +2,9 @@ import Minimax from '../Minimax';
 import Board from '../Board';
 
 test('checks that winning player evaluates for current player', () => {
-  const board = new Board();
+  const grid = ['X', 'X', 'X', '', '', '', '', 'O', 'O'];
+  const board = new Board(grid);
   const minimax = new Minimax('X', 'O');
-  board.makeMove(0, 'X');
-  board.makeMove(1, 'X');
-  board.makeMove(2, 'X');
 
-  expect(minimax.evaluate()).toEqual(10);
+  expect(minimax.evaluate(board)).toEqual(10);
 });
