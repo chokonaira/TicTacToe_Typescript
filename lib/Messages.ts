@@ -4,7 +4,11 @@ class Messages {
   }
 
   gameMode(): string {
-    return 'Choose your prefered mode and press enter.\n1: Human Vs. Human\n2: Human Vs. Computer';
+    return 'Choose your prefered mode and press enter.\n1: Human Vs. Human\n2: Human Vs. Computer\n';
+  }
+
+  inValidGameMode(): string {
+    return 'Invalid Gane mode, try again';
   }
 
   askPosition(): string {

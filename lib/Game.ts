@@ -16,11 +16,11 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-    this.display.show(this.messages.welcomeMassage());
-    this.display.show(this.messages.gameMode());
+    await this.startGameOptions(this.messages.gameMode());
     let currentPlayer: string;
 
     while (!this.isOver()) {
+      this.display.show(this.messages.welcomeMassage());
       this.display.show(this.display.constructBoard(this.board));
 
       const move = await this.display.askUserForMove(
@@ -39,6 +39,14 @@ class Game {
       this.endGameOptions(this.messages.drawGame());
     }
     return;
+  }
+
+  async startGameOptions(message: string): Promise<string[]> {
+    const mode = await this.display.askUserForMove(message);
+    if (!this.board.isModeValid(mode)) {
+      this.display.show(this.messages.inValidGameMode());
+      return new Game(new Board(), this.display, this.messages).playGame();
+    }
   }
 
   async endGameOptions(message: string): Promise<void> {
