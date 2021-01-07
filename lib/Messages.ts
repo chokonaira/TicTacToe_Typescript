@@ -4,7 +4,7 @@ class Messages {
   }
 
   gameMode(): string {
-    return 'Play now Human Vs. Human';
+    return 'Choose your prefered mode and press enter.\n1: Human Vs. Human\n2: Human Vs. Computer';
   }
 
   askPosition(): string {

@@ -27,6 +27,11 @@ class Board {
     return this.availablePositions().includes(input);
   }
 
+  isModeValid(input: number): boolean {
+    const validGameMode = [1, 2];
+    return validGameMode.includes(input);
+  }
+
   availablePositions(): number[] {
     const result = [];
     this.grid.forEach((_position, index) => {
