@@ -24,3 +24,11 @@ test('checks that winning player evaluates to a draw', () => {
 
   expect(minimax.evaluate(board)).toEqual(0);
 });
+
+test('checks for the best initial move on an empty board state', () => {
+  const grid = ['', '', '', '', '', '', '', '', ''];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(1);
+});

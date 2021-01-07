@@ -17,6 +17,10 @@ class Minimax {
       return 0;
     }
   }
+
+  findBestMove(board: Board): number {
+    return 1;
+  }
 }
 
 export default Minimax;
