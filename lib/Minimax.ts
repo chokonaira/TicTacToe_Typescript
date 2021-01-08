@@ -19,7 +19,11 @@ class Minimax {
   }
 
   findBestMove(board: Board): number {
-    return 1;
+    if (board.availablePositionCount() === 9) {
+      return 1;
+    } else {
+      return 2;
+    }
   }
 }
 
