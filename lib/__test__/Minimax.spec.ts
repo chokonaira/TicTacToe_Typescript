@@ -43,3 +43,13 @@ test('checks for the best move horizontally', () => {
 
   expect(minimax.findBestMove(board)).toEqual(2);
 });
+// O X X
+// _ _ _
+// O X O
+test('checks for the best move vertically', () => {
+  const grid = ['O', 'X', 'X', '', '', '', 'O', 'X', 'O'];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(5);
+});
