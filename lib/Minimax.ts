@@ -55,7 +55,7 @@ class Minimax {
 
   findBestMove(board: Board): number {
     let bestValue = -1000;
-    let bestMove = 0;
+    let bestMove = null;
     for (let position = 1; position <= board.grid.length; position++) {
       if (!board.isPositionTaken(position)) {
         board.makeMove(position, this.currentPlayer);

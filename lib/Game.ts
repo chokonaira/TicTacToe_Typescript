@@ -16,14 +16,14 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
+    this.display.show(this.messages.welcomeMassage());
     await this.startGameOptions(this.messages.gameMode());
     let currentPlayer: string;
 
     while (!this.isOver()) {
-      this.display.show(this.messages.welcomeMassage());
       this.display.show(this.display.constructBoard(this.board));
 
-      const move = await this.display.askUserForMove(
+      const move = await this.display.askUserForInput(
         this.messages.askPosition()
       );
       currentPlayer = this.board.currentMark();
@@ -42,10 +42,10 @@ class Game {
   }
 
   async startGameOptions(message: string): Promise<string[]> {
-    const mode = await this.display.askUserForMove(message);
-    if (!this.board.isModeValid(mode)) {
+    const mode = await this.display.askUserForInput(message);
+    if (!this.isModeValid(mode)) {
       this.display.show(this.messages.inValidGameMode());
-      return new Game(new Board(), this.display, this.messages).playGame();
+      return this.startGameOptions(message);
     }
   }
 
@@ -60,6 +60,11 @@ class Game {
     } else {
       this.display.show(this.messages.thankYou());
     }
+  }
+
+  isModeValid(input: number): boolean {
+    const validGameMode = [1, 2];
+    return validGameMode.includes(input);
   }
 
   isOver(): boolean {

@@ -58,11 +58,13 @@ test('plays a game and restarts the game in a win scenerio', async () => {
   expect(game.boardGrid()).not.toEqual(grid);
 });
 
-xtest('it shows the initial messages to the players', async () => {
+test('it shows the initial messages to the players', async () => {
   const grid = ['', 'X', 'X', '', '', '', '', 'O', 'O'];
   const { game, display, messages } = setup(grid, ['1', '1'], [false]);
 
-  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
+  const showFunctionSpy = jest
+    .spyOn(display, 'askUserForInput')
+    .mockImplementation();
   await game.playGame();
 
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
@@ -147,7 +149,7 @@ class DisplayMock implements Display {
   constructBoard(board: Board): string[] {
     return board.grid;
   }
-  askUserForMove(): Promise<number> {
+  askUserForInput(): Promise<number> {
     return Promise.resolve(Number(this.moves.shift()));
   }
   askToRestartGame(): Promise<boolean> {

@@ -8,7 +8,7 @@ class Messages {
   }
 
   inValidGameMode(): string {
-    return 'Invalid Gane mode, try again';
+    return 'Invalid Game mode, try again';
   }
 
   askPosition(): string {

@@ -26,11 +26,11 @@ class ConsoleInteraction implements Display {
     return result;
   }
 
-  async askUserForMove(message: string): Promise<number> {
+  async askUserForInput(message: string): Promise<number> {
     const userInput = await this.io.getUserInput(message);
     const answer = Number(userInput);
     if (isNaN(answer)) {
-      return this.askUserForMove(message);
+      return this.askUserForInput(message);
     } else {
       return answer;
     }

@@ -53,3 +53,6 @@ test('checks for the best move vertically', () => {
 
   expect(minimax.findBestMove(board)).toEqual(5);
 });
+// X _ _
+// _ O _
+// _ _ X
