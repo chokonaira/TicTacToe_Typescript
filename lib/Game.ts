@@ -16,7 +16,7 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-    this.display.show(this.messages.welcomeMassage());
+    // this.display.show(this.messages.welcomeMassage());
     await this.startGameOptions(this.messages.gameMode());
     let currentPlayer: string;
 

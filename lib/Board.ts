@@ -4,8 +4,12 @@ class Board {
     this.grid = grid;
   }
 
-  boardState(): string[] {
-    return this.grid;
+  boardState(position: number): number[] {
+    const grid = [];
+    for (let index = 0; index < this.availablePositions.length; index++) {
+      grid.push(position);
+    }
+    return grid;
   }
 
   makeMove(position: number, symbol: string): string {

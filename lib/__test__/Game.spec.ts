@@ -59,9 +59,12 @@ test('plays a game and restarts the game in a win scenerio', async () => {
 });
 
 test('it shows the initial messages to the players', async () => {
-  const grid = ['', 'X', 'X', '', '', '', '', 'O', 'O'];
-  const { game, display, messages } = setup(grid, ['1', '1'], [false]);
-
+  const grid = ['', '', '', '', '', '', '', '', ''];
+  const { game, display, messages } = setup(
+    grid,
+    ['1', '1', '4', '2', '5', '3', '1'],
+    [false]
+  );
   const showFunctionSpy = jest
     .spyOn(display, 'askUserForInput')
     .mockImplementation();
