@@ -76,3 +76,14 @@ xtest('checks for the best move for double chances', () => {
 
   expect(minimax.findBestMove(board)).toEqual(3);
 });
+
+// X _ O
+// O X X
+// O _ O
+test('checks for the best move to block opponents move', () => {
+  const grid = ['X', '', 'O', 'O', 'X', 'X', 'O', '', 'O'];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(8);
+});

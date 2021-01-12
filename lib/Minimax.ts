@@ -8,18 +8,20 @@ class Minimax {
     this.opponent = opponent;
   }
 
-  evaluate(board: Board): number {
+  evaluate(board: Board, depth = 0): number {
     if (board.winningPlayer() === this.currentPlayer) {
-      return 10;
+      return 10 - depth;
     } else if (board.winningPlayer() === this.opponent) {
-      return -10;
+      return depth - 10;
     } else {
       return 0;
     }
   }
 
   miniMax(board: Board, depth: number, isMax: boolean): number {
-    if (board.isGameOver) return this.evaluate(board);
+    const score = this.evaluate(board, depth);
+    if (score != 0) return score;
+    if (board.isGameDraw()) return 0;
 
     if (isMax) {
       let bestValue = -1000;
