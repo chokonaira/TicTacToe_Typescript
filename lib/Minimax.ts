@@ -29,26 +29,19 @@ class Minimax {
 
     if (isMax) {
       let bestValue = -1000;
-      for (let position = 1; position <= board.grid.length; position++) {
-        if (!board.isPositionTaken(position)) {
-          board.makeMove(position, this.currentPlayer);
-          bestValue = Math.max(
-            bestValue,
-            this.miniMax(board, depth + 1, false)
-          );
-          board.makeMove(position, '');
-        }
-      }
+      board.availablePositions().forEach((position) => {
+        board.makeMove(position, this.currentPlayer);
+        bestValue = Math.max(bestValue, this.miniMax(board, depth + 1, !isMax));
+        board.makeMove(position, '');
+      });
       return bestValue;
     } else {
       let bestValue = 1000;
-      for (let position = 1; position <= board.grid.length; position++) {
-        if (!board.isPositionTaken(position)) {
-          board.makeMove(position, this.opponent);
-          bestValue = Math.min(bestValue, this.miniMax(board, depth + 1, true));
-          board.makeMove(position, '');
-        }
-      }
+      board.availablePositions().forEach((position) => {
+        board.makeMove(position, this.opponent);
+        bestValue = Math.min(bestValue, this.miniMax(board, depth + 1, isMax));
+        board.makeMove(position, '');
+      });
       return bestValue;
     }
   }
@@ -56,18 +49,16 @@ class Minimax {
   findBestMove(board: Board): number {
     let bestValue = -1000;
     let bestMove = null;
-    for (let position = 1; position <= board.grid.length; position++) {
-      if (!board.isPositionTaken(position)) {
-        board.makeMove(position, this.currentPlayer);
-        const moveValue = this.miniMax(board, 0, false);
-        board.makeMove(position, '');
+    board.availablePositions().forEach((position) => {
+      board.makeMove(position, this.currentPlayer);
+      const moveValue = this.miniMax(board, 0, false);
+      board.makeMove(position, '');
 
-        if (moveValue > bestValue) {
-          bestMove = position;
-          bestValue = moveValue;
-        }
+      if (moveValue > bestValue) {
+        bestMove = position;
+        bestValue = moveValue;
       }
-    }
+    });
     return bestMove;
   }
 }
