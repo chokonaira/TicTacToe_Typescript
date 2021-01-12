@@ -24,7 +24,7 @@ class Board {
   }
 
   defaultPositionState(position: number): string {
-    return this.grid[position];
+    return (this.grid[position - 1] = '');
   }
 
   isPositionTaken(position: number): boolean {
