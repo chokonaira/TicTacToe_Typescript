@@ -46,7 +46,7 @@ class Minimax {
 
   findBestMove(board: Board): number {
     let bestValue = -1000;
-    let bestMove = null;
+    let bestMove = 0;
     board.availablePositions().forEach((position) => {
       const defaultPositionState = board.defaultPositionState(position);
       board.makeMove(position, this.currentPlayer);
