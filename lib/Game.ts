@@ -16,7 +16,7 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-    // this.display.show(this.messages.welcomeMassage());
+    this.display.show(this.messages.welcomeMassage());
     await this.startGameOptions(this.messages.gameMode());
     let currentPlayer: string;
 
@@ -41,7 +41,7 @@ class Game {
     return;
   }
 
-  async startGameOptions(message: string): Promise<string[]> {
+  async startGameOptions(message: string): Promise<void> {
     const mode = await this.display.askUserForInput(message);
     if (!this.isModeValid(mode)) {
       this.display.show(this.messages.inValidGameMode());

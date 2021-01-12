@@ -59,23 +59,29 @@ test('plays a game and restarts the game in a win scenerio', async () => {
 });
 
 test('it shows the initial messages to the players', async () => {
-  const grid = ['', '', '', '', '', '', '', '', ''];
-  const { game, display, messages } = setup(
-    grid,
-    ['1', '1', '4', '2', '5', '3', '1'],
-    [false]
-  );
-  const showFunctionSpy = jest
-    .spyOn(display, 'askUserForInput')
-    .mockImplementation();
+  const grid = ['X', 'X', '', 'O', 'O', '', '', '', ''];
+  const { game, display, messages } = setup(grid, ['1', '3'], [false]);
+  const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
 
-  expect(showFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
+  expect(showFunctionSpy).toHaveBeenCalledWith(messages.welcomeMassage());
 });
 
-xtest('it shows the a messages with the winning player', async () => {
+test('it shows the initial messages to the players', async () => {
+  const grid = ['X', 'X', '', 'O', 'O', '', '', '', ''];
+  const { game, display, messages } = setup(grid, [], [false]);
+  const askUserForInputFunctionSpy = jest
+    .spyOn(display, 'askUserForInput')
+    .mockImplementationOnce(() => Promise.resolve(1))
+    .mockImplementationOnce(() => Promise.resolve(3));
+  await game.playGame();
+
+  expect(askUserForInputFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
+});
+
+test('it shows the a messages with the winning player', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const { game, display, messages } = setup(grid, ['3'], [false]);
+  const { game, display, messages } = setup(grid, ['1', '3'], [false]);
 
   const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
@@ -83,9 +89,9 @@ xtest('it shows the a messages with the winning player', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.winningPlayer('X'));
 });
 
-xtest('it shows the a messages asking the user to play again if there is a win', async () => {
+test('it shows the a messages asking the user to play again if there is a win', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const { game, display, messages } = setup(grid, ['3'], [false]);
+  const { game, display, messages } = setup(grid, ['1', '3'], []);
 
   const showFunctionSpy = jest
     .spyOn(display, 'askToRestartGame')
@@ -95,9 +101,9 @@ xtest('it shows the a messages asking the user to play again if there is a win',
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.playAgain());
 });
 
-xtest('it shows the a messages if a players does not restart the game', async () => {
+test('it shows the a messages if a players does not restart the game', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
-  const { game, display, messages } = setup(grid, ['3'], [false]);
+  const { game, display, messages } = setup(grid, ['1', '3'], [false]);
 
   const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
@@ -105,9 +111,9 @@ xtest('it shows the a messages if a players does not restart the game', async ()
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.thankYou());
 });
 
-xtest('it shows the a messages if there is a draw on the board', async () => {
+test('it shows the a messages if there is a draw on the board', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
-  const { game, display, messages } = setup(grid, ['9'], [false]);
+  const { game, display, messages } = setup(grid, ['1', '9'], [false]);
 
   const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
@@ -115,9 +121,9 @@ xtest('it shows the a messages if there is a draw on the board', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.drawGame());
 });
 
-xtest('it shows the new board state everytime a move is made', async () => {
+test('it shows the new board state everytime a move is made', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
-  const { game, display } = setup(grid, ['9'], [false]);
+  const { game, display } = setup(grid, ['1', '9'], [false]);
 
   const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
@@ -125,9 +131,9 @@ xtest('it shows the new board state everytime a move is made', async () => {
   expect(showFunctionSpy).toHaveBeenCalledWith(grid);
 });
 
-xtest('it shows an invalid move message and the old board state everytime a user makes a wrong move', async () => {
+test('it shows an invalid move message and the old board state everytime a user makes a wrong move', async () => {
   const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
-  const { game, display, messages } = setup(grid, ['^&*', '2'], [false]);
+  const { game, display, messages } = setup(grid, ['1', '^&*', '2'], [false]);
 
   const showFunctionSpy = jest.spyOn(display, 'show').mockImplementation();
   await game.playGame();
