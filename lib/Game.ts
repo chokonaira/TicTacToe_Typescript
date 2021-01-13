@@ -1,6 +1,7 @@
 import Board from './Board';
 import Messages from './Messages';
 import { Display } from './Display';
+import Minimax from './Minimax';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -16,19 +17,24 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
+    const randomPlayer = new Minimax('X', 'O');
+
     this.display.show(this.messages.welcomeMassage());
-    await this.startGameOptions(this.messages.gameMode());
+    const mode = await this.startGameOptions(this.messages.gameMode());
+    this.display.show(this.display.constructBoard(this.board));
     let currentPlayer: string;
 
     while (!this.isOver()) {
-      this.display.show(this.display.constructBoard(this.board));
-
-      const move = await this.display.askUserForInput(
-        this.messages.askPosition()
-      );
       currentPlayer = this.board.currentMark();
+      let move: number;
+      if (mode === 2) {
+        move = randomPlayer.findBestMove(this.board);
+      } else {
+        move = await this.display.askUserForInput(this.messages.askPosition());
+      }
       if (this.board.isMoveValid(move)) {
         this.board.makeMove(move, currentPlayer);
+        this.display.show(this.display.constructBoard(this.board));
       } else {
         this.display.show(this.messages.inValidMove());
       }
@@ -41,12 +47,13 @@ class Game {
     return;
   }
 
-  async startGameOptions(message: string): Promise<void> {
+  async startGameOptions(message: string): Promise<number> {
     const mode = await this.display.askUserForInput(message);
     if (!this.isModeValid(mode)) {
       this.display.show(this.messages.inValidGameMode());
       return this.startGameOptions(message);
     }
+    return mode;
   }
 
   async endGameOptions(message: string): Promise<void> {
