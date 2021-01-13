@@ -55,15 +55,15 @@ test('checks for the best move vertically', () => {
   expect(minimax.findBestMove(board)).toEqual(5);
 });
 
-// O O X
+// X O O
 // _ X _
-// _ X O
+// O X _
 test('checks for the best move diagonally', () => {
-  const grid = ['O', 'O', 'X', '', 'X', '', '', 'X', 'O'];
+  const grid = ['X', 'O', 'O', '', 'X', '', 'O', 'X', ''];
   const board = new Board(grid);
   const minimax = new Minimax('X', 'O');
 
-  expect(minimax.findBestMove(board)).toEqual(7);
+  expect(minimax.findBestMove(board)).toEqual(9);
 });
 
 // X O _
@@ -76,11 +76,6 @@ test('checks for the best move to block opponents move vertically', () => {
 
   expect(minimax.findBestMove(board)).toEqual(8);
 });
-
-// Question
-// X X O
-// _ _ X
-// O _ O
 
 // X _ _
 // _ _ X
@@ -98,6 +93,19 @@ test('checks for the best move to block opponents move horizontally', () => {
 // O _ _
 test('checks for the best move to block opponents move diagonallly', () => {
   const grid = ['X', '', 'O', '', '', 'X', 'O', '', ''];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(5);
+});
+
+// Question
+// O O X
+// _ _ O
+// X _ X
+
+test('checks for the best move to when the random player checkmates', () => {
+  const grid = ['O', 'O', 'X', '', '', 'O', 'X', '', 'X'];
   const board = new Board(grid);
   const minimax = new Minimax('X', 'O');
 
