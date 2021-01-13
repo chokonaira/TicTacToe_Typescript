@@ -77,6 +77,11 @@ test('checks for the best move to block opponents move vertically', () => {
   expect(minimax.findBestMove(board)).toEqual(8);
 });
 
+// Question
+// X X O
+// _ _ X
+// O _ O
+
 // X _ _
 // _ _ X
 // O _ O
@@ -86,4 +91,15 @@ test('checks for the best move to block opponents move horizontally', () => {
   const minimax = new Minimax('X', 'O');
 
   expect(minimax.findBestMove(board)).toEqual(8);
+});
+
+// X _ O
+// _ _ X
+// O _ _
+test('checks for the best move to block opponents move diagonallly', () => {
+  const grid = ['X', '', 'O', '', '', 'X', 'O', '', ''];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(5);
 });
