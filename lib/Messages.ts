@@ -4,7 +4,7 @@ class Messages {
   }
 
   gameMode(): string {
-    return 'Choose your prefered mode and press enter.\n1: Human Vs. Human\n2: Human Vs. Computer\n';
+    return 'Choose your prefered mode and press enter.\n1: Human Vs. Human Player\n2: Human Vs. Computer Player\n3: Human Vs. Ramdom Player\n';
   }
 
   inValidGameMode(): string {

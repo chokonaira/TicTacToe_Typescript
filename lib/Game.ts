@@ -2,6 +2,7 @@ import Board from './Board';
 import Messages from './Messages';
 import { Display } from './Display';
 import Minimax from './Minimax';
+import RandomPlayer from './RandomPlayer';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -17,10 +18,12 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-    const randomPlayer = new Minimax('X', 'O');
+    const minimax = new Minimax('X', 'O');
+    const randomPlayer = new RandomPlayer();
     const gameModeTypes = {
       1: ['HumanPlayer', 'HumanPlayer'],
-      2: ['ComputerPlayer', 'HumanPlayer']
+      2: ['ComputerPlayer', 'HumanPlayer'],
+      3: ['RandomPlayer', 'HumanPlayer']
     };
 
     this.display.show(this.messages.welcomeMassage());
@@ -34,8 +37,10 @@ class Game {
       currentMark = this.board.currentMark();
       currentPlayer = players[0];
       let move: number;
-      if (currentPlayer !== 'HumanPlayer') {
-        move = randomPlayer.findBestMove(this.board);
+      if (currentPlayer === 'ComputerPlayer') {
+        move = minimax.findBestMove(this.board);
+      } else if (currentPlayer === 'RandomPlayer') {
+        move = randomPlayer.findRandomMove(this.board);
       } else {
         move = await this.display.askUserForInput(this.messages.askPosition());
       }
@@ -79,7 +84,7 @@ class Game {
   }
 
   isModeValid(input: number): boolean {
-    const validGameMode = [1, 2];
+    const validGameMode = [1, 2, 3];
     return validGameMode.includes(input);
   }
 
