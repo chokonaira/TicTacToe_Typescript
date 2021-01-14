@@ -142,6 +142,40 @@ test('it shows an invalid move message and the old board state everytime a user 
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.inValidMove());
 });
 
+test('it shows the initial messages to the players', async () => {
+  const grid = ['X', 'X', '', 'O', 'O', '', '', '', ''];
+  const { game, display, messages } = setup(grid, [], [false]);
+  const askUserForInputFunctionSpy = jest
+    .spyOn(display, 'askUserForInput')
+    .mockImplementationOnce(() => Promise.resolve(1))
+    .mockImplementationOnce(() => Promise.resolve(3));
+  await game.playGame();
+
+  expect(askUserForInputFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
+});
+
+test('plays a winning round for Human versus computer mode', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
+
+  const { game, board } = setup(grid, ['2'], [false]);
+
+  await game.playGame();
+
+  expect(game.isOver()).toEqual(true);
+  expect(board.hasWinner()).toEqual(true);
+});
+
+test('plays a draw round for Human versus computer mode', async () => {
+  const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', '', ''];
+  const { game, board } = setup(grid, ['2', '9'], [false]);
+
+  await game.playGame();
+
+  expect(game.isOver()).toEqual(true);
+  expect(board.hasWinner()).toEqual(false);
+  expect(board.isGameDraw()).toEqual(true);
+});
+
 class DisplayMock implements Display {
   moves: string[];
   replay: boolean[];
