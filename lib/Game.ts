@@ -18,29 +18,38 @@ class Game {
 
   async playGame(): Promise<string[]> {
     const randomPlayer = new Minimax('X', 'O');
+    const gameModeTypes = {
+      1: ['HumanPlayer', 'HumanPlayer'],
+      2: ['ComputerPlayer', 'HumanPlayer']
+    };
 
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
+    let players = gameModeTypes[mode];
     this.display.show(this.display.constructBoard(this.board));
+    let currentMark: string;
     let currentPlayer: string;
 
     while (!this.isOver()) {
-      currentPlayer = this.board.currentMark();
+      currentMark = this.board.currentMark();
+      currentPlayer = players[0];
       let move: number;
-      if (mode === 2) {
+      if (currentPlayer !== 'HumanPlayer') {
         move = randomPlayer.findBestMove(this.board);
       } else {
         move = await this.display.askUserForInput(this.messages.askPosition());
       }
       if (this.board.isMoveValid(move)) {
-        this.board.makeMove(move, currentPlayer);
+        this.board.makeMove(move, currentMark);
         this.display.show(this.display.constructBoard(this.board));
+        players = players.reverse();
       } else {
         this.display.show(this.messages.inValidMove());
+        this.display.show(this.display.constructBoard(this.board));
       }
     }
     if (this.board.hasWinner()) {
-      this.endGameOptions(this.messages.winningPlayer(currentPlayer));
+      this.endGameOptions(this.messages.winningPlayer(currentMark));
     } else {
       this.endGameOptions(this.messages.drawGame());
     }
