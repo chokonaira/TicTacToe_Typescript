@@ -20,15 +20,10 @@ class Game {
   async playGame(): Promise<string[]> {
     const minimax = new Minimax('X', 'O');
     const randomPlayer = new RandomPlayer();
-    const gameModeTypes = {
-      1: ['HumanPlayer', 'HumanPlayer'],
-      2: ['ComputerPlayer', 'HumanPlayer'],
-      3: ['RandomPlayer', 'HumanPlayer']
-    };
 
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
-    let players = gameModeTypes[mode];
+    let players = this.gameModeType(mode);
     this.display.show(this.display.constructBoard(this.board));
     let currentMark: string;
     let currentPlayer: string;
@@ -59,6 +54,17 @@ class Game {
       this.endGameOptions(this.messages.drawGame());
     }
     return;
+  }
+
+  gameModeType(mode: number): string[] {
+    const gameModeType = {
+      '1': ['HumanPlayer', 'HumanPlayer'],
+      '2': ['ComputerPlayer', 'HumanPlayer'],
+      '3': ['RandomPlayer', 'HumanPlayer']
+    };
+    for (const [key, value] of Object.entries(gameModeType)) {
+      if (Number(key) === mode) return value;
+    }
   }
 
   async startGameOptions(message: string): Promise<number> {
