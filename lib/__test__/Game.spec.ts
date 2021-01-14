@@ -142,18 +142,6 @@ test('it shows an invalid move message and the old board state everytime a user 
   expect(showFunctionSpy).toHaveBeenCalledWith(messages.inValidMove());
 });
 
-test('it shows the initial messages to the players', async () => {
-  const grid = ['X', 'X', '', 'O', 'O', '', '', '', ''];
-  const { game, display, messages } = setup(grid, [], [false]);
-  const askUserForInputFunctionSpy = jest
-    .spyOn(display, 'askUserForInput')
-    .mockImplementationOnce(() => Promise.resolve(1))
-    .mockImplementationOnce(() => Promise.resolve(3));
-  await game.playGame();
-
-  expect(askUserForInputFunctionSpy).toHaveBeenCalledWith(messages.gameMode());
-});
-
 test('plays a winning round for Human versus computer mode', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
 
