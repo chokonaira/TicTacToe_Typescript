@@ -4,8 +4,12 @@ class Board {
     this.grid = grid;
   }
 
-  boardState(): string[] {
-    return this.grid;
+  boardState(position: number): number[] {
+    const grid = [];
+    for (let index = 0; index < this.availablePositions.length; index++) {
+      grid.push(position);
+    }
+    return grid;
   }
 
   makeMove(position: number, symbol: string): string {
@@ -13,10 +17,14 @@ class Board {
   }
 
   currentMark(): string {
-    if (this.availablePositionCount() % 2 === 0) {
-      return 'O';
+    if (this.availablePositionCount() % 2 !== 0) {
+      return 'X';
     }
-    return 'X';
+    return 'O';
+  }
+
+  defaultPositionState(position: number): string {
+    return (this.grid[position - 1] = '');
   }
 
   isPositionTaken(position: number): boolean {
@@ -98,6 +106,19 @@ class Board {
       secondDiagonal.push(this.rows()[row][this.rows().length - row - 1]);
     }
     return [firstDiagonal, secondDiagonal];
+  }
+
+  winningPlayer(): string {
+    const rows = this.rows();
+    const columns = this.columns();
+    const diagonals = this.diagonals();
+    const lines = rows.concat(columns, diagonals);
+
+    const result = lines.filter((line) =>
+      line.every((position) => position !== '' && position === line[0])
+    );
+    if (result.length === 0) return '';
+    return result[0][0];
   }
 }
 

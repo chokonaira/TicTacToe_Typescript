@@ -1,8 +1,6 @@
 import Board from '../Board';
-import { IO } from '../IO';
+import { IO } from '../interfaces/IO';
 import ConsoleInteraction from '../cli/ConsoleInteraction';
-
-jest.mock('readline');
 
 test('checks that board is a square grid with position a valid symbol in postion 2', () => {
   const board = new Board();
@@ -31,7 +29,7 @@ test('checks that board is a square grid with position a valid symbol in postion
 test('user provides valid move as an input', async () => {
   const console = new ConsoleInteraction(new MyIOMock(['1']));
 
-  const actual = await console.askUserForMove('test');
+  const actual = await console.askUserForInput('test');
 
   expect(actual).toEqual(1);
 });
@@ -39,7 +37,7 @@ test('user provides valid move as an input', async () => {
 test('user provides invalid move as an input', async () => {
   const console = new ConsoleInteraction(new MyIOMock(['%^&', '2']));
 
-  const actual = await console.askUserForMove('test');
+  const actual = await console.askUserForInput('test');
 
   expect(actual).toEqual(2);
 });

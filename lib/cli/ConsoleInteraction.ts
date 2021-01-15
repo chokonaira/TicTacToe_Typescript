@@ -1,6 +1,6 @@
 import Board from '../Board';
-import { IO } from '../IO';
-import { Display } from '../Display';
+import { IO } from '../interfaces/IO';
+import { Display } from '../interfaces/Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -26,11 +26,11 @@ class ConsoleInteraction implements Display {
     return result;
   }
 
-  async askUserForMove(message: string): Promise<number> {
+  async askUserForInput(message: string): Promise<number> {
     const userInput = await this.io.getUserInput(message);
     const answer = Number(userInput);
     if (isNaN(answer)) {
-      return this.askUserForMove(message);
+      return this.askUserForInput(message);
     } else {
       return answer;
     }
