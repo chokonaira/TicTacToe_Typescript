@@ -1,6 +1,8 @@
 import Board from '../Board';
 import RandomChoice from '../RandomChoice';
 import { Player } from '../Player';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 class BeatablePlayer implements Player {
   board: Board;

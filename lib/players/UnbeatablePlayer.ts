@@ -1,6 +1,8 @@
 import Board from '../Board';
 import Mininmax from '../Minimax';
 import { Player } from '../Player';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 class UnbeatablePlayer implements Player {
   board: Board;
