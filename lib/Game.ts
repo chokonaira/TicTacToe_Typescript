@@ -58,13 +58,11 @@ class Game {
 
   gameModeType(mode: number): string[] {
     const gameModeType = {
-      '1': ['HumanPlayer', 'HumanPlayer'],
-      '2': ['ComputerPlayer', 'HumanPlayer'],
-      '3': ['RandomPlayer', 'HumanPlayer']
+      1: ['HumanPlayer', 'HumanPlayer'],
+      2: ['ComputerPlayer', 'HumanPlayer'],
+      3: ['RandomPlayer', 'HumanPlayer']
     };
-    for (const [key, value] of Object.entries(gameModeType)) {
-      if (Number(key) === mode) return value;
-    }
+    return gameModeType[mode];
   }
 
   async startGameOptions(message: string): Promise<number> {

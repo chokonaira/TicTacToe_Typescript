@@ -7,7 +7,11 @@ class RandomPlayer {
     const randomMove = board.availablePositions()[
       Math.floor(Math.random() * board.availablePositions().length)
     ];
-    return randomMove;
+    if (randomMove === undefined) {
+      return -1;
+    } else {
+      return randomMove;
+    }
   }
 }
 

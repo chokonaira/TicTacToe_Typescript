@@ -6,17 +6,17 @@ test('random player returns a move on position 3', async () => {
   const randomPlayer = new RandomPlayer();
   const board = new Board(grid);
 
-  jest.spyOn(randomPlayer, 'findRandomMove').mockReturnValue(3);
+  jest.spyOn(Math, 'floor').mockReturnValue(3);
 
-  expect(randomPlayer.findRandomMove(board)).toEqual(3);
+  expect(randomPlayer.findRandomMove(board)).toEqual(6);
 });
 
-test('random player returns a move on the first position', async () => {
-  const grid = ['', '', '', '', '', '', '', '', ''];
+test('random player returns a negetive value if there are no available position on the board', async () => {
+  const grid = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
   const randomPlayer = new RandomPlayer();
   const board = new Board(grid);
 
-  jest.spyOn(randomPlayer, 'findRandomMove').mockReturnValue(1);
+  jest.spyOn(Math, 'floor').mockReturnValue(0);
 
-  expect(randomPlayer.findRandomMove(board)).toEqual(1);
+  expect(randomPlayer.findRandomMove(board)).toEqual(-1);
 });
