@@ -1,6 +1,6 @@
 import Board from '../Board';
 import RandomChoice from '../RandomChoice';
-import { Player } from '../Player';
+import { Player } from '../interfaces/Player';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 

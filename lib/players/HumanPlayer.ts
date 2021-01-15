@@ -1,6 +1,6 @@
-import { Player } from '../Player';
+import { Player } from '../interfaces/Player';
 import Messages from '../Messages';
-import { Display } from '../Display';
+import { Display } from '../interfaces/Display';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 

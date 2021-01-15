@@ -1,4 +1,4 @@
-import { IO } from '../IO';
+import { IO } from '../interfaces/IO';
 import * as readline from 'readline';
 
 const sleep = (waitTimeInMs: number) =>

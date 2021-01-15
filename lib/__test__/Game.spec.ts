@@ -1,7 +1,7 @@
 import Game from '../Game';
 import Board from '../Board';
 import Messages from '../Messages';
-import { Display } from '../Display';
+import { Display } from '../interfaces/Display';
 
 const setup = (grid: string[], moves: string[], replays: boolean[]) => {
   const board = new Board(grid);

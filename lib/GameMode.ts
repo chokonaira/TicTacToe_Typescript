@@ -3,10 +3,10 @@ import BeatablePlayer from './players/BeatablePlayer';
 import UnbeatablePlayer from './players/UnbeatablePlayer';
 import Minimax from './Minimax';
 import RandomChoice from './RandomChoice';
-import { Player } from './Player';
+import { Player } from './interfaces/Player';
 import Board from './Board';
 import Messages from './Messages';
-import { Display } from './Display';
+import { Display } from './interfaces/Display';
 
 class GameMode {
   board: Board;

@@ -1,4 +1,4 @@
-import Board from './Board';
+import Board from '../Board';
 
 export interface Display {
   show(message: string | string[]): void;

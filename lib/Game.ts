@@ -1,7 +1,7 @@
 import Board from './Board';
 import Messages from './Messages';
-import { Display } from './Display';
-import { Player } from './Player';
+import { Display } from './interfaces/Display';
+import { Player } from './interfaces/Player';
 import GameMode from './GameMode';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
