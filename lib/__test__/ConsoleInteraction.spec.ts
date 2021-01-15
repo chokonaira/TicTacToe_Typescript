@@ -1,5 +1,5 @@
 import Board from '../Board';
-import { IO } from '../IO';
+import { IO } from '../interfaces/IO';
 import ConsoleInteraction from '../cli/ConsoleInteraction';
 
 test('checks that board is a square grid with position a valid symbol in postion 2', () => {
