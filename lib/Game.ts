@@ -2,11 +2,7 @@ import Board from './Board';
 import Messages from './Messages';
 import { Display } from './Display';
 import { Player } from './Player';
-import Minimax from './Minimax';
-import RandomChoice from './RandomChoice';
-import HumanPlayer from './players/HumanPlayer';
-import BeatablePlayer from './players/BeatablePlayer';
-import UnbeatablePlayer from './players/UnbeatablePlayer';
+import GameMode from './GameMode';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -22,10 +18,10 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
-    let players = this.gameModeType(mode);
+    const gameMode = new GameMode(this.board, this.display, this.messages);
+    let players = gameMode.modeType(mode);
     this.display.show(this.display.constructBoard(this.board));
     let currentMark: string;
     let currentPlayer: Player;
@@ -50,24 +46,6 @@ class Game {
       this.endGameOptions(this.messages.drawGame());
     }
     return;
-  }
-
-  gameModeType(mode: number): Player[] {
-    const gameModeType = {
-      1: [
-        new HumanPlayer(this.display, this.messages),
-        new HumanPlayer(this.display, this.messages)
-      ],
-      2: [
-        new UnbeatablePlayer(this.board, new Minimax('X', 'O')),
-        new HumanPlayer(this.display, this.messages)
-      ],
-      3: [
-        new BeatablePlayer(this.board, new RandomChoice()),
-        new HumanPlayer(this.display, this.messages)
-      ]
-    };
-    return gameModeType[mode];
   }
 
   async startGameOptions(message: string): Promise<number> {
