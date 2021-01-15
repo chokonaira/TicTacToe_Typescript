@@ -1,8 +1,12 @@
 import Board from './Board';
 import Messages from './Messages';
 import { Display } from './Display';
+import { Player } from './Player';
 import Minimax from './Minimax';
-import RandomPlayer from './RandomPlayer';
+import RandomChoice from './RandomChoice';
+import HumanPlayer from './players/HumanPlayer';
+import BeatablePlayer from './players/BeatablePlayer';
+import UnbeatablePlayer from './players/UnbeatablePlayer';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -18,27 +22,19 @@ class Game {
   }
 
   async playGame(): Promise<string[]> {
-    const minimax = new Minimax('X', 'O');
-    const randomPlayer = new RandomPlayer();
 
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
     let players = this.gameModeType(mode);
     this.display.show(this.display.constructBoard(this.board));
     let currentMark: string;
-    let currentPlayer: string;
+    let currentPlayer: Player;
 
     while (!this.isOver()) {
       currentMark = this.board.currentMark();
       currentPlayer = players[0];
-      let move: number;
-      if (currentPlayer === 'ComputerPlayer') {
-        move = minimax.findBestMove(this.board);
-      } else if (currentPlayer === 'RandomPlayer') {
-        move = randomPlayer.findRandomMove(this.board);
-      } else {
-        move = await this.display.askUserForInput(this.messages.askPosition());
-      }
+      const move = await currentPlayer.getMove(this.board);
+
       if (this.board.isMoveValid(move)) {
         this.board.makeMove(move, currentMark);
         this.display.show(this.display.constructBoard(this.board));
@@ -56,11 +52,20 @@ class Game {
     return;
   }
 
-  gameModeType(mode: number): string[] {
+  gameModeType(mode: number): Player[] {
     const gameModeType = {
-      1: ['HumanPlayer', 'HumanPlayer'],
-      2: ['ComputerPlayer', 'HumanPlayer'],
-      3: ['RandomPlayer', 'HumanPlayer']
+      1: [
+        new HumanPlayer(this.display, this.messages),
+        new HumanPlayer(this.display, this.messages)
+      ],
+      2: [
+        new UnbeatablePlayer(this.board, new Minimax('X', 'O')),
+        new HumanPlayer(this.display, this.messages)
+      ],
+      3: [
+        new BeatablePlayer(this.board, new RandomChoice()),
+        new HumanPlayer(this.display, this.messages)
+      ]
     };
     return gameModeType[mode];
   }

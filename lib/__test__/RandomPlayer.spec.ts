@@ -1,5 +1,5 @@
 import Board from '../Board';
-import RandomPlayer from '../RandomPlayer';
+import RandomPlayer from '../RandomChoice';
 
 test('random player returns a move on position 3', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
