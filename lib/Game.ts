@@ -7,11 +7,13 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class Game {
+  gameMode: GameMode;
   board: Board;
   display: Display;
   messages: Messages;
 
-  constructor(board: Board, display: Display, messages: Messages) {
+  constructor(gameMode: GameMode, board: Board, display: Display, messages: Messages) {
+    this.gameMode = gameMode;
     this.board = board;
     this.display = display;
     this.messages = messages;
@@ -20,8 +22,7 @@ class Game {
   async playGame(): Promise<string[]> {
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
-    const gameMode = new GameMode(this.board, this.display, this.messages);
-    let players = gameMode.modeType(mode);
+    let players = this.gameMode.modeType(mode);
     this.display.show(this.display.constructBoard(this.board));
     let currentMark: string;
     let currentPlayer: Player;
@@ -64,7 +65,7 @@ class Game {
       this.messages.playAgain()
     );
     if (playAgain) {
-      new Game(new Board(), this.display, this.messages).playGame();
+      new Game(this.gameMode,new Board(), this.display, this.messages).playGame();
     } else {
       this.display.show(this.messages.thankYou());
     }
