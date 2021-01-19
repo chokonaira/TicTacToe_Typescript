@@ -12,10 +12,8 @@ class Minimax {
     let bestValue = -1000;
     let bestMove = 0;
     board.availablePositions().forEach((position) => {
-      const defaultPositionState = board.defaultPositionState(position);
-      board.makeMove(position, this.currentPlayer);
-      const moveValue = this.miniMax(board, 0, false);
-      board.makeMove(position, defaultPositionState);
+      const newBoard = board.makeMove(position, this.currentPlayer);
+      const moveValue = this.miniMax(newBoard, 0, false);
 
       if (moveValue > bestValue) {
         bestMove = position;
@@ -43,19 +41,21 @@ class Minimax {
     if (isMax) {
       let bestValue = -1000;
       board.availablePositions().forEach((position) => {
-        const defaultPositionState = board.defaultPositionState(position);
-        board.makeMove(position, this.currentPlayer);
-        bestValue = Math.max(bestValue, this.miniMax(board, depth + 1, !isMax));
-        board.makeMove(position, defaultPositionState);
+        const newBoard = board.makeMove(position, this.currentPlayer);
+        bestValue = Math.max(
+          bestValue,
+          this.miniMax(newBoard, depth + 1, !isMax)
+        );
       });
       return bestValue;
     } else {
       let bestValue = 1000;
       board.availablePositions().forEach((position) => {
-        const defaultPositionState = board.defaultPositionState(position);
-        board.makeMove(position, this.opponent);
-        bestValue = Math.min(bestValue, this.miniMax(board, depth + 1, !isMax));
-        board.makeMove(position, defaultPositionState);
+        const newBoard = board.makeMove(position, this.opponent);
+        bestValue = Math.min(
+          bestValue,
+          this.miniMax(newBoard, depth + 1, !isMax)
+        );
       });
       return bestValue;
     }

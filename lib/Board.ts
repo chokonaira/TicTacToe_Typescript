@@ -12,8 +12,10 @@ class Board {
     return grid;
   }
 
-  makeMove(position: number, symbol: string): string {
-    return (this.grid[position - 1] = symbol);
+  makeMove(position: number, symbol: string): Board {
+    const newGrid = [...this.grid];
+    newGrid[position - 1] = symbol;
+    return new Board(newGrid);
   }
 
   currentMark(): string {

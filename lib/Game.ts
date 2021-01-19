@@ -12,8 +12,8 @@ class Game {
   display: Display;
   messages: Messages;
 
-  constructor(gameMode: GameMode, board: Board, display: Display, messages: Messages) {
-    this.gameMode = gameMode;
+  constructor(board: Board, display: Display, messages: Messages) {
+    this.gameMode = new GameMode(this.board, this.display, this.messages);
     this.board = board;
     this.display = display;
     this.messages = messages;
@@ -22,7 +22,8 @@ class Game {
   async playGame(): Promise<string[]> {
     this.display.show(this.messages.welcomeMassage());
     const mode = await this.startGameOptions(this.messages.gameMode());
-    let players = this.gameMode.modeType(mode);
+    const gameMode = new GameMode(this.board, this.display, this.messages);
+    let players = gameMode.modeType(mode);
     this.display.show(this.display.constructBoard(this.board));
     let currentMark: string;
     let currentPlayer: Player;
@@ -33,7 +34,7 @@ class Game {
       const move = await currentPlayer.getMove(this.board);
 
       if (this.board.isMoveValid(move)) {
-        this.board.makeMove(move, currentMark);
+        this.board = this.board.makeMove(move, currentMark);
         this.display.show(this.display.constructBoard(this.board));
         players = players.reverse();
       } else {
@@ -65,7 +66,7 @@ class Game {
       this.messages.playAgain()
     );
     if (playAgain) {
-      new Game(this.gameMode,new Board(), this.display, this.messages).playGame();
+      new Game(new Board(), this.display, this.messages).playGame();
     } else {
       this.display.show(this.messages.thankYou());
     }
@@ -83,6 +84,14 @@ class Game {
   boardGrid(): string[] {
     const board = new Board();
     return board.grid;
+  }
+
+  gameHasWinner(): boolean {
+    return this.board.hasWinner();
+  }
+
+  gameHasDraw(): boolean {
+    return this.board.isGameDraw();
   }
 }
 

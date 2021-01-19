@@ -5,15 +5,13 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class UnbeatablePlayer implements Player {
-  board: Board;
   minimax: Mininmax;
-  constructor(board: Board, minimax: Mininmax) {
-    this.board = board;
+  constructor(minimax: Mininmax) {
     this.minimax = minimax;
   }
 
-  getMove(): Promise<number> {
-    return Promise.resolve(this.minimax.findBestMove(this.board));
+  getMove(board: Board): Promise<number> {
+    return Promise.resolve(this.minimax.findBestMove(board));
   }
 }
 export default UnbeatablePlayer;
