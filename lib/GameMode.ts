@@ -25,11 +25,11 @@ class GameMode {
         new HumanPlayer(this.display, this.messages)
       ],
       2: [
-        new UnbeatablePlayer(this.board, new Minimax('X', 'O')),
+        new UnbeatablePlayer(new Minimax('X', 'O')),
         new HumanPlayer(this.display, this.messages)
       ],
       3: [
-        new BeatablePlayer(this.board, new RandomChoice()),
+        new BeatablePlayer(new RandomChoice()),
         new HumanPlayer(this.display, this.messages)
       ]
     };

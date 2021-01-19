@@ -5,15 +5,13 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class BeatablePlayer implements Player {
-  board: Board;
   randomChoice: RandomChoice;
-  constructor(board: Board, randomChoice: RandomChoice) {
-    this.board = board;
+  constructor(randomChoice: RandomChoice) {
     this.randomChoice = randomChoice;
   }
 
-  getMove(): Promise<number> {
-    return Promise.resolve(this.randomChoice.findRandomMove(this.board));
+  getMove(board: Board): Promise<number> {
+    return Promise.resolve(this.randomChoice.findRandomMove(board));
   }
 }
 export default BeatablePlayer;

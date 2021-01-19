@@ -7,11 +7,13 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class Game {
+  gameMode: GameMode;
   board: Board;
   display: Display;
   messages: Messages;
 
   constructor(board: Board, display: Display, messages: Messages) {
+    this.gameMode = new GameMode(this.board, this.display, this.messages);
     this.board = board;
     this.display = display;
     this.messages = messages;
@@ -32,7 +34,7 @@ class Game {
       const move = await currentPlayer.getMove(this.board);
 
       if (this.board.isMoveValid(move)) {
-        this.board.makeMove(move, currentMark);
+        this.board = this.board.makeMove(move, currentMark);
         this.display.show(this.display.constructBoard(this.board));
         players = players.reverse();
       } else {
@@ -82,6 +84,14 @@ class Game {
   boardGrid(): string[] {
     const board = new Board();
     return board.grid;
+  }
+
+  gameHasWinner(): boolean {
+    return this.board.hasWinner();
+  }
+
+  gameHasDraw(): boolean {
+    return this.board.isGameDraw();
   }
 }
 

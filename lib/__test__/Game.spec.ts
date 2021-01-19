@@ -4,7 +4,7 @@ import Messages from '../Messages';
 import { Display } from '../interfaces/Display';
 
 const setup = (grid: string[], moves: string[], replays: boolean[]) => {
-  const board = new Board(grid);
+  let board = new Board(grid);
   const messages = new Messages();
   const display = new DisplayMock(moves, replays);
   const game = new Game(board, display, messages);
@@ -12,25 +12,25 @@ const setup = (grid: string[], moves: string[], replays: boolean[]) => {
   return { game, board, display, messages };
 };
 
-test('plays a winning round ', async () => {
-  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
 
-  const { game, board } = setup(grid, ['1', '3'], [false]);
+test('plays a winning round', async () => {
+  const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
+  const { game } = setup(grid, ['1', '3'], [false]);
 
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(board.hasWinner()).toEqual(true);
+  expect(game.gameHasWinner()).toEqual(true);
 });
 
 test('plays a winning round including an invalid move', async () => {
   const grid = ['X', '', 'X', '', '', '', '', 'O', 'O'];
-  const { game, board } = setup(grid, ['1', '^&*', '2'], [false]);
+  const { game } = setup(grid, ['1', '^&*', '2'], [false]);
 
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(board.hasWinner()).toEqual(true);
+  expect(game.gameHasWinner()).toEqual(true);
 });
 
 test('plays a draw round', async () => {
@@ -40,8 +40,8 @@ test('plays a draw round', async () => {
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(board.hasWinner()).toEqual(false);
-  expect(board.isGameDraw()).toEqual(true);
+  expect(game.gameHasWinner()).toEqual(false);
+  expect(game.gameHasDraw()).toEqual(true);
 });
 
 test('plays a game and restarts the game in a win scenerio', async () => {
@@ -145,23 +145,23 @@ test('it shows an invalid move message and the old board state everytime a user 
 test('plays a winning round for Human versus computer mode', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
 
-  const { game, board } = setup(grid, ['2'], [false]);
+  const { game } = setup(grid, ['2'], [false]);
 
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(board.hasWinner()).toEqual(true);
+  expect(game.gameHasWinner()).toEqual(true);
 });
 
 test('plays a draw round for Human versus computer mode', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', '', ''];
-  const { game, board } = setup(grid, ['2', '9'], [false]);
+  const { game } = setup(grid, ['2', '9'], [false]);
 
   await game.playGame();
 
   expect(game.isOver()).toEqual(true);
-  expect(board.hasWinner()).toEqual(false);
-  expect(board.isGameDraw()).toEqual(true);
+  expect(game.gameHasWinner()).toEqual(false);
+  expect(game.gameHasDraw()).toEqual(true);
 });
 
 class DisplayMock implements Display {

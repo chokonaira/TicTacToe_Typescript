@@ -2,27 +2,30 @@ import Board from '../Board';
 import { IO } from '../interfaces/IO';
 import ConsoleInteraction from '../cli/ConsoleInteraction';
 
-test('checks that board is a square grid with position a valid symbol in postion 2', () => {
-  const board = new Board();
+test('checks that board is a square grid with a valid symbol in postion 2', () => {
+  const grid = ['', 'X', '', '', '', '', '', '', '']
+
+  const board = new Board(grid);
   const console = new ConsoleInteraction(new MyIOMock([]));
 
-  board.makeMove(2, 'X');
   expect(console.constructBoard(board)[1]).toEqual(board.grid[1]);
 });
 
-test('checks that board is a square grid with position a valid symbol in postion 1', () => {
-  const board = new Board();
+test('checks that board is a square grid with a valid symbol in postion 1', () => {
+  const grid = ['O', '', '', '', '', '', '', '', '']
+
+  const board = new Board(grid);
   const console = new ConsoleInteraction(new MyIOMock([]));
 
-  board.makeMove(1, 'O');
   expect(console.constructBoard(board)[0]).toEqual(board.grid[0]);
 });
 
-test('checks that board is a square grid with position a valid symbol in postion 6', () => {
-  const board = new Board();
+test('checks that board is a square grid with a valid symbol in postion 6', () => {
+  const grid = ['', '', '', '', '', 'X', '', '', '']
+
+  const board = new Board(grid);
   const console = new ConsoleInteraction(new MyIOMock([]));
 
-  board.makeMove(6, 'X');
   expect(console.constructBoard(board)[5]).toEqual(board.grid[5]);
 });
 

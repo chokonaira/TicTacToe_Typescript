@@ -99,7 +99,6 @@ test('checks for the best move to block opponents move diagonallly', () => {
   expect(minimax.findBestMove(board)).toEqual(5);
 });
 
-// Question
 // O O X
 // _ _ O
 // X _ X
@@ -110,4 +109,16 @@ test('checks for the best move to when the random player checkmates', () => {
   const minimax = new Minimax('X', 'O');
 
   expect(minimax.findBestMove(board)).toEqual(5);
+});
+
+// X _ _
+// _ _ _
+// _ _ O
+
+test('checks for the best move for second round', () => {
+  const grid = ['X', '', '', '', '', '', '', '', 'O'];
+  const board = new Board(grid);
+  const minimax = new Minimax('X', 'O');
+
+  expect(minimax.findBestMove(board)).toEqual(3);
 });
