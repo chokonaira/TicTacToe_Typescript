@@ -4,11 +4,13 @@
   "description": "A Tic Tac Toe board game in Typescript",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "prettier": "prettier --config .prettierrc 'lib/**/*.{ts,js}' --write",
     "lint": "eslint . --ext .ts --fix",
     "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/cli/AppRunner.ts",
-    "start": "'ts-node' lib/cli/AppRunner.ts"
+    "test-web": "cd lib/web && npm test",
+    "start-web": "cd lib/web && npm start",
+    "test-cli": "jest",
+    "start-cli": "'ts-node' lib/cli/AppRunner.ts"
   },
   "husky": {
     "hooks": {
