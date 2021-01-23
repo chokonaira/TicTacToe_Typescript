@@ -6,15 +6,29 @@ interface Props {
   board: Board;
 }
 
-const WebBoard = (props: Props) => (
-  <div className="board-container">
-    {props.board.rows().map((row, index) => (
-      <div className="row" key={index+1}>
-        <button className="cell">{row[0]}</button>
-        <button className="cell">{row[1]}</button>
-        <button className="cell">{row[2]}</button>
-      </div>
-    ))}
-  </div>
-);
+const WebBoard = (props: Props) => {
+  const [grid, setGrid] = React.useState<string[]>(props.board.grid);
+
+  const playPosition = (index: number) => {
+    grid.slice();
+    grid[index] = 'X';
+    setGrid(grid);
+  };
+
+  const status = `Next player is: X`;
+
+  return (
+    <div className="board-container">
+      {status}
+      {grid.map((_cell, index) => (
+        <div key={index} className="row">
+          <button onClick={() => playPosition(index)} className="cell">
+            {grid[index]}
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default WebBoard;
