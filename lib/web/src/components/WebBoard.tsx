@@ -8,14 +8,16 @@ interface Props {
 
 const WebBoard = (props: Props) => {
   const [grid, setGrid] = React.useState<string[]>(props.board.grid);
+  const [player, setPlayer] = React.useState<string>('X');
 
   const playPosition = (index: number) => {
     grid.slice();
-    grid[index] = 'X';
+    grid[index] = player;
     setGrid(grid);
+    setPlayer(player === 'X' ? 'O' : 'X');
   };
 
-  const status = `Next player is: X`;
+  const status = `Next player is: ${player}`;
 
   return (
     <div className="board-container">
