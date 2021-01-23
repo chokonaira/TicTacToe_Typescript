@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 5% auto;
+  margin: 3% auto;
 }
 
 .cell {
@@ -26,4 +26,8 @@
   font-size: larger;
   color: #fff;
   background-color: #3e4444;
+}
+
+.status{
+  margin-bottom: 2rem;
 }
