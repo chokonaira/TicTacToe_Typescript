@@ -7,12 +7,12 @@ interface Props {
 }
 
 const WebBoard = (props: Props) => {
-  const [grid, setGrid] = React.useState<string[]>(props.board.grid);
+  const [grid, setGrid] = React.useState<string[][]>(props.board.rows());
   const [player, setPlayer] = React.useState<string>('X');
 
-  const playPosition = (index: number) => {
+  const playPosition = (rowIndex: number, columnIndex: number) => {
     grid.slice();
-    grid[index] = player;
+    grid[rowIndex][columnIndex] = player;
     setGrid(grid);
     setPlayer(player === 'X' ? 'O' : 'X');
   };
@@ -21,12 +21,18 @@ const WebBoard = (props: Props) => {
 
   return (
     <div className="board-container">
-      {status}
-      {grid.map((_cell, index) => (
-        <div key={index} className="row">
-          <button onClick={() => playPosition(index)} className="cell">
-            {grid[index]}
-          </button>
+      <div className="status">{status}</div>
+      {grid.map((rows, rowIndex) => (
+        <div key={rowIndex} className="row">
+          {rows.map((_cols, columnIndex) => (
+            <button
+              key={columnIndex}
+              onClick={() => playPosition(rowIndex, columnIndex)}
+              className="cell"
+            >
+              {grid[rowIndex][columnIndex]}
+            </button>
+          ))}
         </div>
       ))}
     </div>
