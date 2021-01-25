@@ -7,40 +7,32 @@ interface Props {
 }
 
 const WebBoard = (props: Props) => {
-  const [grid, setGrid] = React.useState<string[][]>(props.board.rows());
-  const [currentMark, setCurrentMark] = React.useState<string>('X');
+  const [board, setBoard] = React.useState<Board>(props.board);
 
-  const playPosition = (rowIndex: number, columnIndex: number) => {
-    const marks = ['X', 'O'];
-    if (marks.includes(grid[rowIndex][columnIndex])){
-      return grid[rowIndex][columnIndex];
-    }
-    
-    grid.slice();
-    grid[rowIndex][columnIndex] = currentMark;
-    setGrid(grid);
-    setCurrentMark(currentMark === 'X' ? 'O' : 'X');
-  };
+  const playPosition = (position: number) => {
+    console.log(position);
+    if (!board.isMoveValid(position)) return;
+    const newBoard = board.makeMove(position, board.currentMark());
+    setBoard(newBoard);
 
-  const status = `Next player is: ${currentMark}`;
+  const status = `Next player is: ${board.currentMark()}`;
+
 
   return (
+    
     <div className="board-container">
       <div className="status">{status}</div>
-      {grid.map((rows, rowIndex) => (
-        <div key={rowIndex} className="row">
-          {rows.map((_cols, columnIndex) => (
-            <button
-              type="button"
-              key={columnIndex}
-              onClick={() => playPosition(rowIndex, columnIndex)}
-              className="cell"
-            >
-              {grid[rowIndex][columnIndex]}
-            </button>
-          ))}
-        </div>
-      ))}
+      {board.grid.map((position, index) => {
+        const row = Math.trunc(0/3)
+        
+        return (
+          <div key={index} className="row">
+              <button key={index} className="cell" onClick={(()=> playPosition(index+1))}>
+                {board.grid[index]}
+              </button>
+          </div>
+        );
+      })}
     </div>
   );
 };
