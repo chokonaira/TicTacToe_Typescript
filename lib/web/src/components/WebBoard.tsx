@@ -1,38 +1,30 @@
 import React from 'react';
 import Board from '../lib/Board';
+import { Dispatch, SetStateAction } from "react";
 import '../App.css';
 
 interface Props {
-  board: Board;
+  gameBoard: Board;
+  setGameBoard: Dispatch<SetStateAction<Board>>;
+  gameStatus:() => string
 }
 
 const WebBoard = (props: Props) => {
-  const [board, setBoard] = React.useState<Board>(props.board);
   const [disableCells, setDisableCells] = React.useState<boolean>(false);
 
   const playPosition = (position: number) => {
     console.log(position);
-    if (!board.isMoveValid(position)) return;
-    if (board.hasWinner()){ setDisableCells(true); return} 
-    const newBoard = board.makeMove(position, board.currentMark());
-    setBoard(newBoard);
+    if (!props.gameBoard.isMoveValid(position)) return;
+    if (props.gameBoard.hasWinner()){ setDisableCells(true); return} 
+    const newBoard = props.gameBoard.makeMove(position, props.gameBoard.currentMark());
+    props.setGameBoard(newBoard);
   };
   
-  const gameStatus = () => {
-    const winner = board.winningPlayer();
-    let status;
-    if (winner) {
-      status = `Congratulations: ${winner} has won!`;
-    } else {
-      status = `Next player is: ${board.currentMark()}`;
-    }
-    return status;
-  };
 
   return (
     <div className="board-container">
-      <div className="status">{gameStatus()}</div>
-      {board.grid.map((position, index) => {
+      <div className="status">{props.gameStatus()}</div>
+      {props.gameBoard.grid.map((position, index) => {
         const row = Math.trunc(0 / 3);
 
         return (
@@ -43,7 +35,7 @@ const WebBoard = (props: Props) => {
               className="cell"
               onClick={() => playPosition(index + 1)}
             >
-              {board.grid[index]}
+              {props.gameBoard.grid[index]}
             </button>
           </div>
         );
