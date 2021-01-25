@@ -11,6 +11,11 @@ const WebBoard = (props: Props) => {
   const [currentMark, setCurrentMark] = React.useState<string>('X');
 
   const playPosition = (rowIndex: number, columnIndex: number) => {
+    const marks = ['X', 'O'];
+    if (marks.includes(grid[rowIndex][columnIndex])){
+      return grid[rowIndex][columnIndex];
+    }
+    
     grid.slice();
     grid[rowIndex][columnIndex] = currentMark;
     setGrid(grid);
