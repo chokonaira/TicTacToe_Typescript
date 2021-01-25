@@ -3,18 +3,16 @@ import Board from './lib/Board';
 import WebBoard from './components/WebBoard';
 import React from 'react';
 
-const board = new Board();
-
 const App = () => {
-  const [gameBoard, setGameBoard] = React.useState<Board>(board);
+  const [board, setBoard] = React.useState<Board>(new Board());
 
   const gameStatus = () => {
-    const winner = gameBoard.winningPlayer();
+    const winner = board.winningPlayer();
     let status;
     if (winner) {
       status = `Congratulations: ${winner} has won!`;
     } else {
-      status = `Next player is: ${gameBoard.currentMark()}`;
+      status = `Next player is: ${board.currentMark()}`;
     }
     return status;
   };
@@ -22,11 +20,11 @@ const App = () => {
   return (
     <div className="App">
       <h1>Tic Tac Toe</h1>
-      <WebBoard
-        gameBoard={gameBoard}
-        setGameBoard={setGameBoard}
-        gameStatus={gameStatus}
-      />
+      <div className="commands">
+        <button>Game Mode</button>
+        <button onClick={() => setBoard(new Board())}>Restart</button>
+      </div>
+      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     </div>
   );
 };

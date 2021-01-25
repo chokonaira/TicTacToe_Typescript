@@ -31,3 +31,18 @@
 .status{
   margin-bottom: 2rem;
 }
+
+.commands{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.commands button {
+  padding: .3%;
+  color: #fff;
+  background-color: #3e4444;
+  width: 6%;
+  border-radius: .3rem;
+  cursor: pointer;
+}
