@@ -8,13 +8,16 @@ interface Props {
 
 const WebBoard = (props: Props) => {
   const [board, setBoard] = React.useState<Board>(props.board);
+  const [disableCells, setDisableCells] = React.useState<boolean>(false);
 
   const playPosition = (position: number) => {
     console.log(position);
     if (!board.isMoveValid(position)) return;
+    if (board.hasWinner()){ setDisableCells(true); return} 
     const newBoard = board.makeMove(position, board.currentMark());
     setBoard(newBoard);
   };
+  
   const gameStatus = () => {
     const winner = board.winningPlayer();
     let status;
@@ -36,6 +39,7 @@ const WebBoard = (props: Props) => {
           <div key={index} className="row">
             <button
               key={index}
+              disabled={disableCells}
               className="cell"
               onClick={() => playPosition(index + 1)}
             >
