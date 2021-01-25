@@ -8,16 +8,16 @@ interface Props {
 
 const WebBoard = (props: Props) => {
   const [grid, setGrid] = React.useState<string[][]>(props.board.rows());
-  const [player, setPlayer] = React.useState<string>('X');
+  const [currentMark, setCurrentMark] = React.useState<string>('X');
 
   const playPosition = (rowIndex: number, columnIndex: number) => {
     grid.slice();
-    grid[rowIndex][columnIndex] = player;
+    grid[rowIndex][columnIndex] = currentMark;
     setGrid(grid);
-    setPlayer(player === 'X' ? 'O' : 'X');
+    setCurrentMark(currentMark === 'X' ? 'O' : 'X');
   };
 
-  const status = `Next player is: ${player}`;
+  const status = `Next player is: ${currentMark}`;
 
   return (
     <div className="board-container">
@@ -26,6 +26,7 @@ const WebBoard = (props: Props) => {
         <div key={rowIndex} className="row">
           {rows.map((_cols, columnIndex) => (
             <button
+              type="button"
               key={columnIndex}
               onClick={() => playPosition(rowIndex, columnIndex)}
               className="cell"

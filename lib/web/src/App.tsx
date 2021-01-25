@@ -1,6 +1,7 @@
 import './App.css';
 import Board from './lib/Board';
 import WebBoard from './components/WebBoard'
+import React from 'react';
 
 const board = new Board();
 
