@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from '../lib/Board';
+import Button from './Button';
 import { Dispatch, SetStateAction } from 'react';
 import '../App.css';
 
@@ -32,14 +33,13 @@ const WebBoard = (props: Props) => {
             {row.map((_cell, colIndex) => {
               const index = ((rowIndex * props.board.rows().length + colIndex) + 1);
               return (
-                <button
+                <Button
                   key={index}
                   disabled={disableCells}
-                  className="cell"
+                  className='cell'
                   onClick={() => playPosition(index)}
-                >
-                  {props.board.grid[index-1]}
-                </button>
+                  cellValue={props.board.grid[index-1]}
+                />
               );
             })}
           </div>
