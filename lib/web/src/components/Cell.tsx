@@ -1,16 +1,14 @@
 import '../App.css';
 
 interface Props {
-  key: number;
   disabled: boolean;
   className: string;
   onClick: () => any;
   cellValue: string;
 }
 
-const Button = (props: Props) => (
+const Cell = (props: Props) => (
   <button
-    key={props.key}
     disabled={props.disabled}
     className={props.className}
     onClick={props.onClick}
@@ -19,4 +17,4 @@ const Button = (props: Props) => (
   </button>
 );
 
-export default Button;
+export default Cell;

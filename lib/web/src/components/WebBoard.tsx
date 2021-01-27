@@ -1,6 +1,6 @@
 import React from 'react';
 import Board from '../lib/Board';
-import Button from './Button';
+import Cell from './Cell';
 import { Dispatch, SetStateAction } from 'react';
 import '../App.css';
 
@@ -33,7 +33,7 @@ const WebBoard = (props: Props) => {
             {row.map((_cell, colIndex) => {
               const index = ((rowIndex * props.board.rows().length + colIndex) + 1);
               return (
-                <Button
+                <Cell
                   key={index}
                   disabled={disableCells}
                   className='cell'
