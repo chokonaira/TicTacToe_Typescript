@@ -29,7 +29,7 @@ const WebBoard = (props: Props) => {
       <div className="status">{props.gameStatus()}</div>
       <div>
         {props.board.rows().map((row, rowIndex) => (
-          <div className="board-row" key={rowIndex}>
+          <div className="row" key={rowIndex}>
             {row.map((_cell, colIndex) => {
               const index = ((rowIndex * props.board.rows().length + colIndex) + 1);
               return (
