@@ -80,3 +80,62 @@ describe('<Board/>', () => {
     expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('X');
     expect(wrapper.find(Cell).at(2).prop('cellValue')).toEqual('X');
   });
+
+  it('show a winning status message if there is a win on the board', () => {
+    const wrapper = mount(<App />);
+
+    let cell =  wrapper.find(Cell)
+    cell.at(0).simulate('click')
+    cell.at(3).simulate('click')
+    cell.at(1).simulate('click')
+    cell.at(4).simulate('click')
+    cell.at(2).simulate('click')
+
+    expect(wrapper.find('.status').text()).toEqual('Congratulations: X has won!');
+  });
+
+  it('show a status messaage with the next players turn on the board', () => {
+    const wrapper = mount(<App />);
+
+    let cell =  wrapper.find(Cell)
+    cell.at(0).simulate('click')
+
+    expect(wrapper.find('.status').text()).toEqual('Next player is: O');
+  });
+
+  it('show a draw status message if there is a draw on the board', () => {
+    const wrapper = mount(<App />);
+
+    let cell =  wrapper.find(Cell)
+    cell.at(0).simulate('click')
+    cell.at(4).simulate('click')
+    cell.at(2).simulate('click')
+    cell.at(1).simulate('click')
+    cell.at(7).simulate('click')
+    cell.at(3).simulate('click')
+    cell.at(5).simulate('click')
+    cell.at(8).simulate('click')
+    cell.at(6).simulate('click')
+
+    expect(wrapper.find('.status').text()).toEqual('Its a Draw game');
+  });
+
+  xit('renders the first row of the Board with the expected move in a real scenerio', () => {
+    const wrapper = mount(<App />);
+    wrapper.find('.row').at(0).forEach((cell: any) => {
+        cell.children().simulate('click')
+        console.log(cell.children().getElements())
+        expect(cell.children().getElements().props).toEqual('X');
+        // expect(cell.at(1).prop('cellValue')).toEqual('O');
+        // expect(cell.at(2).prop('cellValue')).toEqual('X');
+      });
+  });
+});
+
+// <Cell
+// disabled={disabled}
+//  className={className}
+//  onClick={onClick}
+//  cellValue={defaultCellValue}
+///>;
+// console.log(cell.children().getElements())
