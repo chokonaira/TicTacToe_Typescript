@@ -7,10 +7,11 @@ const App = () => {
   const [board, setBoard] = React.useState<Board>(new Board());
 
   const gameStatus = () => {
-    const winner = board.winningPlayer();
     let status;
-    if (winner) {
-      status = `Congratulations: ${winner} has won!`;
+    if (board.hasWinner()) {
+      status = `Congratulations: ${board.winningPlayer()} has won!`;
+    } else if (board.isGameDraw()) {
+      status = `Its a Draw game`;
     } else {
       status = `Next player is: ${board.currentMark()}`;
     }

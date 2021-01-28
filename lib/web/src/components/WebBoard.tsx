@@ -16,7 +16,7 @@ const WebBoard = (props: Props) => {
   const playPosition = (position: number) => {
     console.log(position);
     if (!props.board.isMoveValid(position)) return;
-    if (props.board.hasWinner()) {
+    if (props.board.hasWinner() || props.board.isGameDraw()) {
       setDisableCells(true);
       return;
     }
