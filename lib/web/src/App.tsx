@@ -5,7 +5,7 @@ import React from 'react';
 
 const App = () => {
   const [board, setBoard] = React.useState<Board>(new Board());
-
+  
   const gameStatus = () => {
     let status;
     if (board.hasWinner()) {

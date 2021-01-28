@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import WebBoard from '../components/WebBoard';
+import App from '../App';
 import Board from '../lib/Board';
 import Cell from '../components/Cell';
 
@@ -13,22 +14,24 @@ const gameStatus = jest.fn();
 // const defaultCellValue = '';
 
 describe('<Board/>', () => {
-  xit('renders the Board grid rows', () => {
+  
+
+  it('renders the Board grid rows', () => {
     const wrapper = shallow(
       <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     expect(wrapper.find('.row').getElements().length).toEqual(3);
   });
 
-  xit('renders the Board with 9 cells', () => {
+  it('renders the Board with 9 cells', () => {
     const wrapper = shallow(
       <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     expect(wrapper.find(Cell)).toHaveLength(9);
   });
 
-  xit('renders the Board with 9 cells with Default values', () => {
-    const wrapper = shallow(
+  it('renders the Board with 9 cells with Default values', () => {
+    const wrapper = mount(
       <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     wrapper.find('.row').forEach((row: any) => {
@@ -38,46 +41,42 @@ describe('<Board/>', () => {
     });
   });
 
-  xit('renders the Board cell with a move on the first cell', () => {
-    const wrapper = shallow(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
-    );
+  it('renders the Board cell with a move on the first cell', () => {
+    const wrapper = mount(<App />);
+
     wrapper.find(Cell).at(0).simulate('click');
-    expect(wrapper.find(Cell).at(0).length).toEqual(1);
-    expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X')
+
+    expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
   });
 
-  xit('renders the Board cell with a move on the 2nd cell', () => {
-    const wrapper = shallow(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
-    );
+  it('renders the Board cell with a move on the 2nd cell', () => {
+    const wrapper = mount(<App />);
+
     wrapper.find(Cell).at(1).simulate('click');
-    expect(wrapper.find(Cell).at(1).length).toEqual(1);
-    expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('X')
+
+    expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('X');
   });
 
-  it('renders the Board cell with win on first row', () => {
-    const wrapper = shallow(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
-    );
-    // wrapper.find(Cell).at(0).simulate('click');
-    // wrapper.find(Cell).at(1).simulate('click');
-    // wrapper.find(Cell).at(2).simulate('click');
-    // expect(wrapper.find(Cell).at(1).length).toEqual(1);
-    // expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('X')
-    wrapper.find('.row').forEach((row: any) => {
-      row.children(0).forEach((cell: any) => {
-        
-        console.log(cell.props())
-        expect(cell).toEqual(3);
-      });
-    });
-  });
-});
+  it('renders the Board cell with an opponents move on the 2nd cell', () => {
+    const wrapper = mount(<App />);
+    let cell =  wrapper.find(Cell)
+    cell.at(0).simulate('click')
+    cell.at(1).simulate('click')
 
-// <Cell
-// disabled={disabled}
-//  className={className}
-//  onClick={onClick}
-//  cellValue={defaultCellValue}
-///>; 
+    expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('O');
+  });
+
+  it('renders the Board cell with a win on the first row', () => {
+    const wrapper = mount(<App />);
+
+    let cell =  wrapper.find(Cell)
+    cell.at(0).simulate('click')
+    cell.at(3).simulate('click')
+    cell.at(1).simulate('click')
+    cell.at(4).simulate('click')
+    cell.at(2).simulate('click')
+
+    expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
+    expect(wrapper.find(Cell).at(1).prop('cellValue')).toEqual('X');
+    expect(wrapper.find(Cell).at(2).prop('cellValue')).toEqual('X');
+  });

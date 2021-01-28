@@ -17,10 +17,11 @@ const WebBoard = (props: Props) => {
     console.log(position);
     if (!props.board.isMoveValid(position)) return;
     if (props.board.hasWinner() || props.board.isGameDraw()) {
-      setDisableCells(true);
-      return;
+      setDisableCells(!disableCells); return
     }
     const newBoard = props.board.makeMove(position, props.board.currentMark());
+    
+    console.log(disableCells)
     props.setBoard(newBoard);
   };
 
