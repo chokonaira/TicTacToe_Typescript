@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import WebBoard from '../components/WebBoard';
+import DisplayBoard from '../components/DisplayBoard';
 import App from '../App';
 import Board from '../lib/Board';
 import Cell from '../components/Cell';
@@ -8,31 +8,27 @@ import Cell from '../components/Cell';
 const board = new Board();
 const setBoard = jest.fn();
 const gameStatus = jest.fn();
-// const disabled = false;
-// const className = 'cell';
-// const onClick = jest.fn();
-// const defaultCellValue = '';
 
 describe('<Board/>', () => {
   
 
   it('renders the Board grid rows', () => {
     const wrapper = shallow(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
+      <DisplayBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     expect(wrapper.find('.row').getElements().length).toEqual(3);
   });
 
   it('renders the Board with 9 cells', () => {
     const wrapper = shallow(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
+      <DisplayBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     expect(wrapper.find(Cell)).toHaveLength(9);
   });
 
   it('renders the Board with 9 cells with Default values', () => {
     const wrapper = mount(
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
+      <DisplayBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     );
     wrapper.find('.row').forEach((row: any) => {
       row.children().forEach((cell: any) => {
@@ -119,23 +115,4 @@ describe('<Board/>', () => {
 
     expect(wrapper.find('.status').text()).toEqual('Its a Draw game');
   });
-
-  xit('renders the first row of the Board with the expected move in a real scenerio', () => {
-    const wrapper = mount(<App />);
-    wrapper.find('.row').at(0).forEach((cell: any) => {
-        cell.children().simulate('click')
-        console.log(cell.children().getElements())
-        expect(cell.children().getElements().props).toEqual('X');
-        // expect(cell.at(1).prop('cellValue')).toEqual('O');
-        // expect(cell.at(2).prop('cellValue')).toEqual('X');
-      });
-  });
 });
-
-// <Cell
-// disabled={disabled}
-//  className={className}
-//  onClick={onClick}
-//  cellValue={defaultCellValue}
-///>;
-// console.log(cell.children().getElements())

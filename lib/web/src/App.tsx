@@ -1,6 +1,6 @@
 import './App.css';
 import Board from './lib/Board';
-import WebBoard from './components/WebBoard';
+import DisplayBoard from './components/DisplayBoard';
 import React from 'react';
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
         <button>Game Mode</button>
         <button onClick={() => setBoard(new Board())}>Restart</button>
       </div>
-      <WebBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
+      <DisplayBoard board={board} setBoard={setBoard} gameStatus={gameStatus} />
     </div>
   );
 };

@@ -10,18 +10,16 @@ interface Props {
   gameStatus: () => string;
 }
 
-const WebBoard = (props: Props) => {
+const DisplayBoard = (props: Props) => {
   const [disableCells, setDisableCells] = React.useState<boolean>(false);
 
   const playPosition = (position: number) => {
-    console.log(position);
     if (!props.board.isMoveValid(position)) return;
     if (props.board.hasWinner() || props.board.isGameDraw()) {
       setDisableCells(!disableCells); return
     }
     const newBoard = props.board.makeMove(position, props.board.currentMark());
     
-    console.log(disableCells)
     props.setBoard(newBoard);
   };
 
@@ -50,4 +48,4 @@ const WebBoard = (props: Props) => {
   );
 };
 
-export default WebBoard;
+export default DisplayBoard;
