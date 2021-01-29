@@ -37,7 +37,7 @@ const DisplayBoard = (props: Props) => {
                   disabled={disableCells}
                   className='cell'
                   onClick={() => playPosition(index)}
-                  cellValue={props.board.grid[index-1]}
+                  cellValue={props.board.markedBoardPositionValue(index)}
                 />
               );
             })}
