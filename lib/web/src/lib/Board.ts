@@ -37,6 +37,10 @@ class Board {
     return this.availablePositions().includes(input);
   }
 
+  markedBoardPositionValue(index: number): string {
+    return this.grid[index-1]
+  }
+
   availablePositions(): number[] {
     const result: number[] = [];
     this.grid.forEach((_position, index) => {

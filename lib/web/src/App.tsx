@@ -1,16 +1,20 @@
 import './App.css';
 import Board from './lib/Board';
-import WebBoard from './components/WebBoard'
+import DisplayBoard from './components/DisplayBoard';
+import React from 'react';
 
-const board = new Board();
+interface Props {
+  board: Board;
+}
 
-const App = () => {
+const App = (props: Props) => {
+  
   return (
     <div className="App">
-        <h1>Tic Tac Toe</h1>
-        <WebBoard board={board}/>
+      <h1>Tic Tac Toe</h1>
+      <DisplayBoard board={props.board}/>
     </div>
   );
-}
+};
 
 export default App;
