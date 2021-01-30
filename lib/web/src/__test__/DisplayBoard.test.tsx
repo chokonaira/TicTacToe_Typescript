@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import DisplayBoard from '../components/DisplayBoard';
+import DisplayBoard from '../components/Display';
 import Board from '../lib/Board';
 import Cell from '../components/Cell';
 

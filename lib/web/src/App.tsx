@@ -1,6 +1,6 @@
 import './App.css';
 import Board from './lib/Board';
-import DisplayBoard from './components/DisplayBoard';
+import DisplayBoard from './components/Display';
 import React from 'react';
 
 interface Props {
