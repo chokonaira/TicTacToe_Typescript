@@ -8,11 +8,10 @@ interface Props {
 }
 
 const App = (props: Props) => {
-  
   return (
     <div className="App">
       <h1>Tic Tac Toe</h1>
-      <DisplayBoard board={props.board}/>
+      <DisplayBoard board={props.board} />
     </div>
   );
 };
