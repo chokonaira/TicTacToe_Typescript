@@ -1,6 +1,6 @@
 import React from 'react';
 import Board from '../lib/Board';
-import WebBoard from './Board';
+import WebBoard from './WebBoard';
 import GameStatus from './Status';
 import Buttons from './Buttons';
 import '../App.css';
