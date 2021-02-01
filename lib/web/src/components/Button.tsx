@@ -10,7 +10,7 @@ interface Props {
   restart: string;
 }
 
-const Buttons = (props: Props) => (
+const Button = (props: Props) => (
   <div className={props.className}>
     <button>{props.gameMode}</button>
     <button
@@ -24,4 +24,4 @@ const Buttons = (props: Props) => (
   </div>
 );
 
-export default Buttons;
+export default Button;

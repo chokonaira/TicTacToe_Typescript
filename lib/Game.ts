@@ -13,10 +13,10 @@ class Game {
   messages: Messages;
 
   constructor(board: Board, display: Display, messages: Messages) {
-    this.gameMode = new GameMode(this.board, this.display, this.messages);
     this.board = board;
     this.display = display;
     this.messages = messages;
+    this.gameMode = new GameMode(this.board, this.display, this.messages);
   }
 
   async playGame(): Promise<string[]> {
@@ -25,29 +25,42 @@ class Game {
     const gameMode = new GameMode(this.board, this.display, this.messages);
     let players = gameMode.modeType(mode);
     this.display.show(this.display.constructBoard(this.board));
-    let currentMark: string;
-    let currentPlayer: Player;
 
-    while (!this.isOver()) {
-      currentMark = this.board.currentMark();
-      currentPlayer = players[0];
-      const move = await currentPlayer.getMove(this.board);
+    await this.recurs(players)
 
-      if (this.board.isMoveValid(move)) {
-        this.board = this.board.makeMove(move, currentMark);
-        this.display.show(this.display.constructBoard(this.board));
-        players = players.reverse();
-      } else {
-        this.display.show(this.messages.inValidMove());
-        this.display.show(this.display.constructBoard(this.board));
-      }
-    }
     if (this.board.hasWinner()) {
-      this.endGameOptions(this.messages.winningPlayer(currentMark));
+      this.endGameOptions(this.messages.winningPlayer(this.board.winningPlayer()));
     } else {
       this.endGameOptions(this.messages.drawGame());
     }
     return;
+  }
+
+  async recurs(players: Player[]): Promise<string[]>{
+      let currentMark: string;
+      let currentPlayer: Player;
+      currentMark = this.board.currentMark();
+      currentPlayer = players[0];
+
+      const move = await currentPlayer.getMove(this.board);
+
+      this.playMove(move, players, currentMark)
+
+    if (!this.isOver()) {
+      return this.recurs(players)
+    }
+    return this.board.grid
+  }
+
+  playMove(move: number, players: Player[], currentMark: string): void {
+    if (this.board.isMoveValid(move)) {
+      this.board = this.board.makeMove(move, currentMark);
+      this.display.show(this.display.constructBoard(this.board));
+      players = players.reverse();
+    } else { 
+      this.display.show(this.messages.inValidMove());
+      this.display.show(this.display.constructBoard(this.board));
+    }
   }
 
   async startGameOptions(message: string): Promise<number> {

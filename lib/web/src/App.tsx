@@ -13,7 +13,7 @@ const App = (props: Props) => {
     <div className="App">
       <h1>Tic Tac Toe</h1>
       <GameMode/>
-      {/* <DisplayBoard board={props.board} /> */}
+      <DisplayBoard board={props.board} />
     </div>
   );
 };

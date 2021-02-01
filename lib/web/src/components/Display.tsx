@@ -2,7 +2,7 @@ import React from 'react';
 import Board from '../lib/Board';
 import WebBoard from './WebBoard';
 import GameStatus from './Status';
-import Buttons from './Buttons';
+import Buttons from './Button';
 import '../App.css';
 
 interface Props {
