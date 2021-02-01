@@ -47,3 +47,27 @@
   cursor: pointer;
   margin-bottom: 2rem;
 }
+.modes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mode-types{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.mode-types button{
+  background-color: #3e4444;
+  color: #fff;
+  padding: .5rem;
+  margin: .5rem;
+  width: 25rem;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-size: large;
+}
