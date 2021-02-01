@@ -14,7 +14,7 @@ class Game {
 
   constructor(board: Board, display: Display, messages: Messages) {
     this.board = board;
-    this.display = display;
+    // this.display = display;
     this.messages = messages;
     this.gameMode = new GameMode(this.board, this.display, this.messages);
   }
@@ -61,6 +61,10 @@ class Game {
       this.display.show(this.messages.inValidMove());
       this.display.show(this.display.constructBoard(this.board));
     }
+  }
+
+  PrintCLIBoard(display: Display): void {
+    display.constructBoard(this.board);
   }
 
   async startGameOptions(message: string): Promise<number> {
