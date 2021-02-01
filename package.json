@@ -9,7 +9,7 @@
     "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/cli/AppRunner.ts",
     "test-web": "cd lib/web && npm test",
     "start-web": "cd lib/web && npm start",
-    "test-cli": "jest",
+    "test-cli": "jest lib/__test__",
     "start-cli": "'ts-node' lib/cli/AppRunner.ts"
   },
   "husky": {
