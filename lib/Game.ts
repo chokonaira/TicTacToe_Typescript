@@ -14,7 +14,7 @@ class Game {
 
   constructor(board: Board, display: Display, messages: Messages) {
     this.board = board;
-    // this.display = display;
+    this.display = display;
     this.messages = messages;
     this.gameMode = new GameMode(this.board, this.display, this.messages);
   }
