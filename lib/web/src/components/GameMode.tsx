@@ -1,20 +1,17 @@
 import React from 'react';
-import GameMode from '../../../GameMode';
-import Messages from '../../../Messages';
-import { Display } from '../../../interfaces/Display';
-import Board from '../../../Board';
+import GameMode from '../lib/GameMode';
 
 import '../App.css';
 
-const gameModes = new GameMode(new Board(), new Display(), new Messages())
-
 const Mode = () => {
-  const [gameMode, setGameMode] = React.useState<object>([gameModes.modeType]);
+  const [gameMode, setGameMode] = React.useState<GameMode>(new GameMode());
 
   const modetype = (mode: number) => {
-    setGameMode(gameMode[mode])
-    return gameMode;
-  }
+    // modeTypes[mode];
+    // setGameMode(gameMode.Mode)
+    console.log(gameMode.modeType(mode));
+    // return gameMode[mode];
+  };
 
   return (
     <div className="modes">
