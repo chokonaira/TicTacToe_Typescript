@@ -13,7 +13,9 @@ interface Props {
 
 const App = (props: Props) => {
   const [showMode, setShowMode] = React.useState<boolean>(true);
-  const [opponent, setOpponent] = React.useState<Player>(props.gameMode.modeType(0));
+  const [opponent, setOpponent] = React.useState<Player>(
+    props.gameMode.modeType(0)
+  );
   const [opponentMode, setOpponentMode] = React.useState<number>(0);
 
   if (showMode) {
@@ -25,7 +27,7 @@ const App = (props: Props) => {
           board={props.board}
           setOpponent={setOpponent}
           setOpponentMode={setOpponentMode}
-          setShowBoard={setShowMode}
+          setShowMode={setShowMode}
         />
       </div>
     );
@@ -34,7 +36,7 @@ const App = (props: Props) => {
     <div className="App">
       <h2>Tic Tac Toe</h2>
       <Display
-        setShowBoard={setShowMode}
+        setShowMode={setShowMode}
         board={props.board}
         opponent={opponent}
         opponentMode={opponentMode}

@@ -12,8 +12,8 @@ interface Props {
   setDisableCells: Dispatch<SetStateAction<boolean>>;
   opponent: Player;
   opponentMode: number;
-  setShowBoard: Dispatch<SetStateAction<boolean>>;
-  setOpponentMode:  Dispatch<SetStateAction<number>>;
+  setShowMode: Dispatch<SetStateAction<boolean>>;
+  setOpponentMode: Dispatch<SetStateAction<number>>;
 }
 
 const WebBoard = (props: Props) => {

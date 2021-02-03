@@ -9,10 +9,10 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   board: Board;
-  opponent: Player
-  opponentMode: number
-  setOpponentMode:  Dispatch<SetStateAction<number>>;
-  setShowBoard: Dispatch<SetStateAction<boolean>>;
+  opponent: Player;
+  opponentMode: number;
+  setOpponentMode: Dispatch<SetStateAction<number>>;
+  setShowMode: Dispatch<SetStateAction<boolean>>;
 }
 
 const Display = (props: Props) => {
@@ -25,6 +25,7 @@ const Display = (props: Props) => {
       <Buttons
         className="commands"
         setBoard={setBoard}
+        setShowMode={props.setShowMode}
         setDisableCells={setDisableCells}
         gameMode="Game Mode"
         restart="Restart"
@@ -33,7 +34,7 @@ const Display = (props: Props) => {
         opponent={props.opponent}
         opponentMode={props.opponentMode}
         setOpponentMode={props.setOpponentMode}
-        setShowBoard={props.setShowBoard}
+        setShowMode={props.setShowMode}
         board={board}
         setBoard={setBoard}
         setDisableCells={setDisableCells}
