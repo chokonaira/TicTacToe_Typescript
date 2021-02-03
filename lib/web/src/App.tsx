@@ -17,7 +17,7 @@ const App = (props: Props) => {
     return (
       <div className="App">
         <h2>Welcome to Tic Tac Toe</h2>
-        <Mode gameMode={props.gameMode} setShowBoard={setShowMode} />
+        <Mode gameMode={props.gameMode} setShowBoard={setShowMode} board={props.board}/>
       </div>
     );
   }
