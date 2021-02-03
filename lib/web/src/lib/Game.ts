@@ -1,8 +1,8 @@
 import Board from './Board';
 import { Player } from './interfaces/Player';
-import GameMode from './GameMode';
-import BeatablePlayer from './players/BeatablePlayer';
-import UnbeatablePlayer from './players/UnbeatablePlayer';
+// import GameMode from './GameMode';
+// import BeatablePlayer from './players/BeatablePlayer';
+// import UnbeatablePlayer from './players/UnbeatablePlayer';
 
 class Game {
   board: Board;

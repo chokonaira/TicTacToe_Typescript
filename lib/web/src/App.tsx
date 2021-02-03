@@ -22,10 +22,10 @@ const App = (props: Props) => {
         <h2>Welcome to Tic Tac Toe</h2>
         <Mode
           gameMode={props.gameMode}
-          setShowBoard={setShowMode}
           board={props.board}
           setOpponent={setOpponent}
           setOpponentMode={setOpponentMode}
+          setShowBoard={setShowMode}
         />
       </div>
     );
@@ -33,7 +33,13 @@ const App = (props: Props) => {
   return (
     <div className="App">
       <h2>Tic Tac Toe</h2>
-      <Display board={props.board} opponent={opponent} opponentMode={opponentMode} />
+      <Display
+        setShowBoard={setShowMode}
+        board={props.board}
+        opponent={opponent}
+        opponentMode={opponentMode}
+        setOpponentMode={setOpponentMode}
+      />
     </div>
   );
 };

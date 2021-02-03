@@ -5,11 +5,14 @@ import GameStatus from './Status';
 import { Player } from '../lib/interfaces/Player';
 import Buttons from './Button';
 import '../App.css';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   board: Board;
   opponent: Player
   opponentMode: number
+  setOpponentMode:  Dispatch<SetStateAction<number>>;
+  setShowBoard: Dispatch<SetStateAction<boolean>>;
 }
 
 const Display = (props: Props) => {
@@ -29,6 +32,8 @@ const Display = (props: Props) => {
       <WebBoard
         opponent={props.opponent}
         opponentMode={props.opponentMode}
+        setOpponentMode={props.setOpponentMode}
+        setShowBoard={props.setShowBoard}
         board={board}
         setBoard={setBoard}
         setDisableCells={setDisableCells}

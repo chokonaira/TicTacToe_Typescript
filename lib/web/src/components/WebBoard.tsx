@@ -4,36 +4,42 @@ import Cell from './Cell';
 import '../App.css';
 import { Player } from '../lib/interfaces/Player';
 import { Dispatch, SetStateAction } from 'react';
-import UnbeatablePlayer from '../lib/players/UnbeatablePlayer'
 interface Props {
   board: Board;
   disableCells: boolean;
   className: string;
   setBoard: Dispatch<SetStateAction<Board>>;
   setDisableCells: Dispatch<SetStateAction<boolean>>;
-  opponent: Player
-  opponentMode: number
+  opponent: Player;
+  opponentMode: number;
+  setShowBoard: Dispatch<SetStateAction<boolean>>;
+  setOpponentMode:  Dispatch<SetStateAction<number>>;
 }
 
 const WebBoard = (props: Props) => {
+  React.useEffect(() => {
+    opponentMove();
+  });
+
+  const opponentMove = () => {
+    // props.setDisableCells(true);
+    if ([1, 2, 'X'].includes(props.opponentMode && props.board.currentMark())) {
+      const position = props.opponent.getMove(props.board);
+      let newBoard = props.board.makeMove(position, props.board.currentMark());
+      // props.setDisableCells(false);
+      props.setBoard(newBoard);
+      if (newBoard.hasWinner() || newBoard.isGameDraw()) {
+        props.setDisableCells(true);
+      }
+    }
+  };
+
   const playPosition = (position: number) => {
     if (!props.board.isMoveValid(position)) return;
     let newBoard = props.board.makeMove(position, props.board.currentMark());
-    // if([1].includes(props.opponentMode)){
-      console.log(props.opponentMode);
-    // }
-    //  if gameMode === (1 | 2) {
-    //   const position = props.opponent.getMove(newBoard);
-    //   newBoard = newBoard.makeMove(position, props.board.currentMark());
-    //  } 
-     console.log(props.opponent);
-     
-
     props.setBoard(newBoard);
-    if (newBoard.hasWinner() || newBoard.isGameDraw()) {
-      props.setDisableCells(true);
-      return;
-    }
+    opponentMove();
+    props.setOpponentMode(props.opponentMode);
   };
 
   return (
