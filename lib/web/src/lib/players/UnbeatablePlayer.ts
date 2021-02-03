@@ -10,8 +10,8 @@ class UnbeatablePlayer implements Player {
     this.minimax = minimax;
   }
 
-  getMove(board: Board): Promise<number> {
-    return Promise.resolve(this.minimax.findBestMove(board));
+  getMove(board: Board): number {
+    return this.minimax.findBestMove(board);
   }
 }
 export default UnbeatablePlayer;

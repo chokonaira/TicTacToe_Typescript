@@ -1,3 +1,4 @@
+// import HumanPlayer from '../../../players/HumanPlayer';
 import BeatablePlayer from './players/BeatablePlayer';
 import UnbeatablePlayer from './players/UnbeatablePlayer';
 import Minimax from './Minimax';

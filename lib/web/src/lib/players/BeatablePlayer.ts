@@ -10,8 +10,8 @@ class BeatablePlayer implements Player {
     this.randomChoice = randomChoice;
   }
 
-  getMove(board: Board): Promise<number> {
-    return Promise.resolve(this.randomChoice.findRandomMove(board));
+  getMove(board: Board): number {
+    return this.randomChoice.findRandomMove(board);
   }
 }
 export default BeatablePlayer;
