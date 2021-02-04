@@ -1,4 +1,3 @@
-// import HumanPlayer from '../../../players/HumanPlayer';
 import BeatablePlayer from './players/BeatablePlayer';
 import UnbeatablePlayer from './players/UnbeatablePlayer';
 import Minimax from './Minimax';
@@ -12,7 +11,6 @@ export interface Mode {
 }
 
 class GameMode {
-
   modeType(mode: number): Player {
     const gameModeType: Mode = {
       1: new UnbeatablePlayer(new Minimax('X', 'O')),

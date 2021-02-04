@@ -22,11 +22,9 @@ const WebBoard = (props: Props) => {
   });
 
   const opponentMove = () => {
-    // props.setDisableCells(true);
     if ([1, 2, 'X'].includes(props.opponentMode && props.board.currentMark())) {
       const position = props.opponent.getMove(props.board);
       let newBoard = props.board.makeMove(position, props.board.currentMark());
-      // props.setDisableCells(false);
       props.setBoard(newBoard);
       if (newBoard.hasWinner() || newBoard.isGameDraw()) {
         props.setDisableCells(true);
