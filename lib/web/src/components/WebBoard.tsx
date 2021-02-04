@@ -18,6 +18,10 @@ interface Props {
 
 const WebBoard = (props: Props) => {
   React.useEffect(() => {
+    if (props.board.hasWinner() || props.board.isGameDraw()) {
+      props.setDisableCells(true);
+      return;
+    }
     opponentMove();
   });
 
@@ -26,9 +30,6 @@ const WebBoard = (props: Props) => {
       const position = props.opponent.getMove(props.board);
       let newBoard = props.board.makeMove(position, props.board.currentMark());
       props.setBoard(newBoard);
-      if (newBoard.hasWinner() || newBoard.isGameDraw()) {
-        props.setDisableCells(true);
-      }
     }
   };
 
@@ -36,7 +37,6 @@ const WebBoard = (props: Props) => {
     if (!props.board.isMoveValid(position)) return;
     let newBoard = props.board.makeMove(position, props.board.currentMark());
     props.setBoard(newBoard);
-    opponentMove();
     props.setOpponentMode(props.opponentMode);
   };
 
