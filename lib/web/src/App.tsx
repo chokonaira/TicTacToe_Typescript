@@ -20,7 +20,7 @@ const App = (props: Props) => {
 
   if (showMode) {
     return (
-      <div className="App">
+      <div className="App-mode">
         <h2>Welcome to Tic Tac Toe</h2>
         <Mode
           gameMode={props.gameMode}
@@ -33,7 +33,7 @@ const App = (props: Props) => {
     );
   }
   return (
-    <div className="App">
+    <div className="App-display">
       <h2>Tic Tac Toe</h2>
       <Display
         setShowMode={setShowMode}
