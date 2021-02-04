@@ -2,14 +2,20 @@ import React from 'react';
 import Board from '../lib/Board';
 import WebBoard from './WebBoard';
 import GameStatus from './Status';
-import Buttons from './Buttons';
+import { Player } from '../lib/interfaces/Player';
+import Buttons from './Button';
 import '../App.css';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   board: Board;
+  opponent: Player;
+  opponentMode: number;
+  setOpponentMode: Dispatch<SetStateAction<number>>;
+  setShowMode: Dispatch<SetStateAction<boolean>>;
 }
 
-const DisplayBoard = (props: Props) => {
+const Display = (props: Props) => {
   const [board, setBoard] = React.useState<Board>(props.board);
   const [disableCells, setDisableCells] = React.useState<boolean>(false);
 
@@ -19,11 +25,16 @@ const DisplayBoard = (props: Props) => {
       <Buttons
         className="commands"
         setBoard={setBoard}
+        setShowMode={props.setShowMode}
         setDisableCells={setDisableCells}
         gameMode="Game Mode"
         restart="Restart"
       />
       <WebBoard
+        opponent={props.opponent}
+        opponentMode={props.opponentMode}
+        setOpponentMode={props.setOpponentMode}
+        setShowMode={props.setShowMode}
         board={board}
         setBoard={setBoard}
         setDisableCells={setDisableCells}
@@ -34,4 +45,4 @@ const DisplayBoard = (props: Props) => {
   );
 };
 
-export default DisplayBoard;
+export default Display;

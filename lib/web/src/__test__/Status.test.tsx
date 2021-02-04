@@ -3,12 +3,25 @@ import { mount } from 'enzyme';
 import Display from '../components/Display';
 import Board from '../lib/Board';
 import Cell from '../components/Cell';
+import GameMode from '../lib/GameMode';
+
+const board = new Board();
+const opponentMode = 0;
+const opponent = new GameMode().modeType(opponentMode);
+const setShowMode = jest.fn();
+const setOpponentMode = jest.fn();
 
 describe('<Board/>', () => {
-  const board = new Board();
-
   it('show a winning status message if there is a win on the board', () => {
-    const wrapper = mount(<Display board={board} />);
+    const wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={opponentMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
 
     let cell = wrapper.find(Cell);
     cell.at(0).simulate('click');
@@ -18,12 +31,20 @@ describe('<Board/>', () => {
     cell.at(2).simulate('click');
 
     expect(wrapper.find('.status').text()).toEqual(
-      'Congratulations: X has won!'
+      'Congratulations: X has won! 🎉'
     );
   });
 
   it('show a status messaage with the next players turn on the board', () => {
-    const wrapper = mount(<Display board={board} />);
+    const wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={opponentMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
 
     let cell = wrapper.find(Cell);
     cell.at(0).simulate('click');
@@ -32,7 +53,15 @@ describe('<Board/>', () => {
   });
 
   it('show a draw status message if there is a draw on the board', () => {
-    const wrapper = mount(<Display board={board} />);
+    const wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={opponentMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
 
     let cell = wrapper.find(Cell);
     cell.at(0).simulate('click');
@@ -45,6 +74,6 @@ describe('<Board/>', () => {
     cell.at(8).simulate('click');
     cell.at(6).simulate('click');
 
-    expect(wrapper.find('.status').text()).toEqual('Its a Draw game');
+    expect(wrapper.find('.status').text()).toEqual('Its a Draw game 😁');
   });
 });

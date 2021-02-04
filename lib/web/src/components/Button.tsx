@@ -6,13 +6,18 @@ interface Props {
   className: string;
   setBoard: Dispatch<SetStateAction<Board>>;
   setDisableCells: Dispatch<SetStateAction<boolean>>;
+  setShowMode: Dispatch<SetStateAction<boolean>>;
   gameMode: string;
   restart: string;
 }
 
-const Buttons = (props: Props) => (
+const Button = (props: Props) => (
   <div className={props.className}>
-    <button>{props.gameMode}</button>
+    <button
+     onClick={() => {
+      props.setShowMode(true);
+    }}
+    >{props.gameMode}</button>
     <button
       onClick={() => {
         props.setBoard(new Board());
@@ -24,4 +29,4 @@ const Buttons = (props: Props) => (
   </div>
 );
 
-export default Buttons;
+export default Button;
