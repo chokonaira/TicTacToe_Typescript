@@ -74,4 +74,11 @@ describe('App', () => {
     mode.simulate('click');
     expect(wrapper.find('.display-board')).toHaveLength(1);
   });
+
+  it('Checks that the smart computer makes the first move when the smart computer mode is clicked', () => {
+    let wrapper = mount(<App board={board} gameMode={gameMode} />);
+    const mode = wrapper.find('.mode-types').children().at(1).simulate('click');
+    mode.simulate('click');
+    expect(wrapper.find('.display-board')).toHaveLength(1);
+  });
 });
