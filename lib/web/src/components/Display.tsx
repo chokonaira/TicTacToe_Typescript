@@ -13,6 +13,7 @@ interface Props {
   opponentMode: number;
   setOpponentMode: Dispatch<SetStateAction<number>>;
   setShowMode: Dispatch<SetStateAction<boolean>>;
+  showMode: boolean;
 }
 
 const Display = (props: Props) => {
@@ -20,7 +21,7 @@ const Display = (props: Props) => {
   const [disableCells, setDisableCells] = React.useState<boolean>(false);
 
   return (
-    <div className="board-container">
+    <div className="display-board">
       <GameStatus board={board} />
       <Buttons
         className="commands"

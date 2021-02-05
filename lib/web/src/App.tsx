@@ -21,29 +21,32 @@ const App = (props: Props) => {
   if (showMode) {
     return (
       <div className="App App-mode">
-        <h2>Welcome to Tic Tac Toe</h2>
+        <h2 className='welcome'>Welcome to Tic Tac Toe</h2>
         <Mode
           gameMode={props.gameMode}
           board={props.board}
           setOpponent={setOpponent}
           setOpponentMode={setOpponentMode}
+          showMode={showMode}
           setShowMode={setShowMode}
         />
       </div>
     );
+  } else {
+    return (
+      <div className="App App-display">
+        <h2>Tic Tac Toe</h2>
+        <Display
+          setShowMode={setShowMode}
+          showMode={showMode}
+          board={props.board}
+          opponent={opponent}
+          opponentMode={opponentMode}
+          setOpponentMode={setOpponentMode}
+        />
+      </div>
+    );
   }
-  return (
-    <div className="App App-display">
-      <h2>Tic Tac Toe</h2>
-      <Display
-        setShowMode={setShowMode}
-        board={props.board}
-        opponent={opponent}
-        opponentMode={opponentMode}
-        setOpponentMode={setOpponentMode}
-      />
-    </div>
-  );
 };
 
 export default App;

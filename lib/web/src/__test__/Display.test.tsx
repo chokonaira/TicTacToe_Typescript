@@ -10,6 +10,7 @@ const board = new Board();
 const opponentMode = 0;
 const opponent = new GameMode().modeType(opponentMode);
 const setShowMode = jest.fn();
+const showMode = true;
 const setOpponentMode = jest.fn();
 
 describe('<Display/>', () => {
@@ -18,6 +19,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -32,6 +34,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -48,6 +51,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -65,6 +69,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -88,6 +93,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -109,6 +115,7 @@ describe('<Display/>', () => {
       <Display
         board={board}
         opponentMode={opponentMode}
+        showMode={showMode}
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
@@ -120,5 +127,92 @@ describe('<Display/>', () => {
     cell.at(0).simulate('click');
 
     expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
+  });
+
+  it('Checks that the smart computer goes first when smart computer mode is clicked', () => {
+    const SmartOpponentMode = 1;
+    const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
+    let wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={SmartOpponentMode}
+        showMode={showMode}
+        opponent={SmartOpponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
+    expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
+  });
+
+  it('Checks that the smart computer makes a winning move', () => {
+    const board = new Board(['X', 'X', '', 'O', '', '', '', '', '']);
+    const SmartOpponentMode = 1;
+    const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
+    let wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={SmartOpponentMode}
+        showMode={showMode}
+        opponent={SmartOpponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
+    let cell = wrapper.find(Cell);
+    cell.at(5).simulate('click');
+    expect(wrapper.find(Cell).at(2).prop('cellValue')).toEqual('X');
+    expect(wrapper.find('.status').text()).toEqual('Congratulations: X has won! 🎉');
+  });
+
+  it('Checks that the board cells are diabled when a smart computer opponent wins', () => {
+    const board = new Board(['X', 'X', '', 'O', 'O', '', '', '', '']);
+    const SmartOpponentMode = 1;
+    const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
+    let wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={SmartOpponentMode}
+        showMode={showMode}
+        opponent={SmartOpponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
+    expect(wrapper.find(Cell).at(8).prop('disabled')).toEqual(true);
+  });
+
+  it('Checks that the board cells are diabled when its the smart computer turn', () => {
+    const board = new Board(['X', 'X', '', 'O', 'O', '', '', '', '']);
+    const SmartOpponentMode = 1;
+    const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
+    let wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={SmartOpponentMode}
+        showMode={showMode}
+        opponent={SmartOpponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
+    expect(wrapper.find(Cell).at(3).prop('disabled')).toEqual(true);
+  });
+
+  it('Checks that the board cells are enabled when its the Human turn', () => {
+    const board = new Board(['X', '', '', '', '', '', '', '', '']);
+    const SmartOpponentMode = 1;
+    const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
+    let wrapper = mount(
+      <Display
+        board={board}
+        opponentMode={SmartOpponentMode}
+        showMode={showMode}
+        opponent={SmartOpponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+      />
+    );
+    expect(wrapper.find(Cell).at(0).prop('disabled')).toEqual(false);
   });
 });

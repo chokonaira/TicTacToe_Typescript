@@ -11,6 +11,7 @@ interface Props {
   setShowMode: Dispatch<SetStateAction<boolean>>;
   setOpponent: Dispatch<SetStateAction<Player>>;
   setOpponentMode: Dispatch<SetStateAction<number>>;
+  showMode: boolean;
 }
 
 const Mode = (props: Props) => {
