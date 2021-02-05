@@ -16,7 +16,7 @@ const setOpponentMode = jest.fn();
 const gameMode = new GameMode();
 
 describe('<Display/>', () => {
-  it('Checks that it sets the showMode props to back to true it when gameMode button is clicked', () => {
+  it('it sets the showMode props to back to true it when gameMode button is clicked', () => {
     let AppWrapper = mount(<App board={board} gameMode={gameMode} />);
     let DisplayWrapper = mount(
       <Display
@@ -35,7 +35,7 @@ describe('<Display/>', () => {
     expect(AppWrapper.find(Mode).prop('showMode')).toEqual(true);
   });
 
-  it('Checks it does not render the a web board gameMode button is clicked but the Game mode options', () => {
+  it('Checks that it renders the Game mode options when gameMode button is clicked', () => {
     let AppWrapper = mount(<App board={board} gameMode={gameMode} />);
     let DisplayWrapper = mount(
       <Display
@@ -55,7 +55,7 @@ describe('<Display/>', () => {
     expect(AppWrapper.find('.modes')).toHaveLength(1);
   });
 
-  it('Checks it re-renders the a empty board when the restart button is clicked', () => {
+  it('Checks it re-renders an empty board when the restart button is clicked', () => {
     let wrapper = mount(
       <Display
         board={board}
