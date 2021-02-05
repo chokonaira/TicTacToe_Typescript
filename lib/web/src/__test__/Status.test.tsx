@@ -9,6 +9,7 @@ const board = new Board();
 const opponentMode = 0;
 const opponent = new GameMode().modeType(opponentMode);
 const setShowMode = jest.fn();
+const showMode = true;
 const setOpponentMode = jest.fn();
 
 describe('<Board/>', () => {
@@ -20,6 +21,7 @@ describe('<Board/>', () => {
         opponent={opponent}
         setShowMode={setShowMode}
         setOpponentMode={setOpponentMode}
+        showMode={showMode}
       />
     );
 
@@ -38,11 +40,12 @@ describe('<Board/>', () => {
   it('show a status messaage with the next players turn on the board', () => {
     const wrapper = mount(
       <Display
-        board={board}
-        opponentMode={opponentMode}
-        opponent={opponent}
-        setShowMode={setShowMode}
-        setOpponentMode={setOpponentMode}
+      board={board}
+      opponentMode={opponentMode}
+      opponent={opponent}
+      setShowMode={setShowMode}
+      setOpponentMode={setOpponentMode}
+      showMode={showMode}
       />
     );
 
@@ -55,11 +58,12 @@ describe('<Board/>', () => {
   it('show a draw status message if there is a draw on the board', () => {
     const wrapper = mount(
       <Display
-        board={board}
-        opponentMode={opponentMode}
-        opponent={opponent}
-        setShowMode={setShowMode}
-        setOpponentMode={setOpponentMode}
+      board={board}
+      opponentMode={opponentMode}
+      opponent={opponent}
+      setShowMode={setShowMode}
+      setOpponentMode={setOpponentMode}
+      showMode={showMode}
       />
     );
 

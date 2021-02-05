@@ -32,8 +32,10 @@ describe('App', () => {
     expect(wrapper.find('.display-board')).toHaveLength(0);
   });
 
-  it('It render the Mode components with an instruction and mode options on initial render', () => {
+  it('On initial render the user sees the game mode with the game options', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
+
+    expect(wrapper.find(Mode).prop('showMode')).toEqual(true);
     expect(wrapper.find('.modes').children().at(0).text()).toEqual(
       'Select Game Mode'
     );
@@ -46,12 +48,6 @@ describe('App', () => {
     expect(wrapper.find('.mode-types').children().at(2).text()).toEqual(
       'Play against a Random Computer'
     );
-  });
-
-  it('It sets showMode to true when no mode has been selected', () => {
-    let wrapper = mount(<App board={board} gameMode={gameMode} />);
-
-    expect(wrapper.find(Mode).prop('showMode')).toEqual(true);
   });
 
   it('It render the game board when the Human mode is clicked', () => {
@@ -71,13 +67,6 @@ describe('App', () => {
   it('It render the game board when the Random computer mode is clicked', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
     const mode = wrapper.find('.mode-types').children().at(2).simulate('click');
-    mode.simulate('click');
-    expect(wrapper.find('.display-board')).toHaveLength(1);
-  });
-
-  it('Checks that the smart computer makes the first move when the smart computer mode is clicked', () => {
-    let wrapper = mount(<App board={board} gameMode={gameMode} />);
-    const mode = wrapper.find('.mode-types').children().at(1).simulate('click');
     mode.simulate('click');
     expect(wrapper.find('.display-board')).toHaveLength(1);
   });

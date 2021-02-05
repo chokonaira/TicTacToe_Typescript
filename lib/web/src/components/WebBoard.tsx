@@ -31,8 +31,10 @@ const WebBoard = (props: Props) => {
       const position = props.opponent.getMove(props.board);
       let newBoard = props.board.makeMove(position, props.board.currentMark());
       props.setBoard(newBoard);
-    } else if([1, 2, 'O'].includes(props.opponentMode && props.board.currentMark())){
-      props.setDisableCells(false);
+    } else {
+      setTimeout(()=>{
+        props.setDisableCells(false);
+      }, 100)
     }
   };
 

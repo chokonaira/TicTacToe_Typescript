@@ -129,7 +129,7 @@ describe('<Display/>', () => {
     expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
   });
 
-  it('Checks that the smart computer makes the first move on position 1 when the smart computer mode is clicked', () => {
+  it('Checks that the smart computer goes first when smart computer mode is clicked', () => {
     const SmartOpponentMode = 1;
     const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
     let wrapper = mount(
@@ -145,7 +145,7 @@ describe('<Display/>', () => {
     expect(wrapper.find(Cell).at(0).prop('cellValue')).toEqual('X');
   });
 
-  it('Checks that the smart computer clicks a winning cell on the first row', () => {
+  it('Checks that the smart computer makes a winning move', () => {
     const board = new Board(['X', 'X', '', 'O', '', '', '', '', '']);
     const SmartOpponentMode = 1;
     const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
@@ -162,9 +162,10 @@ describe('<Display/>', () => {
     let cell = wrapper.find(Cell);
     cell.at(5).simulate('click');
     expect(wrapper.find(Cell).at(2).prop('cellValue')).toEqual('X');
+    expect(wrapper.find('.status').text()).toEqual('Congratulations: X has won! 🎉');
   });
 
-  it('Checks that the board cells are diabled when an smart computer opponent wins', () => {
+  it('Checks that the board cells are diabled when a smart computer opponent wins', () => {
     const board = new Board(['X', 'X', '', 'O', 'O', '', '', '', '']);
     const SmartOpponentMode = 1;
     const SmartOpponent = new GameMode().modeType(SmartOpponentMode);
