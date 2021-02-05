@@ -182,36 +182,6 @@ describe('<Display/>', () => {
     expect(wrapper.find(Cell).at(8).prop('disabled')).toEqual(true);
   });
 
-  it('Checks it re-renders the a empty board when the restart button is clicked', () => {
-    const HumanOpponentMode = 0;
-    const SmartOpponent = new GameMode().modeType(HumanOpponentMode);
-    let wrapper = mount(
-      <Display
-        board={board}
-        opponentMode={HumanOpponentMode}
-        showMode={showMode}
-        opponent={SmartOpponent}
-        setShowMode={setShowMode}
-        setOpponentMode={setOpponentMode}
-      />
-    );
-
-    let cell = wrapper.find(Cell);
-    cell.at(1).simulate('click');
-    cell.at(5).simulate('click');
-    cell.at(6).simulate('click');
-
-    const restartButton = wrapper.find('.commands').children().at(2);
-    restartButton.simulate('click');
-
-    wrapper
-      .find(Cell)
-      .getElements()
-      .forEach((element) => {
-        expect(element.props.cellValue).toEqual('');
-      });
-  });
-
   it('Checks that the board cells are diabled when its the smart computer turn', () => {
     const board = new Board(['X', 'X', '', 'O', 'O', '', '', '', '']);
     const SmartOpponentMode = 1;
