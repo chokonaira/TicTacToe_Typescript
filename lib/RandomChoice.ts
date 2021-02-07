@@ -1,4 +1,4 @@
-import Board from './Board';
+import Board from 'tictactoe-board';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 

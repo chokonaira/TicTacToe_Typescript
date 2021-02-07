@@ -1,4 +1,4 @@
-import Board from '../Board';
+import Board from 'tictactoe-board';
 
 test('Board has no winner', () => {
   const board = new Board();

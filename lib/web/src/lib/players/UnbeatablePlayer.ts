@@ -1,4 +1,4 @@
-import Board from '../Board';
+import Board from 'tictactoe-board';
 import Mininmax from '../Minimax';
 import { Player } from '../interfaces/Player';
 import 'core-js/stable';

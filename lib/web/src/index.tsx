@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Board from './lib/Board';
+import Board from 'tictactoe-board';
 import GameMode from './lib/GameMode';
 
 ReactDOM.render(

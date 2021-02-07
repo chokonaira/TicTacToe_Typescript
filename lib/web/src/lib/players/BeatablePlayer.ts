@@ -1,4 +1,4 @@
-import Board from '../Board';
+import Board from 'tictactoe-board';
 import RandomChoice from '../RandomChoice';
 import { Player } from '../interfaces/Player';
 import 'core-js/stable';

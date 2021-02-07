@@ -1,4 +1,4 @@
-import Board from './Board';
+import Board from 'tictactoe-board';
 import Messages from './Messages';
 import { Display } from './interfaces/Display';
 import { Player } from './interfaces/Player';

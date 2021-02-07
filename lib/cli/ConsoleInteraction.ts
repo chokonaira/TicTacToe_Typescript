@@ -1,4 +1,4 @@
-import Board from '../Board';
+import Board from 'tictactoe-board';
 import { IO } from '../interfaces/IO';
 import { Display } from '../interfaces/Display';
 import 'core-js/stable';

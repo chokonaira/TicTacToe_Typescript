@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Display from '../components/Display';
-import Board from '../lib/Board';
+import Board from 'tictactoe-board';
 import Cell from '../components/Cell';
 import App from '../App';
 import Mode from '../components/GameMode';
@@ -20,18 +20,18 @@ describe('<Display/>', () => {
     let AppWrapper = mount(<App board={board} gameMode={gameMode} />);
     let DisplayWrapper = mount(
       <Display
-      board={board}
-      opponentMode={opponentMode}
-      showMode={showMode}
-      opponent={opponent}
-      setShowMode={setShowMode}
-      setOpponentMode={setOpponentMode}
+        board={board}
+        opponentMode={opponentMode}
+        showMode={showMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
       />
-      );
-      
-      const gameModeButton = DisplayWrapper.find('.commands').children().at(1);
-      gameModeButton.simulate('click');
-      
+    );
+
+    const gameModeButton = DisplayWrapper.find('.commands').children().at(1);
+    gameModeButton.simulate('click');
+
     expect(AppWrapper.find(Mode).prop('showMode')).toEqual(true);
     expect(AppWrapper.find('.display-board')).toHaveLength(0);
     expect(AppWrapper.find('.modes')).toHaveLength(1);
@@ -92,9 +92,9 @@ describe('<Display/>', () => {
     wrapper
       .find(Cell)
       .getElements()
-      .slice(1,)
+      .slice(1)
       .forEach((element) => {
-          expect(element.props.cellValue).toEqual('');
+        expect(element.props.cellValue).toEqual('');
       });
   });
 });

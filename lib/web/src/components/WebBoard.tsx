@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from '../lib/Board';
+import Board from 'tictactoe-board';
 import Cell from './Cell';
 import '../App.css';
 import { Player } from '../lib/interfaces/Player';
@@ -32,9 +32,9 @@ const WebBoard = (props: Props) => {
       let newBoard = props.board.makeMove(position, props.board.currentMark());
       props.setBoard(newBoard);
     } else {
-      setTimeout(()=>{
+      setTimeout(() => {
         props.setDisableCells(false);
-      }, 100)
+      }, 100);
     }
   };
 

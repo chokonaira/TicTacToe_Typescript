@@ -4,7 +4,7 @@ import UnbeatablePlayer from './players/UnbeatablePlayer';
 import Minimax from './Minimax';
 import RandomChoice from './RandomChoice';
 import { Player } from './interfaces/Player';
-import Board from './Board';
+import Board from 'tictactoe-board';
 import Messages from './Messages';
 import { Display } from './interfaces/Display';
 

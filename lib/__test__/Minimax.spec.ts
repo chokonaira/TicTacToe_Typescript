@@ -1,5 +1,5 @@
 import Minimax from '../Minimax';
-import Board from '../Board';
+import Board from 'tictactoe-board';
 
 test('checks that winning player evaluates for current player', () => {
   const grid = ['X', 'X', 'X', '', '', '', '', 'O', 'O'];

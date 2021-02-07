@@ -1,4 +1,4 @@
-import Board from './Board';
+import Board from 'tictactoe-board';
 
 class Minimax {
   currentPlayer: string;

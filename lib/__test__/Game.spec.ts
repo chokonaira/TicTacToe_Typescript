@@ -1,5 +1,5 @@
 import Game from '../Game';
-import Board from '../Board';
+import Board from 'tictactoe-board';
 import Messages from '../Messages';
 import { Display } from '../interfaces/Display';
 

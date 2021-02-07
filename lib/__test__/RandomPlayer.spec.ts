@@ -1,4 +1,4 @@
-import Board from '../Board';
+import Board from 'tictactoe-board';
 import RandomPlayer from '../RandomChoice';
 
 test('random player returns a move on position 3', async () => {
