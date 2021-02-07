@@ -35,8 +35,9 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "prompts": "^2.4.0",
-    "tictactoe-board": "^1.1.0",
-    "ts-node": "^9.0.0"
+    "tictactoe-board": "^1.2.1",
+    "ts-node": "^9.0.0",
+    "ttt-minimax-typescript": "^1.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

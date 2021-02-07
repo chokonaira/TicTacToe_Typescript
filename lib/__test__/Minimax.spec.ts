@@ -1,4 +1,4 @@
-import Minimax from '../Minimax';
+import Minimax from 'ttt-minimax-typescript';
 import Board from 'tictactoe-board';
 
 test('checks that winning player evaluates for current player', () => {

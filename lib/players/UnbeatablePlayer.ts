@@ -1,5 +1,5 @@
 import Board from 'tictactoe-board';
-import Mininmax from '../Minimax';
+import Mininmax from 'ttt-minimax-typescript';
 import { Player } from '../interfaces/Player';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
