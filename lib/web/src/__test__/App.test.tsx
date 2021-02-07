@@ -27,7 +27,7 @@ describe('App', () => {
     expect(wrapper.find(Display)).toHaveLength(1);
   });
 
-  it('It does not Display the game board on initial render', () => {
+  it('Does not Display the game board on initial render', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
     expect(wrapper.find('.display-board')).toHaveLength(0);
   });
@@ -50,21 +50,21 @@ describe('App', () => {
     );
   });
 
-  it('It render the game board when the Human mode is clicked', () => {
+  it('Renders the game board when the Human mode is clicked', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
     const mode = wrapper.find('.mode-types').children().at(0).simulate('click');
     mode.simulate('click');
     expect(wrapper.find('.display-board')).toHaveLength(1);
   });
 
-  it('It render the game board when the Smart computer mode is clicked', () => {
+  it('Renders the game board when the Smart computer mode is clicked', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
     const mode = wrapper.find('.mode-types').children().at(1).simulate('click');
     mode.simulate('click');
     expect(wrapper.find('.display-board')).toHaveLength(1);
   });
 
-  it('It render the game board when the Random computer mode is clicked', () => {
+  it('Renders the game board when the Random computer mode is clicked', () => {
     let wrapper = mount(<App board={board} gameMode={gameMode} />);
     const mode = wrapper.find('.mode-types').children().at(2).simulate('click');
     mode.simulate('click');
