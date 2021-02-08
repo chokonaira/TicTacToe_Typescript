@@ -11,7 +11,8 @@
     "start-web": "cd lib/web && npm start",
     "test-cli": "jest lib/__test__",
     "start-cli": "'ts-node' lib/cli/AppRunner.ts",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "cd lib/web && npm build"
   },
   "husky": {
     "hooks": {
