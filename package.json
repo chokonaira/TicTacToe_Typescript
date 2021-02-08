@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts --fix",
     "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/cli/AppRunner.ts",
     "test-web": "cd lib/web && npm test",
-    "start-web": "cd lib/web && npm start",
+    "start-web": "cd lib/web && npm run start-web",
     "test-cli": "jest lib/__test__",
     "start-cli": "'ts-node' lib/cli/AppRunner.ts",
     "start": "node server.js",
