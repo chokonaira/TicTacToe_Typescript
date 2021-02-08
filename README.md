@@ -4,7 +4,7 @@
 ### **CI Badge**
 [![CircleCI](https://circleci.com/gh/chokonaira/TicTacToe_Typescript.svg?style=svg)](https://app.circleci.com/pipelines/github/chokonaira/TicTacToe_Typescript)
 
-### Play **[Web Tic Tact Toe Game](https://web-ttt.netlify.app/)** version
+### Play **[Web Tic Tac Toe Game](https://web-ttt.netlify.app/)** version
 
 
 ---
