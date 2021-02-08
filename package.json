@@ -8,10 +8,9 @@
     "lint": "eslint . --ext .ts --fix",
     "dev": "nodemon --watch 'lib/**/*.ts' --exec 'ts-node' lib/cli/AppRunner.ts",
     "test-web": "cd lib/web && npm test",
-    "start-web": "cd lib/web && npm run start-web",
+    "start-web": "cd lib/web && npm start",
     "test-cli": "jest lib/__test__",
     "start-cli": "'ts-node' lib/cli/AppRunner.ts",
-    "start": "node server.js",
     "build": "cd lib/web && npm build"
   },
   "husky": {
@@ -36,10 +35,8 @@
     "@types/enzyme": "^3.10.8",
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "express": "^4.17.1",
     "i": "^0.3.6",
     "npm": "^7.5.2",
-    "path": "^0.12.7",
     "prompts": "^2.4.0",
     "tictactoe-game-modules": "^1.0.0",
     "ts-node": "^9.0.0"
