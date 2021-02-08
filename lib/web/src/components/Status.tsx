@@ -1,4 +1,4 @@
-import Board from '../lib/Board';
+import { Board } from 'tictactoe-game-modules';
 import '../App.css';
 
 interface Props {

@@ -1,5 +1,5 @@
 import './App.css';
-import Board from './lib/Board';
+import { Board } from 'tictactoe-game-modules';
 import GameMode from './lib/GameMode';
 import Display from './components/Display';
 import React from 'react';
@@ -21,7 +21,7 @@ const App = (props: Props) => {
   if (showMode) {
     return (
       <div className="App App-mode">
-        <h2 className='welcome'>Welcome to Tic Tac Toe</h2>
+        <h2 className="welcome">Welcome to Tic Tac Toe</h2>
         <Mode
           gameMode={props.gameMode}
           board={props.board}

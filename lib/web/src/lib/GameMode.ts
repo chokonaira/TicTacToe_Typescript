@@ -1,7 +1,7 @@
 import BeatablePlayer from './players/BeatablePlayer';
 import UnbeatablePlayer from './players/UnbeatablePlayer';
-import Minimax from './Minimax';
-import RandomChoice from './RandomChoice';
+import { Minimax } from 'tictactoe-game-modules';
+import { RandomChoice } from 'tictactoe-game-modules';
 import { Player } from './interfaces/Player';
 
 export interface Mode {

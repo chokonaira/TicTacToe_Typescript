@@ -1,4 +1,4 @@
-import Board from '../Board';
+import { Board } from 'tictactoe-game-modules';
 import { IO } from '../interfaces/IO';
 import ConsoleInteraction from '../cli/ConsoleInteraction';
 

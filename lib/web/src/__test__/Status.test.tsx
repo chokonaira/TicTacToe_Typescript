@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Display from '../components/Display';
-import Board from '../lib/Board';
+import { Board } from 'tictactoe-game-modules';
 import Cell from '../components/Cell';
 import GameMode from '../lib/GameMode';
 
@@ -40,12 +40,12 @@ describe('<Board/>', () => {
   it('show a status messaage with the next players turn on the board', () => {
     const wrapper = mount(
       <Display
-      board={board}
-      opponentMode={opponentMode}
-      opponent={opponent}
-      setShowMode={setShowMode}
-      setOpponentMode={setOpponentMode}
-      showMode={showMode}
+        board={board}
+        opponentMode={opponentMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+        showMode={showMode}
       />
     );
 
@@ -58,12 +58,12 @@ describe('<Board/>', () => {
   it('show a draw status message if there is a draw on the board', () => {
     const wrapper = mount(
       <Display
-      board={board}
-      opponentMode={opponentMode}
-      opponent={opponent}
-      setShowMode={setShowMode}
-      setOpponentMode={setOpponentMode}
-      showMode={showMode}
+        board={board}
+        opponentMode={opponentMode}
+        opponent={opponent}
+        setShowMode={setShowMode}
+        setOpponentMode={setOpponentMode}
+        showMode={showMode}
       />
     );
 

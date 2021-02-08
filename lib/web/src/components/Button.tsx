@@ -1,4 +1,4 @@
-import Board from '../lib/Board';
+import { Board } from 'tictactoe-game-modules';
 import '../App.css';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -14,10 +14,12 @@ interface Props {
 const Button = (props: Props) => (
   <div className={props.className}>
     <button
-     onClick={() => {
-      props.setShowMode(true);
-    }}
-    >{props.gameMode}</button>
+      onClick={() => {
+        props.setShowMode(true);
+      }}
+    >
+      {props.gameMode}
+    </button>
     <button
       onClick={() => {
         props.setBoard(new Board());

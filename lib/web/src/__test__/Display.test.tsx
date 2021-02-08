@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Display from '../components/Display';
-import Board from '../lib/Board';
+import { Board } from 'tictactoe-game-modules';
 import Cell from '../components/Cell';
 import WebBoard from '../components/WebBoard';
 import GameMode from '../lib/GameMode';
@@ -162,7 +162,9 @@ describe('<Display/>', () => {
     let cell = wrapper.find(Cell);
     cell.at(5).simulate('click');
     expect(wrapper.find(Cell).at(2).prop('cellValue')).toEqual('X');
-    expect(wrapper.find('.status').text()).toEqual('Congratulations: X has won! 🎉');
+    expect(wrapper.find('.status').text()).toEqual(
+      'Congratulations: X has won! 🎉'
+    );
   });
 
   it('Checks that the board cells are diabled when a smart computer opponent wins', () => {

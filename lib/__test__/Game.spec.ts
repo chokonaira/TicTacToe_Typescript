@@ -1,17 +1,16 @@
 import Game from '../Game';
-import Board from '../Board';
+import { Board } from 'tictactoe-game-modules';
 import Messages from '../Messages';
 import { Display } from '../interfaces/Display';
 
 const setup = (grid: string[], moves: string[], replays: boolean[]) => {
-  let board = new Board(grid);
+  const board = new Board(grid);
   const messages = new Messages();
   const display = new DisplayMock(moves, replays);
   const game = new Game(board, display, messages);
 
   return { game, board, display, messages };
 };
-
 
 test('plays a winning round', async () => {
   const grid = ['X', 'X', '', '', '', '', '', 'O', 'O'];
@@ -35,7 +34,7 @@ test('plays a winning round including an invalid move', async () => {
 
 test('plays a draw round', async () => {
   const grid = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', ''];
-  const { game, board } = setup(grid, ['1', '9'], [false]);
+  const { game } = setup(grid, ['1', '9'], [false]);
 
   await game.playGame();
 
