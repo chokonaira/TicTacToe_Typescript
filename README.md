@@ -13,12 +13,6 @@
 #### The Abstracted Game Modules are **Board**, **Minimax** Algorithm and **RandomeChoice** Algorithm
 
 ---
-## **Tic Tac Toe Game NPM Package**
-
-**Repository** | **NPM Package**
----|---
-### **[Modules Repo ](https://github.com/chokonaira/tictactoe-game-module) | [Modules Package](https://www.npmjs.com/package/tictactoe-game-modules)**
-
 
 ## **Instructions to Setup Game Locally** 
 
