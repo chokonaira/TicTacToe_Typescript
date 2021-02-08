@@ -1,4 +1,4 @@
-import Board from 'tictactoe-board';
+import { Board } from 'tictactoe-game-modules';
 import '../App.css';
 import { Dispatch, SetStateAction } from 'react';
 

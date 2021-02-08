@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Display from '../components/Display';
-import Board from 'tictactoe-board';
+import { Board } from 'tictactoe-game-modules';
 import Cell from '../components/Cell';
 import WebBoard from '../components/WebBoard';
 import GameMode from '../lib/GameMode';

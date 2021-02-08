@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from 'tictactoe-board';
+import { Board } from 'tictactoe-game-modules';
 import Cell from './Cell';
 import '../App.css';
 import { Player } from '../lib/interfaces/Player';

@@ -1,5 +1,5 @@
-import Board from 'tictactoe-board';
-import RandomChoice from '../RandomChoice';
+import { RandomChoice } from 'tictactoe-game-modules';
+import { Board } from 'tictactoe-game-modules';
 import { Player } from '../interfaces/Player';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';

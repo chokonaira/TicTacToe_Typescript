@@ -1,6 +1,6 @@
 import Game from '../Game';
 import CommandLineIO from './CommandLineIO';
-import Board from 'tictactoe-board';
+import { Board } from 'tictactoe-game-modules';
 import ConsoleInteraction from './ConsoleInteraction';
 import Messages from '../Messages';
 

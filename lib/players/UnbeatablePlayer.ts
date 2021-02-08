@@ -1,12 +1,12 @@
-import Board from 'tictactoe-board';
-import Mininmax from 'ttt-minimax-typescript';
+import { Minimax } from 'tictactoe-game-modules';
+import { Board } from 'tictactoe-game-modules';
 import { Player } from '../interfaces/Player';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 class UnbeatablePlayer implements Player {
-  minimax: Mininmax;
-  constructor(minimax: Mininmax) {
+  minimax: Minimax;
+  constructor(minimax: Minimax) {
     this.minimax = minimax;
   }
 

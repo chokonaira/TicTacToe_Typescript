@@ -3,8 +3,7 @@ import GameMode from '../lib/GameMode';
 import { Dispatch, SetStateAction } from 'react';
 import '../App.css';
 import { Player } from '../lib/interfaces/Player';
-import Board from 'tictactoe-board';
-
+import { Board } from 'tictactoe-game-modules';
 interface Props {
   board: Board;
   gameMode: GameMode;
